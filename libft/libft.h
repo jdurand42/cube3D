@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/13 17:27:05 by jdurand           #+#    #+#             */
-/*   Updated: 2019/11/07 15:45:53 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/11/09 14:05:55 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include <string.h>
 # include "./ft_printf/includes/ft_printf.h"
+# include "./get_next_line/get_next_line.h"
 
 typedef struct	s_list
 {
@@ -116,5 +117,6 @@ void			ft_sort_int_tab(int *tab, int size);
 void			ft_intswap(int *a, int *b);
 int				ft_charstrcmp(const char c, const void *s2);
 char			*ft_file_str(int fd);
+char			*ft_strncat_op(char *dest, char const *src, size_t n, size_t l);
 
 #endif

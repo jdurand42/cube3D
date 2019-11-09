@@ -22,7 +22,7 @@ RM		=	rm -f
 
 LIB		=	./libft/libft.a
 
-SRCS 	=	./srcs/main.c ./srcs/ft_errors.c
+SRCS 	=	./srcs/main.c ./srcs/ft_errors.c ./srcs/ft_ini.c
 
 all		:	$(NAME)
 
@@ -31,6 +31,9 @@ $(NAME) :
 			gcc -o $(NAME) $(SRCS) $(LIB)
 compil	:
 			gcc -o $(NAME) $(SRCS) $(LIB)
+
+sani	:
+			gcc -o $(NAME) -g3 -fsanitize=address $(SRCS) $(LIB) 
 
 clean	:
 			cd ./libft ; make clean ; cd .. ;

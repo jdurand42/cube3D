@@ -1,22 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_errors.c                                        :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/07 17:33:42 by jdurand           #+#    #+#             */
-/*   Updated: 2019/11/09 14:31:15 by jdurand          ###   ########.fr       */
+/*   Created: 2019/10/16 13:24:32 by jdurand           #+#    #+#             */
+/*   Updated: 2019/11/09 14:09:03 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cube3D.h"
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
-int		ft_iserror(int code)
-{
-	if (code == 1)
-		ft_putstr("Error\nFile opening aborted\n");
-	else if (code == 2)
-		ft_putstr("Error\nWhile gnl\n");
-	return (1);
-}
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 32
+# endif
+
+# include <stdlib.h>
+# include <stdio.h>
+# include <unistd.h>
+# include <string.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <fcntl.h>
+
+int		get_next_line(int fd, char **line);
+
+#endif
