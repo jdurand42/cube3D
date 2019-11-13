@@ -22,18 +22,19 @@ RM		=	rm -f
 
 LIB		=	./libft/libft.a
 
-SRCS 	=	./srcs/main.c ./srcs/ft_errors.c ./srcs/ft_ini.c
+SRCS 	=	./srcs/main.c ./srcs/ft_errors.c ./srcs/ft_ini.c ./srcs/ft_graph.c
 
 all		:	$(NAME)
 
 $(NAME) :
 			cd ./libft ; make bonus ; cd .. ;
-			gcc -o $(NAME) $(SRCS) $(LIB)
+
 compil	:
-			gcc -o $(NAME) $(SRCS) $(LIB)
+			gcc -o $(NAME) -lmlx -framework OpenGL -framework Appkit \
+			$(SRCS) $(LIB)
 
 sani	:
-			gcc -o $(NAME) -g3 -fsanitize=address $(SRCS) $(LIB) 
+			gcc -o $(NAME) -g3 -fsanitize=address -lmlx -framework OpenGL -framework Appkit $(SRCS) $(LIB)
 
 clean	:
 			cd ./libft ; make clean ; cd .. ;

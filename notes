@@ -1,0 +1,5 @@
+mlx init
+mlx loop
+mlc new window
+mlx new image
+recolorier en fonction des input

@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:36:37 by jdurand           #+#    #+#             */
-/*   Updated: 2019/11/09 17:47:00 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/11/13 19:44:30 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,7 @@ int		**ft_parse_map(t_list *lst, size_t count, int *check, t_data *data)
 	char	*line;
 	size_t	i;
 	size_t	j;
+	int 	y = 0;
 
 	i = 0;
 	data->width = 0;
@@ -165,11 +166,19 @@ int		**ft_parse_map(t_list *lst, size_t count, int *check, t_data *data)
 		while (line[i] != 0 && j < (size_t)data->width)
 		{
 			if (ft_isargvalid(line[i]))
+			{
+				if (line[i] != '2' && line[i] != '0' && line[i] != '1')
+				{
+					printf("x: %d\n", data->posx = j);
+					printf("y: %d\n", data->posy = count + y);
+				}
 				map[count][j++] = line[i++] - '0';
+			}
 			else if (line[i++] != ' ' && line[i] != 0)
 				return (NULL);
 		}
 		count--;
+		y++;
 		i = 0;
 		j = 0;
 		lst = lst->next;
@@ -208,8 +217,8 @@ int		**ft_parse_stuff(t_data *data, int fd)
 		}
 	}
 	data->height = count;
-//	if (data->check != 7)
-//		return (NULL);
+	if (data->check != 8)
+		return (NULL);
 	free(line);
 	line = NULL;
 	return (ft_parse_map(lst, count, &data->check, data));

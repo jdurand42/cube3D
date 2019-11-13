@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 15:28:36 by jdurand           #+#    #+#             */
-/*   Updated: 2019/11/09 17:43:16 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/11/13 20:29:27 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,10 @@ int		main(int ac, char **av)
 	int			**map;
 
 	file = NULL;
-	if (ac < 2)
-		return (ft_iserror(1));
+//	if (ac < 2)
+//		return (ft_iserror(1));
 	fd = open("./maps/test.cub", O_RDONLY);
+	printf("%d\n", fd);
 	if (!(map = ft_parse_stuff(&data, fd)))
 		return (ft_iserror(2));
 	for (int i = 0; i < data.height; i++)
@@ -31,6 +32,7 @@ int		main(int ac, char **av)
 			printf("%d ", map[i][j]);
 		printf("\n");
  	}
+	ft_do_graphism(map, &data);
 	//ft_putstr();
 	return (0);
 }
