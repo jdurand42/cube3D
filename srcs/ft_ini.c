@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:36:37 by jdurand           #+#    #+#             */
-/*   Updated: 2019/11/13 19:44:30 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/11/13 22:02:52 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,13 +139,39 @@ int 	ft_isargvalid(char c)
 		return (0);
 }
 
+int 	ft_parse_aline(t_data *data, int **map, char *line, int count)
+{
+	int i = 0; int j = 0; int check = 0;
+
+	if (!(map[count] = (int*)malloc(data->width * sizeof(int))))
+		return (-1);
+	while (line[i] != 0)
+	{
+		if (!(check < data->width))
+			return (-1);
+		if (ft_isargvalid(line[i]))
+		{
+			if (line[i] == 'N' || line[i] == 'S' || line[i] == 'W'
+			|| line[i] == 'E')
+			{
+				data->posx = j;
+				data->posy = count;
+			}
+			map[count][j++] = line[i] - '0';
+			check++;
+		}
+		i++;
+	}
+	free(line);
+	return (1);
+}
+
 int		**ft_parse_map(t_list *lst, size_t count, int *check, t_data *data)
 {
 	int		**map;
 	char	*line;
 	size_t	i;
 	size_t	j;
-	int 	y = 0;
 
 	i = 0;
 	data->width = 0;
@@ -160,27 +186,9 @@ int		**ft_parse_map(t_list *lst, size_t count, int *check, t_data *data)
 	count -= 1;
 	while (count >= 0 && lst != NULL)
 	{
-		line = (char*)lst->content; // a free
-		if (!(map[count] = (int*)malloc(data->width * sizeof(int))))
+		if (ft_parse_aline(data, map, (char*)lst->content, count) == -1)
 			return (NULL);
-		while (line[i] != 0 && j < (size_t)data->width)
-		{
-			if (ft_isargvalid(line[i]))
-			{
-				if (line[i] != '2' && line[i] != '0' && line[i] != '1')
-				{
-					printf("x: %d\n", data->posx = j);
-					printf("y: %d\n", data->posy = count + y);
-				}
-				map[count][j++] = line[i++] - '0';
-			}
-			else if (line[i++] != ' ' && line[i] != 0)
-				return (NULL);
-		}
 		count--;
-		y++;
-		i = 0;
-		j = 0;
 		lst = lst->next;
 	}
 	return (map);

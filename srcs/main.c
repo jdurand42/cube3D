@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 15:28:36 by jdurand           #+#    #+#             */
-/*   Updated: 2019/11/13 20:29:27 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/11/13 21:53:15 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int		main(int ac, char **av)
 	printf("%d\n", fd);
 	if (!(map = ft_parse_stuff(&data, fd)))
 		return (ft_iserror(2));
+	printf("%d, %d\n", data.width, data.height);
 	for (int i = 0; i < data.height; i++)
 	{
 		for (int j = 0; j < data.width; j++)
