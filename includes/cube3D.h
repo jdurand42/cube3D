@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:55:14 by jdurand           #+#    #+#             */
-/*   Updated: 2019/11/13 20:35:50 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/11/17 15:10:22 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,12 @@
 # include <stdio.h>
 # include <mlx.h>
 
+typedef struct	s_vector
+{
+	double	a[2];
+	double	b[2];
+}				t_vector;
+
 typedef struct	s_data
 {
 	int					check;
@@ -34,8 +40,16 @@ typedef struct	s_data
 	char 				*WE;
 	char 				*ES;
 	char 				*S;
-	unsigned char		F[3];
-	unsigned char		C[3];
+	unsigned int		F;
+	unsigned int		C;
+	char				*img;
+	void 				*mlx_p;
+	void 				*mlx_wd;
+	void 				*mlx_img;
+	int 				size_line;
+	int 				endian;
+	int 				bit_p_p;
+	struct s_vector 	*vectors;
 }				t_data;
 
 int		ft_iserror(int code);

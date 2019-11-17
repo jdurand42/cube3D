@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:36:37 by jdurand           #+#    #+#             */
-/*   Updated: 2019/11/13 22:02:52 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/11/17 15:11:56 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,11 @@ void 	parse_path(t_data *data, char *line)
 	}
 }
 
-void 	coloring(unsigned char *rgb, char *line, int *check)
+void 	coloring(unsigned int *rgb, char *line, int *check)
 {
 	size_t	j;
 	size_t	i;
+	unsigned char rgb[3];
 
 	i = 0;
 	j = 0;
@@ -95,6 +96,7 @@ void 	coloring(unsigned char *rgb, char *line, int *check)
 		*check = -1;
 	for (size_t k = 0; k < 3; k++)
 		printf("%d\n", rgb[k]);
+	*rgb = ft_rgb(rgb[0], rgb[1], rgb[2]);
 }
 
 void 	parse_color(t_data *data, char *line)
@@ -190,6 +192,7 @@ int		**ft_parse_map(t_list *lst, size_t count, int *check, t_data *data)
 			return (NULL);
 		count--;
 		lst = lst->next;
+	//free line and lst
 	}
 	return (map);
 }
@@ -222,6 +225,7 @@ int		**ft_parse_stuff(t_data *data, int fd)
 //				printf("%s\n", (char*)lst->content);
 				count++;
 			}
+			free(line);
 		}
 	}
 	data->height = count;

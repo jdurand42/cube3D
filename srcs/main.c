@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 15:28:36 by jdurand           #+#    #+#             */
-/*   Updated: 2019/11/13 21:53:15 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/11/17 15:10:06 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int		main(int ac, char **av)
 			printf("%d ", map[i][j]);
 		printf("\n");
  	}
-	ft_do_graphism(map, &data);
+	//ft_do_graphism(map, &data);
 	//ft_putstr();
 	return (0);
 }
