@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 15:14:40 by jdurand           #+#    #+#             */
-/*   Updated: 2019/11/18 15:38:38 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/11/18 19:35:23 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,13 @@ int		ft_search_arg(char *line, char *set)
 
 double 			ft_toradian(double angle)
 {
-	return (pi / 180 * angle);
+	return ((pi / 180) * angle);
 }
 
 unsigned int 	ft_rgb(int r, int g, int b)
 {
 	unsigned int color;
-	
+
 	color = 0;
 	color |= (b << 0);
 	color |= (g << 8);

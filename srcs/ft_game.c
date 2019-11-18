@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 17:26:07 by jdurand           #+#    #+#             */
-/*   Updated: 2019/11/18 19:17:06 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/11/18 23:11:02 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,22 +65,24 @@ int 	ft_keyboard_loop(int keycode, void *params)
 	printf("keycode %d\n", keycode);
 	if (keycode == 13)
 	{
+		data->posy -= (sin(ft_toradian(data->angle)) * speed * 0.001);
 		data->posx += (cos(ft_toradian(data->angle)) * speed * 0.001);
-		data->posy += (sin(ft_toradian(data->angle)) * speed * 0.001);
 	}
 	else if (keycode == 1)
 	{
+		data->posy += (sin(ft_toradian(data->angle)) * speed * 0.001);
 		data->posx -= (cos(ft_toradian(data->angle)) * speed * 0.001);
-		data->posy -= (sin(ft_toradian(data->angle)) * speed * 0.001);
 	}
 	else if (keycode == 0)
 	{
-		data->angle -= speed_angle;
+		data->angle += speed_angle;
 	}
 	else if (keycode == 2)
 	{
-		data->angle +=	speed_angle;
+		data->angle -= speed_angle;
 	}
+	else if (keycode == 53)
+		data->angle += 90;
 	if (data->angle > 360)
 		data->angle = 0;
 	else if (data->angle < 0)
