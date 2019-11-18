@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:33:42 by jdurand           #+#    #+#             */
-/*   Updated: 2019/11/09 14:31:15 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/11/18 15:23:26 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,7 @@ int		ft_iserror(int code)
 		ft_putstr("Error\nFile opening aborted\n");
 	else if (code == 2)
 		ft_putstr("Error\nWhile gnl\n");
+	else if (code == 3)
+		ft_putstr("Error\nIn game loop");
 	return (1);
 }

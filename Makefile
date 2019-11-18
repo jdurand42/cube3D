@@ -22,7 +22,9 @@ RM		=	rm -f
 
 LIB		=	./libft/libft.a
 
-SRCS 	=	./srcs/main.c ./srcs/ft_errors.c ./srcs/ft_ini.c ./srcs/ft_graph.c
+SRCS 	=	./srcs/main.c ./srcs/ft_errors.c ./srcs/ft_parsing.c \
+			./srcs/ft_parsing2.c ./srcs/ft_utils.c ./srcs/ft_game.c \
+			./srcs/ft_rays.c
 
 all		:	$(NAME)
 

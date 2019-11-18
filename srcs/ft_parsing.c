@@ -1,84 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ini.c                                           :+:      :+:    :+:   */
+/*   ft_parsing.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:36:37 by jdurand           #+#    #+#             */
-/*   Updated: 2019/11/17 15:11:56 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/11/18 15:36:39 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cube3D.h"
 
 
-void 	parse_res(t_data *data, char *line)
-{
-	size_t	i;
-
-	i = 0;
-	while (line[i] != 0 && !(ft_isdigit(line[i])))
-		i++;
-	if (line[i] != 0)
-		data->R[0] = ft_atoi(&line[i]);
-	while (line[i] != 0 && ft_isdigit(line[i]))
-		i++;
-	if (line[i] != 0)
-		data->R[1] = ft_atoi(&line[i]);
-	if (!line[i] || !data->R[0] || !data->R[1])
-		data->check = -1;
-	else
-		data->check += 2;
-	printf("res: %d, %d, check: %d\n", data->R[0], data->R[1], data->check);
-	return ;
-}
-
-char	*pathing(char *path, char *line, int *check)
-{
-	size_t	i;
-
-	i = 0;
-	while (line[i] != 0 && line[i] != '.')
-		i++;
-	if (!(path = ft_strdup(&line[i])))
-	{
-		*check = -1;
-		return (NULL);
-	}
-	else
-		*check += 1;
-	printf("path: %s, check: %d\n", path, *check);
-	return (path);
-}
-
-void 	parse_path(t_data *data, char *line)
-{
-	size_t	i;
-
-	i = 0;
-	while (line[i] != 0 && line[i] == ' ')
-		i++;
-	if (line[i] != 0)
-	{
-		if (!ft_strncmp(&line[i], "NO", 2))
-			pathing(data->NO, &line[i], &data->check);
-		else if (!ft_strncmp(&line[i], "SO", 2))
-			pathing(data->SO, &line[i], &data->check);
-		else if (!ft_strncmp(&line[i], "WE", 2))
-			pathing(data->WE, &line[i], &data->check);
-		else if (!ft_strncmp(&line[i], "ES", 2))
-			pathing(data->ES, &line[i], &data->check);
-		else if (!ft_strncmp(&line[i], "S", 1))
-			pathing(data->S, &line[i], &data->check);
-	}
-}
-
 void 	coloring(unsigned int *rgb, char *line, int *check)
 {
 	size_t	j;
 	size_t	i;
-	unsigned char rgb[3];
+	unsigned char rgbt[3];
 
 	i = 0;
 	j = 0;
@@ -86,7 +25,7 @@ void 	coloring(unsigned int *rgb, char *line, int *check)
 		i++;
 	while (line[i] != 0 && j < 3)
 	{
-		rgb[j++] = (unsigned char)ft_atoi(&line[++i]);
+		rgbt[j++] = (unsigned char)ft_atoi(&line[++i]);
 		while (line[i] != 0 && line[i] != ',')
 			i++;
 	}
@@ -95,8 +34,8 @@ void 	coloring(unsigned int *rgb, char *line, int *check)
 	else
 		*check = -1;
 	for (size_t k = 0; k < 3; k++)
-		printf("%d\n", rgb[k]);
-	*rgb = ft_rgb(rgb[0], rgb[1], rgb[2]);
+		printf("%d\n", rgbt[k]);
+	*rgb = ft_rgb(rgbt[0], rgbt[1], rgbt[2]);
 }
 
 void 	parse_color(t_data *data, char *line)
@@ -109,36 +48,9 @@ void 	parse_color(t_data *data, char *line)
 	while (line[i] != 0 && line[i] == ' ')
 		i++;
 	if (!ft_strncmp(&line[i], "F", 1))
-		coloring(data->F, &line[i], &data->check);
+		coloring(&data->F, &line[i], &data->check);
 	else if (!ft_strncmp(&line[i], "C", 1))
-		coloring(data->C, &line[i], &data->check);
-}
-
-int		ft_search_arg(char *line, char *set)
-{
-	while (*line != 0)
-	{
-		if (*line == ' ') // whitespace?
-			line++;
-		else
-			while (*set  != 0)
-			{
-				if (*line == *set)
-					return (1);
-				set++;
-			}
-		line++;
-	}
-	return (0);
-}
-
-int 	ft_isargvalid(char c)
-{
-	if (c == '1' || c == '0' || c == '2' || c == 'N' || c == 'E' || c == 'W' ||
-	c == 'S')
-		return (1);
-	else
-		return (0);
+		coloring(&data->C, &line[i], &data->check);
 }
 
 int 	ft_parse_aline(t_data *data, int **map, char *line, int count)
@@ -225,7 +137,7 @@ int		**ft_parse_stuff(t_data *data, int fd)
 //				printf("%s\n", (char*)lst->content);
 				count++;
 			}
-			free(line);
+			//free(line);
 		}
 	}
 	data->height = count;
