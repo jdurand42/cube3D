@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:55:14 by jdurand           #+#    #+#             */
-/*   Updated: 2019/11/18 15:41:10 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/11/18 18:18:58 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # include <mlx.h>
 
 # define pi 3.14159265
+# define speed 100
+# define speed_angle 2;
 
 typedef struct	s_vector
 {
@@ -79,5 +81,7 @@ int 	ft_isargvalid(char c);
 int		ft_search_arg(char *line, char *set);
 
 int 	ft_get_angle(t_data *data, int **map);
+
+void 	do_rays(t_data *data);
 
 #endif

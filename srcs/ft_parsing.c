@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:36:37 by jdurand           #+#    #+#             */
-/*   Updated: 2019/11/18 15:36:39 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/11/18 18:51:12 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,8 @@ void 	coloring(unsigned int *rgb, char *line, int *check)
 		*check += 1;
 	else
 		*check = -1;
-	for (size_t k = 0; k < 3; k++)
-		printf("%d\n", rgbt[k]);
 	*rgb = ft_rgb(rgbt[0], rgbt[1], rgbt[2]);
+	printf("color F-C: %u\n", *rgb);
 }
 
 void 	parse_color(t_data *data, char *line)
