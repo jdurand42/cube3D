@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 14:08:39 by jdurand           #+#    #+#             */
-/*   Updated: 2019/11/19 18:24:46 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/11/19 19:18:38 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void 	do_rays(t_data *data)
 			len += 0.01;
 		}
 		if (i == data->R[0] / 2 || i == 0 || i == data->R[0] - 1)
-			printf("ray %d: x1: %lf, y1: %lf\ndistance : %lf\nangle : %lf\n", i, data->vectors[i].x1, data->vectors[i].y1, distance, data->vectors[i].angle);
+			printf("ray %d: x1: %lf, y1: %lf\nnangle : %lf\n", i, data->vectors[i].x1, data->vectors[i].y1, data->vectors[i].angle);
 		i++;
 	}
 
@@ -69,16 +69,12 @@ void 	ft_do_colum(t_data *data)
 
 	while (i < data->R[0])
 	{
-//		diff = data->R[0] - i;
-
 		//fisheye
 		distance = get_dist(data, i);
-
-		hp = data->R[1] / distance;
 		if (distance < 1)
-				distance = 1;
+			distance = 1;
+		hp = data->R[1] / distance;
 		j = (data->R[1] / 2 * data->size_line) - (hp / 2 * data->size_line);
-		if (data->vectors[i].x1 > 0 && data->vectors[i].y1 > 0 && data->vectors[i].x1 < data->width && data->vectors[i].y1 < data->height)
 			while (j >= (data->R[1] / 2 * data->size_line) - (hp / 2 * data->size_line) && j <= (data->R[1] / 2 * data->size_line) + (hp / 2 * data->size_line))
 			{
 				data->img[j + (data->R[0] - i) * 4 + 0] = (char)85;
