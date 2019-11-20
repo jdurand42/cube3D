@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 15:14:40 by jdurand           #+#    #+#             */
-/*   Updated: 2019/11/18 19:35:23 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/11/20 15:53:28 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,20 @@ unsigned int 	ft_rgb(int r, int g, int b)
 	color |= (g << 8);
 	color |= (r << 16);
 	return (color);
+}
+
+int 	ft_get_angle(t_data *data, int **map)
+{
+	double angle;
+
+	if (map[(int)data->posy][(int)data->posx] + '0' == 'N')
+		angle = 90;
+	else if (map[(int)data->posy][(int)data->posx] + '0' == 'E')
+		angle = 0;
+	else if (map[(int)data->posy][(int)data->posx] + '0' == 'S')
+	 	angle = 270;
+	else if (map[(int)data->posy][(int)data->posx] + '0' == 'W')
+		angle = 180;
+	map[(int)data->posy][(int)data->posx] = 0;
+	return (angle);
 }

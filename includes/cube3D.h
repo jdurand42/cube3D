@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:55:14 by jdurand           #+#    #+#             */
-/*   Updated: 2019/11/19 18:11:04 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/11/20 20:15:39 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,18 @@
 # define speed_angle 2;
 # define ABS(n) (n > 0) ? (n) : (-n)
 
+
+# define GREEN   "\x1b[32m"
+# define RESET   "\x1b[0m"
+
 typedef struct	s_vector
 {
 	double	x1;
 	double	y1;
+	double	rotx;
+	double	roty;
 	double	angle;
+	double 	angle_rela;
 }				t_vector;
 
 typedef struct	s_data
@@ -83,7 +90,10 @@ int		ft_search_arg(char *line, char *set);
 int 	ft_get_angle(t_data *data, int **map);
 
 void 	do_rays(t_data *data);
+void 	ft_setray(t_data *data, int i);
 double 	get_dist(t_data *data, int i);
 void 	ft_do_colum(t_data *data);
+
+void 	ft_dda(t_data *data, int i);
 
 #endif
