@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:55:14 by jdurand           #+#    #+#             */
-/*   Updated: 2019/11/20 20:15:39 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/11/21 14:52:18 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,12 @@ typedef struct	s_vector
 	double 	angle_rela;
 }				t_vector;
 
+typedef struct	s_dda
+{
+	double	sidex;
+	double	sidey;
+}				t_dda;
+
 typedef struct	s_data
 {
 	int					check;
@@ -65,6 +71,7 @@ typedef struct	s_data
 	int 				bit_p_p;
 	int 				**map;
 	struct s_vector 	*vectors;
+	struct s_dda		*dda;
 }				t_data;
 
 int		ft_iserror(int code);
