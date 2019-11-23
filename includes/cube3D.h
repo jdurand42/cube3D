@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:55:14 by jdurand           #+#    #+#             */
-/*   Updated: 2019/11/21 14:52:18 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/11/23 16:25:03 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,20 @@
 
 typedef struct	s_vector
 {
-	double	x1;
-	double	y1;
-	double	rotx;
-	double	roty;
-	double	angle;
-	double 	angle_rela;
+	float	x1;
+	float	y1;
+	float	rotx;
+	float	roty;
+	float	angle;
+	float 	angle_rela;
 }				t_vector;
 
 typedef struct	s_dda
 {
-	double	sidex;
-	double	sidey;
+	float	dx;
+	float	dy;
+	float	xsign;
+	float	ysign;
 }				t_dda;
 
 typedef struct	s_data
@@ -51,9 +53,9 @@ typedef struct	s_data
 	int					check;
 	int 				width;
 	int					height;
-	double				posx;
-	double				posy;
-	double				angle;
+	float				posx;
+	float				posy;
+	float				angle;
 	int					R[2];
 	char				*NO;
 	char				*SO;
@@ -90,7 +92,7 @@ void 	ft_setup_rays(t_data *data, int **map);
 int 	ft_keyboard_loop(int keycode, void *params);
 
 unsigned int 	ft_rgb(int r, int g, int b);
-double 			ft_toradian(double angle);
+float 			ft_toradian(float angle);
 int 	ft_isargvalid(char c);
 int		ft_search_arg(char *line, char *set);
 
@@ -98,9 +100,12 @@ int 	ft_get_angle(t_data *data, int **map);
 
 void 	do_rays(t_data *data);
 void 	ft_setray(t_data *data, int i);
-double 	get_dist(t_data *data, int i);
+float 	get_dist(t_data *data, int i);
 void 	ft_do_colum(t_data *data);
 
 void 	ft_dda(t_data *data, int i);
+void 	ft_inc_rays(t_data *data, int i);
+float	get_theta(t_data *data, int i);
+
 
 #endif

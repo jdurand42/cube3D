@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 15:14:40 by jdurand           #+#    #+#             */
-/*   Updated: 2019/11/20 15:53:28 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/11/23 16:25:09 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int		ft_search_arg(char *line, char *set)
 	return (0);
 }
 
-double 			ft_toradian(double angle)
+float 			ft_toradian(float angle)
 {
 	return ((pi / 180) * angle);
 }
@@ -57,7 +57,7 @@ unsigned int 	ft_rgb(int r, int g, int b)
 
 int 	ft_get_angle(t_data *data, int **map)
 {
-	double angle;
+	float angle;
 
 	if (map[(int)data->posy][(int)data->posx] + '0' == 'N')
 		angle = 90;
