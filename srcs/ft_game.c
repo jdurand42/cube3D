@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 17:26:07 by jdurand           #+#    #+#             */
-/*   Updated: 2019/11/21 14:50:48 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/11/23 18:32:33 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int 	ft_keyboard_loop(int keycode, void *params)
 	}
 	else if (keycode == 15)
 		data->angle += 90;
-	if (data->angle >= 360)
+	if (data->angle > 360)
 		data->angle = 0;
 	else if (data->angle < 0)
 		data->angle = 360;
