@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:55:14 by jdurand           #+#    #+#             */
-/*   Updated: 2019/11/21 14:52:18 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/11/21 16:49:37 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ typedef struct	s_dda
 {
 	double	sidex;
 	double	sidey;
+	double  movex;
+	double  movey;
 }				t_dda;
 
 typedef struct	s_data
@@ -102,5 +104,6 @@ double 	get_dist(t_data *data, int i);
 void 	ft_do_colum(t_data *data);
 
 void 	ft_dda(t_data *data, int i);
+void 	ft_get_angles(t_data *data, double *anglex, double *angley, int i);
 
 #endif

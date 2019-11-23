@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 16:31:29 by jdurand           #+#    #+#             */
-/*   Updated: 2019/11/21 14:55:47 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/11/21 17:52:12 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,10 @@
 void 	ft_dda(t_data *data, int i)
 {
 	double dir;
+	double anglex;
+	double angley;
 
+	//ft_get_angles(data, &anglex, &angley, i);
 	if (data->vectors[i].rotx > 0) // Look right 270 - 90
 	{
 		// posx < dirx
@@ -36,10 +39,40 @@ void 	ft_dda(t_data *data, int i)
 		//posy < diry
 		data->dda[i].sidey = data->vectors[i].y1 - (int)(data->vectors[i].y1);
 	}
-	if (i == data->R[0] / 2 && data->vectors[i].angle == data->angle)
-	{
+	if ()
+	//if (i == data->R[0] / 2 && data->vectors[i].angle == data->angle)
+	//{
+	//	printf(GREEN "move : x, y : %lf %lf\n", data->dda[i].movex, data->dda[i].movey);
+	//	printf("%lf %lf\n", data->posx, data->posy);
 		//printf(GREEN "sidex: %lf, sidey: %lf\n" RESET, data->dda[i].sidex, data->dda[i].sidey);
 		//printf(GREEN "angle: %lf, cos: %lf, sin %lf\n" RESET, data->angle, data->vectors[i].rotx, data->vectors[i].roty);
-	}
+	//}
 	return ;
 }
+/*
+void 	ft_get_angles(t_data *data, double *anglex, double *angley, int i)
+{
+	if (data->vectors[i].angle < 90)
+	{
+		*angley = data->vectors[i].angle;
+		*anglex = 90 - *angley;
+	}
+	else if (data->vectors[i].angle > 90 && data->vectors[i].angle < 180)
+	{
+		*angley = data->vectors[i].angle - 90;
+		*anglex = 90 - *angley;
+	}
+	else if (data->vectors[i].angle > 180 && data->vectors[i].angle < 270)
+	{
+		*angley = data->vectors[i].angle - 180;
+		*anglex = 90 - *angley;
+	}
+	else if (data->vectors[i].angle > 270)
+	{
+		*angley = data->vectors[i].angle - 270;
+		*anglex = 90 - *angley;
+	}
+	//if (i == data->R[0] / 2)
+	//	printf(GREEN "%lf, angle i: %lf %lf\n" RESET, data->angle, *anglex, *angley);
+}
+*/

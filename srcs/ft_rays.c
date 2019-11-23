@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 14:08:39 by jdurand           #+#    #+#             */
-/*   Updated: 2019/11/21 14:55:51 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/11/21 17:46:26 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,25 @@ void 	ft_setup_rays(t_data *data, int **map)
 void 	do_rays(t_data *data)
 {
 	int i = 0;
-	double len = 0.01;
+	double len = 0.1;
 
 	while (i < data->R[0])
 	{
-		len = 0.1;
+	//	len = 0.1;
 		ft_setray(data, i);
 		while (data->map[(int)data->vectors[i].y1][(int)data->vectors[i].x1] != 1)
 		{
-			//printf("%lf, %lf\n", data->vectors[i].rotx, data->vectors[i].roty);
-	//		ft_dda(data, data->R[0] / 2);
-			data->vectors[i].x1 = data->posx + (len * data->vectors[i].rotx);
-			data->vectors[i].y1 = data->posy - (len * data->vectors[i].roty);
-			len += 0.01;
+		//	printf("%lf, %lf\n", data->vectors[i].rotx, data->vectors[i].roty);
 			ft_dda(data, i);
+		//	printf("%lf %lf\n", data->dda[i].movex, data->dda[i].movey);
+		//	printf("la");
+			if (data->dda[i].movex < data->dda[i].movey && data->dda[i].movex > 0.000001)
+				len = data->dda[i].movex;
+			else if (data->dda[i].movey)
+				len = data->dda[i].movey;
+			printf("len: %.15lf\n", len);
+			data->vectors[i].x1 += (len * data->vectors[i].rotx);
+			data->vectors[i].y1 -= (len * data->vectors[i].roty);
 		}
 		i++;
 	}
