@@ -100,12 +100,12 @@ float	get_theta(t_data *data, int i)
 
 	if (data->vectors[i].angle <= 90 && data->vectors[i].angle > 0)
 		theta = data->vectors[i].angle;
-	else if (data->vectors[i].angle <= 180 && data->vectors[i].angle > 90)
-		theta = data->vectors[i].angle - 90;
+	else if (data->vectors[i].angle <= 180 && data->vectors[i].angle > 90) // angle inverse
+		theta =  90 - data->vectors[i].angle - 90;
 	else if (data->vectors[i].angle <= 270 && data->vectors[i].angle > 180)
 		theta = data->vectors[i].angle - 180;
 	else if (data->vectors[i].angle <= 360)
-		theta = data->vectors[i].angle - 270;
+		theta = 90 - data->vectors[i].angle - 270;
 	printf("%f\n", theta);
 	return (theta);
 }
