@@ -34,7 +34,7 @@ void 	ft_dda(t_data *data, int i)
 	{
 		//posy > diry
 		data->dda[i].ysign = -1;
-		data->dda[i].dy = data->vectors[i].y1 - (int)(data->vectors[i].y1);
+		data->dda[i].dy = data->vectors[i].y1 - (int)data->vectors[i].y1;
 		if (data->dda[i].dy == (int)data->dda[i].dy)
 			data->dda[i].dy = 1;
 	}
@@ -42,7 +42,7 @@ void 	ft_dda(t_data *data, int i)
 	{
 		//posy < diry
 		data->dda[i].ysign = 1;
-		data->dda[i].dy = (int)(data->vectors[i].y1) + 1 - data->vectors[i].y1;
+		data->dda[i].dy = (int)data->vectors[i].y1 + 1 - data->vectors[i].y1;
 		if (data->dda[i].dy == (int)data->dda[i].dy)
 			data->dda[i].dy = 1;
 	}
@@ -68,7 +68,7 @@ void 	ft_inc_rays(t_data *data, int i)
 	float	delta;
 
 	theta = get_theta(data, i);
-	if (data->dda[i].dx < data->dda[i].dy)
+	if (data->dda[i].dx < data->dda[i].dy) // || roty == 0 ou && rotx != 0
 	{
 		data->vectors[i].x1 = data->vectors[i].x1 + data->dda[i].dx * data->dda[i].xsign;
 		data->vectors[i].y1 = data->vectors[i].y1 + (data->dda[i].dx / tan(ft_toradian(theta)) * data->dda[i].ysign);
