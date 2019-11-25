@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:55:14 by jdurand           #+#    #+#             */
-/*   Updated: 2019/11/23 16:25:03 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/11/25 16:56:56 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 # define pi 3.14159265
 # define speed 300
-# define speed_angle 2;
+# define speed_angle 1;
 # define ABS(n) (n > 0) ? (n) : (-n)
 
 
@@ -44,8 +44,8 @@ typedef struct	s_dda
 {
 	float	dx;
 	float	dy;
-	float	xsign;
-	float	ysign;
+	int		xsign;
+	int		ysign;
 }				t_dda;
 
 typedef struct	s_data

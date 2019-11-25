@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 14:08:39 by jdurand           #+#    #+#             */
-/*   Updated: 2019/11/23 19:19:52 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/11/25 17:54:35 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,20 +39,23 @@ void 	do_rays(t_data *data)
 	while (i < data->R[0])
 	{
 //		len = 0.1;
+
 		ft_setray(data, i);
 		while (data->map[(int)data->vectors[i].y1][(int)data->vectors[i].x1] != 1)
 		{
 			//printf("%lf, %lf\n", data->vectors[i].rotx, data->vectors[i].roty);
 	//		ft_dda(data, data->R[0] / 2);
+	printf("x: %f\n", data->vectors[i].x1);
+	printf("y : %f\n", data->vectors[i].y1);
 			ft_dda(data, i);
-			printf("x: %f\n", data->vectors[i].x1);
-			printf("y : %f\n", data->vectors[i].y1);
+
 	//		if (data->map[(int)])
 			//data->vectors[i].y1 = data->posy - (len * data->vectors[i].roty)
 //			len += 0.01;
 		}
 		i++;
 	}
+	printf(GREEN "---------------\n" RESET);
 	ft_do_colum(data); // a regler
 	mlx_put_image_to_window(data->mlx_p, data->mlx_wd, data->mlx_img, 0, 0);
 }
@@ -89,9 +92,9 @@ void 	ft_do_colum(t_data *data)
 	while (i < data->R[0])
 	{
 	if (i < data->R[0])
-		distance = get_dist(data, i); //* cos(ft_toradian(30 - data->vectors[i].angle_rela));
+		distance = get_dist(data, i) * cos(ft_toradian(30 - data->vectors[i].angle_rela));
 	else if (i > data->R[0])
-		distance = get_dist(data, i); //* cos(ft_toradian(data->vectors[i].angle_rela - 30));
+		distance = get_dist(data, i) * cos(ft_toradian(data->vectors[i].angle_rela - 30));
 		if (distance < 1)
 			distance = 1;
 		hp = data->R[1] / distance;
