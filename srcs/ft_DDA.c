@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 16:31:29 by jdurand           #+#    #+#             */
-/*   Updated: 2019/11/25 20:58:36 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/11/25 21:02:30 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void 	ft_dda(t_data *data, int i)
 	{
 		//posy > diry
 		data->dda[i].ysign = -1;
-		data->dda[i].dy = (int)(data->vectors[i].y1) + 1 - data->vectors[i].y1;
+		data->dda[i].dy = data->vectors[i].y1 - (int)(data->vectors[i].y1);
 
 //		if (data->dda[i].dy == (int)data->dda[i].dy)
 //			data->dda[i].dy = 1;
@@ -43,8 +43,8 @@ void 	ft_dda(t_data *data, int i)
 	{
 		//posy < diry
 		data->dda[i].ysign = 1;
-				printf("la\n");
-		data->dda[i].dy = data->vectors[i].y1 - (int)(data->vectors[i].y1);
+		data->dda[i].dy = (int)(data->vectors[i].y1) + 1 - data->vectors[i].y1;
+
 	//	if (data->dda[i].dy == (int)data->dda[i].dy)
 	//		data->dda[i].dy = 1;
 	}
