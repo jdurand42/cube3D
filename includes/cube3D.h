@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:55:14 by jdurand           #+#    #+#             */
-/*   Updated: 2019/11/25 16:56:56 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/11/25 20:37:56 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,16 @@ typedef struct	s_vector
 	float	roty;
 	float	angle;
 	float 	angle_rela;
+	int		wall_type;
+	float	dist_towall;
 }				t_vector;
+
+typedef	struct	s_intercept
+{
+	float	delta;
+	float	x;
+	float	y;
+}				t_intercept;
 
 typedef struct	s_dda
 {
@@ -106,6 +115,7 @@ void 	ft_do_colum(t_data *data);
 void 	ft_dda(t_data *data, int i);
 void 	ft_inc_rays(t_data *data, int i);
 float	get_theta(t_data *data, int i);
+void 	do_dist(t_data *data, t_intercept *x_, t_intercept *y_, int i);
 
 
 #endif

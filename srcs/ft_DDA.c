@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 16:31:29 by jdurand           #+#    #+#             */
-/*   Updated: 2019/11/25 18:47:45 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/11/25 20:58:36 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,36 +55,60 @@ void 	ft_dda(t_data *data, int i)
 
 void 	ft_inc_rays(t_data *data, int i)
 {
-	float	theta;
-	float	deltax;
-	float	deltay;
+	float		theta;
+	t_intercept	x_;
+	t_intercept	y_;
 
 	theta = get_theta(data, i);
-	printf("%lf, %lf\n", data->vectors[i].roty, data->vectors[i].rotx);
-	if (theta != 90 && theta != 270)
-		deltax = data->dda[i].dx * tan(ft_toradian(theta));
-	else
-		deltax = data->dda[i].dx;
-	if (theta != 90 && theta != 270)
+
+	x_.delta = data->dda[i].dx * tan(ft_toradian(theta));
+	y_.delta = data->dda[i].dy / tan(ft_toradian(theta));
+	x_.x = data->vectors[i].x1 + (data->dda[i].dx * data->dda[i].xsign);
+	x_.y = data->vectors[i].y1 + (x_.delta * data->dda[i].ysign);
+	y_.x = data->vectors[i].x1 + (y_.delta * data->dda[i].xsign);
+	y_.y = data->vectors[i].y1 + (data->dda[i].dy * data->dda[i].ysign);
+	x_.delta = tan(ft_toradian(theta)) * data->dda[i].ysign;
+	y_.delta = 1 / (tan(ft_toradian(theta))) * data->dda[i].xsign;
+
+		printf("x_x: %lf, x_y : %lf\n", x_.x, x_.y);
+	while (data->map[(int)x_.y][(int)x_.x] == 0)
 	{
-		deltay = data->dda[i].dy / tan(ft_toradian(theta));
-		printf(GREEN "%lf, %lf\n" RESET, data->dda[i].dy / tan(ft_toradian(theta)), data->dda[i].dy);
+		x_.x += data->dda[i].xsign;
+		x_.y += x_.delta;
+		printf("x_x: %lf, x_y : %lf\n", x_.x, x_.y);
+
 	}
-	else
-		deltay = data->dda[i].dy;
-	printf("%.15lf, %.15lf\n", deltax, deltay);
-	if (deltax < deltay && data->dda[i].dx != 0)
+	printf("y_x: %lf, y_y : %lf\n", y_.x, y_.y);
+	while (data->map[(int)y_.y][(int)y_.x] == 0)
 	{
-		data->vectors[i].x1 = data->vectors[i].x1 + (data->dda[i].dx *  data->dda[i].xsign);
-		data->vectors[i].y1 = data->vectors[i].y1 + (deltax * data->dda[i].ysign);
-	}
-	else
-	{
-		data->vectors[i].x1 = data->vectors[i].x1 + (deltay * data->dda[i].xsign);
-		data->vectors[i].y1 = data->vectors[i].y1 + (data->dda[i].dy * data->dda[i].ysign);
+		y_.y += data->dda[i].ysign;
+		y_.x += y_.delta;
+		printf("y_x: %lf, y_y : %lf\n", y_.x, y_.y);
 	}
 	printf("ray: %d, theta :%f\n", i, theta);
+	do_dist(data, &x_, &y_, i);
 	printf(GREEN "---\n" RESET);
+}
+
+void 	do_dist(t_data *data, t_intercept *x_, t_intercept *y_, int i)
+{
+	float	dist_x;
+	float	dist_y;
+
+	dist_x = sqrt(((x_->x - data->vectors[i].x1) * (x_->x - data->vectors[i].x1)) +
+				((x_->y - data->vectors[i].y1) * (x_->y - data->vectors[i].y1)));
+	dist_y = sqrt(((y_->x - data->vectors[i].x1) * (y_->x - data->vectors[i].x1)) +
+				((y_->y - data->vectors[i].y1) * (y_->y - data->vectors[i].y1)));
+	if (dist_x < dist_y)
+	{
+		data->vectors[i].wall_type = 1;
+		data->vectors[i].dist_towall = dist_x;
+	}
+	else
+	{
+		data->vectors[i].wall_type = 0;
+		data->vectors[i].dist_towall = dist_y;
+	}
 }
 
 float	get_theta(t_data *data, int i)

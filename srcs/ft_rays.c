@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 14:08:39 by jdurand           #+#    #+#             */
-/*   Updated: 2019/11/25 18:36:41 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/11/25 20:40:29 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,19 +35,20 @@ void 	do_rays(t_data *data)
 {
 	int i = 0;
 	double len = 0.01;
-
+	data->posx = 3.2;
+	data->posy = 3.2;
 	while (i < data->R[0])
 	{
 //		len = 0.1;
 
 		ft_setray(data, i);
-		while (data->map[(int)data->vectors[i].y1][(int)data->vectors[i].x1] != 1)
+		while (data->vectors[i].wall_type == -1)
 		{
 			//printf("%lf, %lf\n", data->vectors[i].rotx, data->vectors[i].roty);
 	//		ft_dda(data, data->R[0] / 2);
-	printf("x: %f\n", data->vectors[i].x1);
-	printf("y : %f\n", data->vectors[i].y1);
-			ft_dda(data, i);
+		printf("x: %f\n", data->vectors[i].x1);
+		printf("y : %f\n", data->vectors[i].y1);
+		ft_dda(data, i);
 
 	//		if (data->map[(int)])
 			//data->vectors[i].y1 = data->posy - (len * data->vectors[i].roty)
@@ -56,8 +57,8 @@ void 	do_rays(t_data *data)
 		i++;
 	}
 	printf(GREEN "---------------\n" RESET);
-	ft_do_colum(data); // a regler
-	mlx_put_image_to_window(data->mlx_p, data->mlx_wd, data->mlx_img, 0, 0);
+	//ft_do_colum(data); // a regler
+	//mlx_put_image_to_window(data->mlx_p, data->mlx_wd, data->mlx_img, 0, 0);
 }
 
 void 	ft_setray(t_data *data, int i)
@@ -74,6 +75,7 @@ void 	ft_setray(t_data *data, int i)
 		data->vectors[i].angle = 360;
 	data->vectors[i].rotx = cos(ft_toradian(data->vectors[i].angle));
 	data->vectors[i].roty = sin(ft_toradian(data->vectors[i].angle));
+	data->vectors[i].wall_type = -1;
 
 //	if (i == data->R[0] / 2) //|| i == 0 || i == data->R[0] - 1)
 	//	printf(GREEN "ray %d: x1: %lf, y1: %lf\nangle : %lf\n, rotx : %lf, roty: %lf\n"
