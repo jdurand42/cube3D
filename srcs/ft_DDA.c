@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 16:31:29 by jdurand           #+#    #+#             */
-/*   Updated: 2019/11/26 13:12:05 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/11/26 14:32:42 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,11 +95,23 @@ void 	ft_perform_dda(t_data *data, int i)
 int 	ft_dox(t_data *data, t_intercept *x_, int i)
 {
 	printf("deltax : %lf\n", x_->delta);
-	if (data->map[(int)x_->y][(int)x_->x + data->dda[i].xsign] > 0)
+	if (data->vec[i].rotx < 0)
 	{
-		x_->dist = sqrt(((x_->x - data->vec[i].x1) * (x_->x - data->vec[i].x1)) +
-		((x_->y - data->vec[i].y1) * (x_->y - data->vec[i].y1)));
-		return (1);
+		if (data->map[(int)x_->y][(int)x_->x + data->dda[i].xsign] > 0)
+		{
+			x_->dist = sqrt(((x_->x - data->vec[i].x1) * (x_->x - data->vec[i].x1)) +
+			((x_->y - data->vec[i].y1) * (x_->y - data->vec[i].y1)));
+			return (1);
+		}
+	}
+	else
+	{
+	if (data->map[(int)x_->y][(int)x_->x] > 0)
+	{
+			x_->dist = sqrt(((x_->x - data->vec[i].x1) * (x_->x - data->vec[i].x1)) +
+			((x_->y - data->vec[i].y1) * (x_->y - data->vec[i].y1)));
+			return (1);
+	}
 	}
 	x_->x += data->dda[i].xsign;
 	x_->y += x_->delta;
@@ -109,11 +121,23 @@ int 	ft_dox(t_data *data, t_intercept *x_, int i)
 
 int 	ft_doy(t_data *data, t_intercept *y_, int i)
 {
+	if (data->vec[i].roty > 0)
+	{
 	if (data->map[(int)y_->y + data->dda[i].ysign][(int)y_->x] > 0)
 	{
 		y_->dist = sqrt(((y_->x - data->vec[i].x1) * (y_->x - data->vec[i].x1)) +
 		((y_->y - data->vec[i].y1) * (y_->y - data->vec[i].y1)));
 		return (1);
+	}
+	}
+	else
+	{
+		if (data->map[(int)y_->y][(int)y_->x] > 0)
+		{
+			y_->dist = sqrt(((y_->x - data->vec[i].x1) * (y_->x - data->vec[i].x1)) +
+			((y_->y - data->vec[i].y1) * (y_->y - data->vec[i].y1)));
+			return (1);
+		}
 	}
 	y_->y += data->dda[i].ysign;
 	y_->x += y_->delta;
@@ -130,12 +154,12 @@ void 	do_dist(t_data *data, t_intercept *x_, t_intercept *y_, int i)
 	printf("%lf, %lf\n", x_->dist, y_->dist);
 	if ((x_->dist < y_->dist && x_->dist >= 0) || !(y_->dist >= 0))
 	{
-		data->vec[i].wall_type = 1;
+		data->vec[i].wall_type = 0;
 		data->vec[i].dist_towall = x_->dist;
 	}
 	else
 	{
-		data->vec[i].wall_type = 0;
+		data->vec[i].wall_type = 1;
 		data->vec[i].dist_towall = y_->dist;
 	}
 }

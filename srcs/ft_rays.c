@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 14:08:39 by jdurand           #+#    #+#             */
-/*   Updated: 2019/11/26 12:42:09 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/11/26 14:39:28 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,41 +86,64 @@ void 	ft_do_colum(t_data *data)
 {
 	unsigned long int		j = 0;
 	int		hp;
-//	int 	diff;
 	int		i = 0;
 	float 	distance;
+	unsigned int 			color;
 
 	while (i < data->R[0])
 	{
-	if (i < data->R[0])
-		distance = data->vec[i].dist_towall * cos(ft_toradian(30 - data->vec[i].angle_rela));
-	else if (i > data->R[0])
-		distance = data->vec[i].dist_towall * cos(ft_toradian(data->vec[i].angle_rela - 30));
+		if (i < data->R[0])
+			distance = data->vec[i].dist_towall * cos(ft_toradian(30 - data->vec[i].angle_rela));
+		else if (i > data->R[0])
+			distance = data->vec[i].dist_towall * cos(ft_toradian(data->vec[i].angle_rela - 30));
 //		if (distance < 1)
 //			distance = 1;
 		hp = data->R[1] / distance;
 	//		printf("%d, %lf\n", i, data->vec[i].angle_rela);
+		color = ft_choose_color(data, i);
 		j = (data->R[1] / 2 * data->size_line) - (hp / 2 * data->size_line);
 			while (j >= (data->R[1] / 2 * data->size_line) - (hp / 2 * data->size_line) && j <= (data->R[1] / 2 * data->size_line) + (hp / 2 * data->size_line))
 			{
-				data->img[j + (data->R[0] - i) * 4 + 0] = (char)85;
-				data->img[j + (data->R[0] - i) * 4 + 1] = (char)85;
-				data->img[j + (data->R[0] - i) * 4 + 2] = (char)85;
+				data->img[j + (data->R[0] - i) * 4 + 0] = (char)(color >> 16);
+				data->img[j + (data->R[0] - i) * 4 + 1] = (char)(color >> 8);
+				data->img[j + (data->R[0] - i) * 4 + 2] = (char)(color >> 0);
 				data->img[j + (data->R[0] - i) * 4 + 3] = (char)0;
 				j += data->size_line;
 			}
 		i++;
 	}
-//	printf("calcul angle R0: %lf - %lf = %lf\nRmax %lf - %lf = %lf\nRmin %lf - %lf = %lf\n"
-//			, data->vec[data->R[0] / 2].angle, data->angle, data->vec[data->R[0] / 2].angle - data->angle,
-//			data->vec[data->R[0] - 50].angle, data->angle, data->vec[data->R[0] - 50].angle - data->angle,
-//			data->vec[50].angle, data->angle, data->vec[50].angle - data->angle);
 }
 
-float 	get_dist(t_data *data, int i)
-{
-	float distance;
+/*
+** wall_type 0 > x > E ou W
+** wall_type 1 > y > N ou S
+** roty	> 0    >   > S ou E Ou W
+** roty < 0    >   > N ou E ou W
+** rotx > 0    >   > W ou N ou S
+** rotx < 0    >   > E ou N ou S
+** if wall_type 1
+**	-> roty > 0 -> S
+**  -> roty < 0 -> N
+** if wall_type 0
+**	-> rotx > 0 -> W
+**  -> rotx < 0 -> E
+**
+*/
 
-	distance = sqrt(pow(data->vec[i].x1 - data->posx, 2) + pow(data->vec[i].y1 - data->posy, 2));
-	return (distance);
+unsigned int 	ft_choose_color(t_data *data, int i)
+{
+	if (data->vec[i].wall_type == 1)
+	{
+		if (data->vec[i].roty > 0)
+			return (ft_rgb(255, 0, 0));
+		else
+			return (ft_rgb(0, 255, 0));
+	}
+	else
+	{
+		if (data->vec[i].rotx < 0)
+			return (ft_rgb(0, 0, 112));
+		else
+			return (ft_rgb(0, 0, 255));
+	}
 }

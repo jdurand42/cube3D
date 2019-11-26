@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:55:14 by jdurand           #+#    #+#             */
-/*   Updated: 2019/11/26 10:52:42 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/11/26 14:51:56 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 # define pi 3.14159265
 # define speed 300
-# define speed_angle 1;
+# define speed_angle 2;
 # define ABS(n) (n > 0) ? (n) : (-n)
 
 
@@ -99,7 +99,7 @@ int 	ft_game_loop(t_data *data, int **map);
 
 int 			ft_setup_mlx(t_data *data, int **map);
 void 	ft_setup_rays(t_data *data, int **map);
-int 	ft_keyboard_loop(int keycode, void *params);
+int 	ft_main_loop(int keycode, void *params);
 
 unsigned int 	ft_rgb(int r, int g, int b);
 float 			ft_toradian(float angle);
@@ -122,5 +122,9 @@ int 	ft_dox(t_data *data, t_intercept *x_, int i);
 int 	ft_doy(t_data *data, t_intercept *y_, int i);
 
 void 	ft_init_deltas(t_data *data, t_intercept *x_, t_intercept *y_, int i);
+
+unsigned int 	ft_choose_color(t_data *data, int i);
+
+void 	ft_keyboard_loop(t_data *data, int keycode);
 
 #endif

@@ -24,7 +24,7 @@ LIB		=	./libft/libft.a
 
 SRCS 	=	./srcs/main.c ./srcs/ft_errors.c ./srcs/ft_parsing.c \
 			./srcs/ft_parsing2.c ./srcs/ft_utils.c ./srcs/ft_game.c \
-			./srcs/ft_rays.c ./srcs/ft_DDA.c
+			./srcs/ft_rays.c ./srcs/ft_DDA.c ./srcs/ft_inputs.c
 
 all		:	$(NAME)
 
