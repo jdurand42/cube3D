@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:55:14 by jdurand           #+#    #+#             */
-/*   Updated: 2019/11/26 16:36:17 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/11/26 19:13:27 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define speed_angle 2
 # define speed_div 0.001
 # define rayon 0.2
+# define epsilon 0.5
 # define ABS(n) (n > 0) ? (n) : (-n)
 
 

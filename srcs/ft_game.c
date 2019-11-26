@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 17:26:07 by jdurand           #+#    #+#             */
-/*   Updated: 2019/11/26 16:19:00 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/11/26 17:47:32 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,17 @@ void 	ft_setbackground(t_data *data)
 		{
 			if (j < data->R[1] / 2)
 			{
-				data->img[i + (j * data->size_line)] = (char)50;
-				data->img[i + 1 + (j * data->size_line)] = (char)50;
-				data->img[i + 2 + (j * data->size_line)] = (char)50;
+				data->img[i + (j * data->size_line)] = (char)200;
+				data->img[i + 1 + (j * data->size_line)] = (char)200;
+				data->img[i + 2 + (j * data->size_line)] = (char)200;
 				data->img[i + 3 + (j * data->size_line)] = (char)0;
 				i += 4;
 			}
 			else
 			{
-				data->img[i + (j * data->size_line)] = (char)0;
-				data->img[i + 1 + (j * data->size_line)] = (char)0;
-				data->img[i + 2 + (j * data->size_line)] = (char)0;
+				data->img[i + (j * data->size_line)] = (char)101;
+				data->img[i + 1 + (j * data->size_line)] = (char)101;
+				data->img[i + 2 + (j * data->size_line)] = (char)101;
 				data->img[i + 3 + (j * data->size_line)] = (char)0;
 				i += 4;
 			}

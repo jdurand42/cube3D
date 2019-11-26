@@ -30,6 +30,8 @@ all		:	$(NAME)
 
 $(NAME) :
 			cd ./libft ; make bonus ; cd .. ;
+			gcc -o $(NAME) -lmlx -framework OpenGL -framework Appkit \
+			$(SRCS) $(LIB)
 
 compil	:
 			make clean ;
