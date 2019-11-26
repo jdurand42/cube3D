@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 16:31:29 by jdurand           #+#    #+#             */
-/*   Updated: 2019/11/25 21:02:30 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/11/26 13:07:23 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,48 +14,47 @@
 
 void 	ft_dda(t_data *data, int i)
 {
-	if (data->vectors[i].rotx > 0) // Look right 270 - 90
+	if (data->vec[i].rotx > 0) // Look right 270 - 90
 	{
 		// posx < dirx
 		data->dda[i].xsign = 1;
-		data->dda[i].dx = (int)(data->vectors[i].x1) + 1 - data->vectors[i].x1;
+		data->dda[i].dx = (int)(data->vec[i].x1) + 1 - data->vec[i].x1;
 //		if (data->dda[i].dx == (int)data->dda[i].dx)
 //			data->dda[i].dx = 1;
 	}
-	else if (data->vectors[i].rotx < 0) // look left 90 - 270
+	else if (data->vec[i].rotx < 0) // look left 90 - 270
 	{
 		//posx > dix
 		data->dda[i].xsign = -1;
-		data->dda[i].dx = data->vectors[i].x1 - (int)(data->vectors[i].x1);
+		data->dda[i].dx = data->vec[i].x1 - (int)(data->vec[i].x1);
 	//	if (data->dda[i].dx == (int)data->dda[i].dx)
 	//		data->dda[i].dx = 1;
 	}
-	if (data->vectors[i].roty > 0) // look up 0 - 180
+	if (data->vec[i].roty > 0) // look up 0 - 180
 	{
 		//posy > diry
 		data->dda[i].ysign = -1;
-		data->dda[i].dy = data->vectors[i].y1 - (int)(data->vectors[i].y1);
-
+		data->dda[i].dy = data->vec[i].y1 - (int)(data->vec[i].y1);
 //		if (data->dda[i].dy == (int)data->dda[i].dy)
 //			data->dda[i].dy = 1;
 	}
-	else if (data->vectors[i].roty < 0) // look down 180 - 360
+	else if (data->vec[i].roty < 0) // look down 180 - 360
 	{
 		//posy < diry
 		data->dda[i].ysign = 1;
-		data->dda[i].dy = (int)(data->vectors[i].y1) + 1 - data->vectors[i].y1;
-
+		data->dda[i].dy = (int)(data->vec[i].y1) + 1 - data->vec[i].y1;
 	//	if (data->dda[i].dy == (int)data->dda[i].dy)
 	//		data->dda[i].dy = 1;
 	}
 
-	printf("ray : %d, dx : %.15f, dy: %.15f, angle: %f\n", i, data->dda[i].dx, data->dda[i].dy, data->vectors[i].angle);
-	ft_inc_rays(data, i);
+	printf("ray : %d, dx : %.15f, dy: %.15f, angle: %f\n", i, data->dda[i].dx, data->dda[i].dy, data->vec[i].angle);
+	ft_perform_dda(data, i);
 }
 
-void 	ft_inc_rays(t_data *data, int i)
+void 	ft_perform_dda(t_data *data, int i)
 {
 	float		theta;
+	int 		ret;
 	t_intercept	x_;
 	t_intercept	y_;
 
@@ -63,51 +62,81 @@ void 	ft_inc_rays(t_data *data, int i)
 
 	x_.delta = data->dda[i].dx * tan(ft_toradian(theta));
 	y_.delta = data->dda[i].dy / tan(ft_toradian(theta));
-	x_.x = data->vectors[i].x1 + (data->dda[i].dx * data->dda[i].xsign);
-	x_.y = data->vectors[i].y1 + (x_.delta * data->dda[i].ysign);
-	y_.x = data->vectors[i].x1 + (y_.delta * data->dda[i].xsign);
-	y_.y = data->vectors[i].y1 + (data->dda[i].dy * data->dda[i].ysign);
+	ft_init_deltas(data, &x_, &y_, i);
 	x_.delta = tan(ft_toradian(theta)) * data->dda[i].ysign;
 	y_.delta = 1 / (tan(ft_toradian(theta))) * data->dda[i].xsign;
+	ret = 0;
 
-		printf("x_x: %lf, x_y : %lf\n", x_.x, x_.y);
-	while (data->map[(int)x_.y][(int)x_.x] == 0)
+	printf("x_x: %lf, x_y : %lf\n", x_.x, x_.y);
+	printf("y_x, y_y, %lf, %lf\n",y_.x, y_.y);
+	printf("roty: %lf\n", data->vec[i].roty);
+	if (data->vec[i].roty > 0 && data->vec[i].roty != 1)
 	{
-		x_.x += data->dda[i].xsign;
-		x_.y += x_.delta;
-		printf("x_x: %lf, x_y : %lf\n", x_.x, x_.y);
-
+		while (x_.y > 0 && ret == 0)
+			ret = ft_dox(data, &x_, i);
 	}
-	printf("y_x: %lf, y_y : %lf\n", y_.x, y_.y);
-	while (data->map[(int)y_.y][(int)y_.x] == 0)
+	else if (data->vec[i].roty != -1)
+		while (x_.y < data->height - 1 && ret == 0)
+			ret = ft_dox(data, &x_, i);
+	ret = 0;
+	if (data->vec[i].rotx > 0)
 	{
-		y_.y += data->dda[i].ysign;
-		y_.x += y_.delta;
-		printf("y_x: %lf, y_y : %lf\n", y_.x, y_.y);
+		while (y_.x < data->width - 1 && ret == 0)
+			ret = ft_doy(data, &y_, i);
 	}
+	else
+		while (y_.x > 0 && ret == 0)
+			ret = ft_doy(data, &y_, i);
 	printf("ray: %d, theta :%f\n", i, theta);
 	do_dist(data, &x_, &y_, i);
 	printf(GREEN "---\n" RESET);
 }
+
+int 	ft_dox(t_data *data, t_intercept *x_, int i)
+{
+	printf("deltax : %lf\n", x_->delta);
+	if (data->map[(int)x_->y][(int)x_->x + data->dda[i].xsign] > 0)
+	{
+		x_->dist = sqrt(((x_->x - data->vec[i].x1) * (x_->x - data->vec[i].x1)) +
+		((x_->y - data->vec[i].y1) * (x_->y - data->vec[i].y1)));
+		return (1);
+	}
+	x_->x += data->dda[i].xsign;
+	x_->y += x_->delta;
+	printf("x_x: %lf, x_y : %lf\n", x_->x, x_->y);
+	return (0);
+}
+
+int 	ft_doy(t_data *data, t_intercept *y_, int i)
+{
+	if (data->map[(int)y_->y + data->dda[i].ysign][(int)y_->x] > 0)
+	{
+		y_->dist = sqrt(((y_->x - data->vec[i].x1) * (y_->x - data->vec[i].x1)) +
+		((y_->y - data->vec[i].y1) * (y_->y - data->vec[i].y1)));
+		return (1);
+	}
+	y_->y += data->dda[i].ysign;
+	y_->x += y_->delta;
+	printf("y_x: %lf, y_y : %lf\n", y_->x, y_->y);
+	return (0);
+}
+
 
 void 	do_dist(t_data *data, t_intercept *x_, t_intercept *y_, int i)
 {
 	float	dist_x;
 	float	dist_y;
 
-	dist_x = sqrt(((x_->x - data->vectors[i].x1) * (x_->x - data->vectors[i].x1)) +
-				((x_->y - data->vectors[i].y1) * (x_->y - data->vectors[i].y1)));
-	dist_y = sqrt(((y_->x - data->vectors[i].x1) * (y_->x - data->vectors[i].x1)) +
-				((y_->y - data->vectors[i].y1) * (y_->y - data->vectors[i].y1)));
-	if (dist_x < dist_y)
+	printf("%lf, %lf\n", x_->dist, y_->dist);
+	if ((x_->dist < y_->dist && x_->dist >= 0) || !(y_->dist >= 0))
 	{
-		data->vectors[i].wall_type = 1;
-		data->vectors[i].dist_towall = dist_x;
+		data->vec[i].wall_type = 1;
+		data->vec[i].dist_towall = x_->dist;
 	}
 	else
 	{
-		data->vectors[i].wall_type = 0;
-		data->vectors[i].dist_towall = dist_y;
+		data->vec[i].wall_type = 0;
+		data->vec[i].dist_towall = y_->dist;
 	}
 }
 
@@ -115,14 +144,24 @@ float	get_theta(t_data *data, int i)
 {
 	float theta;
 
-	if (data->vectors[i].angle <= 90 && data->vectors[i].angle > 0)
-		theta = data->vectors[i].angle;
-	else if (data->vectors[i].angle <= 180 && data->vectors[i].angle > 90)
-		theta = 90 - (data->vectors[i].angle - 90);
-	else if (data->vectors[i].angle <= 270 && data->vectors[i].angle > 180)
-		theta = data->vectors[i].angle - 180;
-	else if (data->vectors[i].angle <= 360)
-		theta = 90 - (data->vectors[i].angle - 270);
+	if (data->vec[i].angle <= 90 && data->vec[i].angle > 0)
+		theta = data->vec[i].angle;
+	else if (data->vec[i].angle <= 180 && data->vec[i].angle > 90)
+		theta = 90 - (data->vec[i].angle - 90);
+	else if (data->vec[i].angle <= 270 && data->vec[i].angle > 180)
+		theta = data->vec[i].angle - 180;
+	else if (data->vec[i].angle <= 360)
+		theta = 90 - (data->vec[i].angle - 270);
 	printf("theta : %f\n", theta);
 	return (theta);
+}
+
+void 	ft_init_deltas(t_data *data, t_intercept *x_, t_intercept *y_, int i)
+{
+	x_->x = data->vec[i].x1 + (data->dda[i].dx * data->dda[i].xsign);
+	x_->y = data->vec[i].y1 + (x_->delta * data->dda[i].ysign);
+	y_->x = data->vec[i].x1 + (y_->delta * data->dda[i].xsign);
+	y_->y = data->vec[i].y1 + (data->dda[i].dy * data->dda[i].ysign);
+	x_->dist = -1;
+	y_->dist = -1;
 }

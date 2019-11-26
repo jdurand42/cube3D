@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:55:14 by jdurand           #+#    #+#             */
-/*   Updated: 2019/11/25 20:37:56 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/11/26 10:52:42 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef	struct	s_intercept
 	float	delta;
 	float	x;
 	float	y;
+	float	dist;
 }				t_intercept;
 
 typedef struct	s_dda
@@ -81,7 +82,7 @@ typedef struct	s_data
 	int 				endian;
 	int 				bit_p_p;
 	int 				**map;
-	struct s_vector 	*vectors;
+	struct s_vector 	*vec;
 	struct s_dda		*dda;
 }				t_data;
 
@@ -113,9 +114,13 @@ float 	get_dist(t_data *data, int i);
 void 	ft_do_colum(t_data *data);
 
 void 	ft_dda(t_data *data, int i);
-void 	ft_inc_rays(t_data *data, int i);
+void 	ft_perform_dda(t_data *data, int i);
 float	get_theta(t_data *data, int i);
 void 	do_dist(t_data *data, t_intercept *x_, t_intercept *y_, int i);
 
+int 	ft_dox(t_data *data, t_intercept *x_, int i);
+int 	ft_doy(t_data *data, t_intercept *y_, int i);
+
+void 	ft_init_deltas(t_data *data, t_intercept *x_, t_intercept *y_, int i);
 
 #endif
