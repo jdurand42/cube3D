@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:55:14 by jdurand           #+#    #+#             */
-/*   Updated: 2019/11/26 14:51:56 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/11/26 16:36:17 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,9 @@
 
 # define pi 3.14159265
 # define speed 300
-# define speed_angle 2;
+# define speed_angle 2
+# define speed_div 0.001
+# define rayon 0.2
 # define ABS(n) (n > 0) ? (n) : (-n)
 
 
@@ -41,6 +43,13 @@ typedef struct	s_vector
 	int		wall_type;
 	float	dist_towall;
 }				t_vector;
+
+typedef struct	s_cam
+{
+	float	angle;
+	float	rotx;
+	float	roty;
+}				t_cam;
 
 typedef	struct	s_intercept
 {
@@ -84,6 +93,7 @@ typedef struct	s_data
 	int 				**map;
 	struct s_vector 	*vec;
 	struct s_dda		*dda;
+	struct s_cam		cam;
 }				t_data;
 
 int		ft_iserror(int code);
@@ -126,5 +136,6 @@ void 	ft_init_deltas(t_data *data, t_intercept *x_, t_intercept *y_, int i);
 unsigned int 	ft_choose_color(t_data *data, int i);
 
 void 	ft_keyboard_loop(t_data *data, int keycode);
+void	ft_do_colision(t_data *data, int choice);
 
 #endif

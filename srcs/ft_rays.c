@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 14:08:39 by jdurand           #+#    #+#             */
-/*   Updated: 2019/11/26 14:39:28 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/11/26 16:21:55 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void 	ft_setup_rays(t_data *data, int **map)
 		return ;
 	if (!(data->dda = (t_dda*)malloc(data->R[0] * sizeof(t_dda))))
 		return ;
-	data->angle = ft_get_angle(data, map);
+	data->cam.angle = ft_get_angle(data, map);
 	while (i < data->R[0])
 	{
 		data->vec[i].angle_rela = (float)i * pas;
@@ -45,8 +45,8 @@ void 	do_rays(t_data *data)
 		{
 			//printf("%lf, %lf\n", data->vec[i].rotx, data->vec[i].roty);
 	//		ft_dda(data, data->R[0] / 2);
-			printf("x: %f\n", data->vec[i].x1);
-			printf("y : %f\n", data->vec[i].y1);
+//			printf("x: %f\n", data->vec[i].x1);
+//			printf("y : %f\n", data->vec[i].y1);
 			ft_dda(data, i);
 
 	//		if (data->map[(int)])
@@ -67,7 +67,7 @@ void 	ft_setray(t_data *data, int i)
 	pas = 60 / (float)data->R[0];
 	data->vec[i].x1 = data->posx;
 	data->vec[i].y1 = data->posy;
-	data->vec[i].angle = data->angle - (60 / 2) + ((float)i * pas);
+	data->vec[i].angle = data->cam.angle - (60 / 2) + ((float)i * pas);
 	if (data->vec[i].angle > 360)
 		data->vec[i].angle = 0;
 	else if (data->vec[i].angle < 0)
@@ -104,9 +104,9 @@ void 	ft_do_colum(t_data *data)
 		j = (data->R[1] / 2 * data->size_line) - (hp / 2 * data->size_line);
 			while (j >= (data->R[1] / 2 * data->size_line) - (hp / 2 * data->size_line) && j <= (data->R[1] / 2 * data->size_line) + (hp / 2 * data->size_line))
 			{
-				data->img[j + (data->R[0] - i) * 4 + 0] = (char)(color >> 16);
+				data->img[j + (data->R[0] - i) * 4 + 0] = (char)(color >> 0);
 				data->img[j + (data->R[0] - i) * 4 + 1] = (char)(color >> 8);
-				data->img[j + (data->R[0] - i) * 4 + 2] = (char)(color >> 0);
+				data->img[j + (data->R[0] - i) * 4 + 2] = (char)(color >> 16);
 				data->img[j + (data->R[0] - i) * 4 + 3] = (char)0;
 				j += data->size_line;
 			}

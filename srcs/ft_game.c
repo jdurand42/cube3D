@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 17:26:07 by jdurand           #+#    #+#             */
-/*   Updated: 2019/11/26 14:47:29 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/11/26 16:19:00 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int 	ft_main_loop(int keycode, void *params)
 	data = (t_data*)params;
 	printf("keycode %d\n", keycode);
 	ft_keyboard_loop(data, keycode);
-	printf("x, y: %lf, %lf\nangle: %lf\n", data->posx, data->posy, data->angle);
+	printf("x, y: %lf, %lf post loop\n", data->posx, data->posy);
 	int i = 0;
 	ft_setbackground(data);
 	do_rays(data);

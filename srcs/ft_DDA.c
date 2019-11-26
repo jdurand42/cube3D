@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 16:31:29 by jdurand           #+#    #+#             */
-/*   Updated: 2019/11/26 14:32:42 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/11/26 16:23:11 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void 	ft_dda(t_data *data, int i)
 	//		data->dda[i].dy = 1;
 	}
 
-	printf("ray : %d, dx : %.15f, dy: %.15f, angle: %f\n", i, data->dda[i].dx, data->dda[i].dy, data->vec[i].angle);
+//	printf("ray : %d, dx : %.15f, dy: %.15f, angle: %f\n", i, data->dda[i].dx, data->dda[i].dy, data->vec[i].angle);
 	ft_perform_dda(data, i);
 }
 
@@ -67,9 +67,9 @@ void 	ft_perform_dda(t_data *data, int i)
 	y_.delta = 1 / (tan(ft_toradian(theta))) * data->dda[i].xsign;
 	ret = 0;
 
-	printf("x_x: %lf, x_y : %lf\n", x_.x, x_.y);
-	printf("y_x, y_y, %lf, %lf\n",y_.x, y_.y);
-	printf("roty: %lf\n", data->vec[i].roty);
+//	printf("x_x: %lf, x_y : %lf\n", x_.x, x_.y);
+//	printf("y_x, y_y, %lf, %lf\n",y_.x, y_.y);
+//	printf("roty: %lf\n", data->vec[i].roty);
 	if (data->vec[i].roty > 0 && data->vec[i].roty != 1)
 	{
 		while (x_.y > 0 && ret == 0)
@@ -87,14 +87,14 @@ void 	ft_perform_dda(t_data *data, int i)
 	else
 		while (y_.x > 0 && ret == 0)
 			ret = ft_doy(data, &y_, i);
-	printf("ray: %d, theta :%f\n", i, theta);
+//	printf("ray: %d, theta :%f\n", i, theta);
 	do_dist(data, &x_, &y_, i);
-	printf(GREEN "---\n" RESET);
+	//printf(GREEN "---\n" RESET);
 }
 
 int 	ft_dox(t_data *data, t_intercept *x_, int i)
 {
-	printf("deltax : %lf\n", x_->delta);
+//	printf("deltax : %lf\n", x_->delta);
 	if (data->vec[i].rotx < 0)
 	{
 		if (data->map[(int)x_->y][(int)x_->x + data->dda[i].xsign] > 0)
@@ -115,7 +115,7 @@ int 	ft_dox(t_data *data, t_intercept *x_, int i)
 	}
 	x_->x += data->dda[i].xsign;
 	x_->y += x_->delta;
-	printf("x_x: %lf, x_y : %lf\n", x_->x, x_->y);
+//	printf("x_x: %lf, x_y : %lf\n", x_->x, x_->y);
 	return (0);
 }
 
@@ -141,7 +141,7 @@ int 	ft_doy(t_data *data, t_intercept *y_, int i)
 	}
 	y_->y += data->dda[i].ysign;
 	y_->x += y_->delta;
-	printf("y_x: %lf, y_y : %lf\n", y_->x, y_->y);
+//	printf("y_x: %lf, y_y : %lf\n", y_->x, y_->y);
 	return (0);
 }
 
@@ -151,7 +151,7 @@ void 	do_dist(t_data *data, t_intercept *x_, t_intercept *y_, int i)
 	float	dist_x;
 	float	dist_y;
 
-	printf("%lf, %lf\n", x_->dist, y_->dist);
+//	printf("%lf, %lf\n", x_->dist, y_->dist);
 	if ((x_->dist < y_->dist && x_->dist >= 0) || !(y_->dist >= 0))
 	{
 		data->vec[i].wall_type = 0;
@@ -176,7 +176,7 @@ float	get_theta(t_data *data, int i)
 		theta = data->vec[i].angle - 180;
 	else if (data->vec[i].angle <= 360)
 		theta = 90 - (data->vec[i].angle - 270);
-	printf("theta : %f\n", theta);
+//	printf("theta : %f\n", theta);
 	return (theta);
 }
 
