@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 14:45:47 by jdurand           #+#    #+#             */
-/*   Updated: 2019/11/28 16:26:40 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/11/28 16:31:04 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,22 +98,22 @@ void 	ft_collision_back(t_data *data, float angle)
 	data->cam.rotx = cos(ft_toradian(angle));
 	ad_x = data->cam.rotx * speed * speed_div;
 	ad_y = data->cam.roty * speed * speed_div;
-	if (data->cam.roty < 0) // up
+	if (data->cam.roty > 0) // up
 	{
-		if (data->map[(int)(data->posy - ad_y - rayon)][(int)(data->posx + ad_x)] > 0) // hit
+		if (data->map[(int)(data->posy + ad_y + rayon)][(int)(data->posx - ad_x)] > 0) // hit
 			hity = 1;
 	}
 	else
-		if (data->map[(int)(data->posy - ad_y + rayon)][(int)(data->posx + ad_x)] > 0)
+		if (data->map[(int)(data->posy + ad_y - rayon)][(int)(data->posx - ad_x)] > 0)
 			hity = 1;
-	if (data->cam.rotx < 0)
+	if (data->cam.rotx > 0)
 	{
-		if (data->map[(int)(data->posy - ad_y)][(int)(data->posx + ad_x + rayon)] > 0)
+		if (data->map[(int)(data->posy + ad_y)][(int)(data->posx - ad_x - rayon)] > 0)
 			hitx = 1;
 	}
 	else
 	{
-		if (data->map[(int)(data->posy - ad_y)][(int)(data->posx + ad_x - rayon)] > 0)
+		if (data->map[(int)(data->posy + ad_y)][(int)(data->posx - ad_x + rayon)] > 0)
 			hitx = 1;
 	}
 	if (hity < 1 || hitx < 1)
