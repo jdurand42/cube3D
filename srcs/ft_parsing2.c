@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 15:16:00 by jdurand           #+#    #+#             */
-/*   Updated: 2019/11/18 15:16:29 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/11/28 18:59:45 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,18 @@ void 	parse_res(t_data *data, char *line)
 		data->check = -1;
 	else
 		data->check += 2;
+	if (data->R[0] > W_MAX)
+		data->R[0] = 2560;
+	if (data->R[1] > H_MAX)
+		data->R[1] = 1440;
 	printf("res: %d, %d, check: %d\n", data->R[0], data->R[1], data->check);
 	return ;
 }
 
-char	*pathing(char *path, char *line, int *check)
+char	*pathing(char *pathe, char *line, int *check)
 {
 	size_t	i;
+	char *path;
 
 	i = 0;
 	while (line[i] != 0 && line[i] != '.')
@@ -61,14 +66,14 @@ void 	parse_path(t_data *data, char *line)
 	if (line[i] != 0)
 	{
 		if (!ft_strncmp(&line[i], "NO", 2))
-			pathing(data->NO, &line[i], &data->check);
+			data->NO = pathing(data->NO, &line[i], &data->check);
 		else if (!ft_strncmp(&line[i], "SO", 2))
-			pathing(data->SO, &line[i], &data->check);
+			data->SO = pathing(data->SO, &line[i], &data->check);
 		else if (!ft_strncmp(&line[i], "WE", 2))
-			pathing(data->WE, &line[i], &data->check);
+			data->WE = pathing(data->WE, &line[i], &data->check);
 		else if (!ft_strncmp(&line[i], "ES", 2))
-			pathing(data->ES, &line[i], &data->check);
+			data->ES = pathing(data->ES, &line[i], &data->check);
 		else if (!ft_strncmp(&line[i], "S", 1))
-			pathing(data->S, &line[i], &data->check);
+			data->S = pathing(data->S, &line[i], &data->check);
 	}
 }

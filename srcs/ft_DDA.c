@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 16:31:29 by jdurand           #+#    #+#             */
-/*   Updated: 2019/11/28 14:30:28 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/11/28 19:09:33 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void 	ft_perform_dda(t_data *data, int i)
 
 int 	ft_dox(t_data *data, t_intercept *x_, int i)
 {
-//	printf("deltax : %lf\n", x_->delta);
+	//printf("deltax : %lf\nx, y : %lf %lf\n, x_, x_y: %lf %lf\n", x_->delta, data->posx, data->posy, x_->x, x_->y);
 	if (data->vec[i].rotx < 0)
 	{
 		if (data->map[(int)x_->y][(int)x_->x + data->dda[i].xsign] > 0)

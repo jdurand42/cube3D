@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 14:08:39 by jdurand           #+#    #+#             */
-/*   Updated: 2019/11/28 15:58:03 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/11/28 19:12:29 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,12 +93,12 @@ void 	ft_do_colum(t_data *data)
 	//		printf("%d, %lf\n", i, data->vec[i].angle_rela);
 		color = ft_choose_color(data, i);
 		j = (data->R[1] / 2 * data->size_line) - (hp / 2 * data->size_line);
-			while (j >= (data->R[1] / 2 * data->size_line) - (hp / 2 * data->size_line) && j <= (data->R[1] / 2 * data->size_line) + (hp / 2 * data->size_line))
+			while (j >= (data->R[1] / 2 * data->size_line) - (hp / 2 * data->size_line) && j < (data->R[1] / 2 * data->size_line) + (hp / 2 * data->size_line))
 			{
-				data->img[j + (data->R[0] - i) * 4 + 0] = (char)(color >> 0);
-				data->img[j + (data->R[0] - i) * 4 + 1] = (char)(color >> 8);
-				data->img[j + (data->R[0] - i) * 4 + 2] = (char)(color >> 16);
-				data->img[j + (data->R[0] - i) * 4 + 3] = (char)0;
+				data->img[j + (data->R[0] - 1 - i) * 4 + 0] = (char)(color >> 0);
+				data->img[j + (data->R[0] - 1 - i) * 4 + 1] = (char)(color >> 8);
+				data->img[j + (data->R[0] - 1 - i) * 4 + 2] = (char)(color >> 16);
+				data->img[j + (data->R[0] - 1 - i) * 4 + 3] = (char)0;
 				j += data->size_line;
 			}
 		i++;

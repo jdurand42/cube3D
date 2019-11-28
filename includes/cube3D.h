@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:55:14 by jdurand           #+#    #+#             */
-/*   Updated: 2019/11/28 17:22:30 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/11/28 18:59:53 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,11 @@
 # define epsilon 0.5
 # define ABS(n) (n > 0) ? (n) : (-n)
 
-
 # define GREEN   "\x1b[32m"
 # define RESET   "\x1b[0m"
+
+# define W_MAX 2560
+# define H_MAX 1440
 
 typedef struct	s_vector
 {
@@ -83,6 +85,7 @@ typedef struct	s_data
 	char 				*WE;
 	char 				*ES;
 	char 				*S;
+	char				tex[4];
 	unsigned int		F;
 	unsigned int		C;
 	char				*img;
@@ -143,5 +146,8 @@ void 	ft_strife(t_data *data, int id);
 void 	ft_advance(t_data *data, float angle, int param);
 void 	ft_collision(t_data *data, float angle);
 void 	ft_collision_back(t_data *data, float angle);
+
+
+void 	free_paths(t_data *data);
 
 #endif
