@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 16:31:29 by jdurand           #+#    #+#             */
-/*   Updated: 2019/11/26 17:13:07 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/11/28 14:30:28 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,18 +53,17 @@ void 	ft_dda(t_data *data, int i)
 
 void 	ft_perform_dda(t_data *data, int i)
 {
-	float		theta;
+	float		tan_theta;
 	int 		ret;
 	t_intercept	x_;
 	t_intercept	y_;
 
-	theta = get_theta(data, i);
-
-	x_.delta = data->dda[i].dx * tan(ft_toradian(theta));
-	y_.delta = data->dda[i].dy / tan(ft_toradian(theta));
+	tan_theta = tan(ft_toradian(get_theta(data, i)));
+	x_.delta = data->dda[i].dx * tan_theta;
+	y_.delta = data->dda[i].dy / tan_theta;
 	ft_init_deltas(data, &x_, &y_, i);
-	x_.delta = tan(ft_toradian(theta)) * data->dda[i].ysign;
-	y_.delta = 1 / (tan(ft_toradian(theta))) * data->dda[i].xsign;
+	x_.delta = tan_theta * data->dda[i].ysign;
+	y_.delta = 1 / tan_theta * data->dda[i].xsign;
 	ret = 0;
 
 //	printf("x_x: %lf, x_y : %lf\n", x_.x, x_.y);
@@ -166,18 +165,15 @@ void 	do_dist(t_data *data, t_intercept *x_, t_intercept *y_, int i)
 
 float	get_theta(t_data *data, int i)
 {
-	float theta;
-
 	if (data->vec[i].angle <= 90 && data->vec[i].angle > 0)
-		theta = data->vec[i].angle;
+		return(data->vec[i].angle);
 	else if (data->vec[i].angle <= 180 && data->vec[i].angle > 90)
-		theta = 90 - (data->vec[i].angle - 90);
+		return(90 - (data->vec[i].angle - 90));
 	else if (data->vec[i].angle <= 270 && data->vec[i].angle > 180)
-		theta = data->vec[i].angle - 180;
+		return(data->vec[i].angle - 180);
 	else if (data->vec[i].angle <= 360)
-		theta = 90 - (data->vec[i].angle - 270);
-//	printf("theta : %f\n", theta);
-	return (theta);
+		return(90 - (data->vec[i].angle - 270));
+	return (0);
 }
 
 void 	ft_init_deltas(t_data *data, t_intercept *x_, t_intercept *y_, int i)

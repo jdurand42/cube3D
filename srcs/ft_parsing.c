@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:36:37 by jdurand           #+#    #+#             */
-/*   Updated: 2019/11/19 14:29:38 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/11/28 13:57:42 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ int 	ft_parse_aline(t_data *data, int **map, char *line, int count)
 			if (line[i] == 'N' || line[i] == 'S' || line[i] == 'W'
 			|| line[i] == 'E')
 			{
-				data->posx = j;
-				data->posy = count;
+				data->posx = j + 0.5;
+				data->posy = count + 0.5;
 			}
 			map[count][j++] = line[i] - '0';
 			check++;

@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:55:14 by jdurand           #+#    #+#             */
-/*   Updated: 2019/11/26 19:13:27 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/11/28 16:27:48 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define speed 300
 # define speed_angle 2
 # define speed_div 0.001
-# define rayon 0.2
+# define rayon 0.1
 # define epsilon 0.5
 # define ABS(n) (n > 0) ? (n) : (-n)
 
@@ -138,5 +138,9 @@ unsigned int 	ft_choose_color(t_data *data, int i);
 
 void 	ft_keyboard_loop(t_data *data, int keycode);
 void	ft_do_colision(t_data *data, int choice);
+void 	ft_strife(t_data *data, int id);
+void 	ft_advance(t_data *data, float angle, int param);
+void 	ft_collision(t_data *data, float angle);
+void 	ft_collision_back(t_data *data, float angle);
 
 #endif

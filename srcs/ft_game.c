@@ -6,20 +6,11 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 17:26:07 by jdurand           #+#    #+#             */
-/*   Updated: 2019/11/26 17:47:32 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/11/28 15:55:22 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cube3D.h"
-
-/*
-** w = 13
-** s = 1
-** a = 0
-** d = 2
-** r = 15
-** esc = 53
-*/
 
 void 	ft_setbackground(t_data *data)
 {
@@ -65,7 +56,7 @@ int 	ft_main_loop(int keycode, void *params)
 	data = (t_data*)params;
 	printf("keycode %d\n", keycode);
 	ft_keyboard_loop(data, keycode);
-	printf("x, y: %lf, %lf post loop\n", data->posx, data->posy);
+//	printf("x, y: %lf, %lf post loop\n", data->posx, data->posy);
 	int i = 0;
 	ft_setbackground(data);
 	do_rays(data);

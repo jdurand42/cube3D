@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 14:08:39 by jdurand           #+#    #+#             */
-/*   Updated: 2019/11/26 19:29:31 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/11/28 15:58:03 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,20 +38,10 @@ void 	do_rays(t_data *data)
 
 	while (i < data->R[0])
 	{
-//		len = 0.1;
-
 		ft_setray(data, i);
 		while (data->vec[i].wall_type == -1)
 		{
-			//printf("%lf, %lf\n", data->vec[i].rotx, data->vec[i].roty);
-	//		ft_dda(data, data->R[0] / 2);
-//			printf("x: %f\n", data->vec[i].x1);
-//			printf("y : %f\n", data->vec[i].y1);
 			ft_dda(data, i);
-
-	//		if (data->map[(int)])
-			//data->vec[i].y1 = data->posy - (len * data->vec[i].roty)
-//			len += 0.01;
 		}
 		i++;
 	}
@@ -72,7 +62,7 @@ void 	ft_setray(t_data *data, int i)
 		data->vec[i].angle = data->vec[i].angle - 359;
 	else if (data->vec[i].angle < 0)
 		data->vec[i].angle = 0 + data->vec[i].angle;
-	printf("vec %d: angle: %lf\n", i, data->vec[i].angle);
+	//printf("vec %d: angle: %lf\n", i, data->vec[i].angle);
 	data->vec[i].rotx = cos(ft_toradian(data->vec[i].angle));
 	data->vec[i].roty = sin(ft_toradian(data->vec[i].angle));
 	data->vec[i].wall_type = -1;
@@ -94,9 +84,9 @@ void 	ft_do_colum(t_data *data)
 	while (i < data->R[0])
 	{
 		if (i < data->R[0])
-			distance = data->vec[i].dist_towall * cos(ft_toradian(30 - data->vec[i].angle_rela)) + epsilon;
+			distance = data->vec[i].dist_towall * cos(ft_toradian(30 - data->vec[i].angle_rela));
 		else if (i > data->R[0])
-			distance = data->vec[i].dist_towall * cos(ft_toradian(data->vec[i].angle_rela - 30)) + epsilon;
+			distance = data->vec[i].dist_towall * cos(ft_toradian(data->vec[i].angle_rela - 30));
 		if (distance < 1)
 			distance = 1;
 		hp = data->R[1] / distance;
