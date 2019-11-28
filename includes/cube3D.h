@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:55:14 by jdurand           #+#    #+#             */
-/*   Updated: 2019/11/28 16:27:48 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/11/28 17:22:30 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef struct	s_data
 	int					check;
 	int 				width;
 	int					height;
+	int 				exit_status;
 	float				posx;
 	float				posy;
 	float				angle;
@@ -110,7 +111,7 @@ int 	ft_game_loop(t_data *data, int **map);
 
 int 			ft_setup_mlx(t_data *data, int **map);
 void 	ft_setup_rays(t_data *data, int **map);
-int 	ft_main_loop(int keycode, void *params);
+int		ft_main_loop(int keycode, void *params);
 
 unsigned int 	ft_rgb(int r, int g, int b);
 float 			ft_toradian(float angle);
@@ -136,7 +137,7 @@ void 	ft_init_deltas(t_data *data, t_intercept *x_, t_intercept *y_, int i);
 
 unsigned int 	ft_choose_color(t_data *data, int i);
 
-void 	ft_keyboard_loop(t_data *data, int keycode);
+int 	ft_keyboard_loop(t_data *data, int keycode);
 void	ft_do_colision(t_data *data, int choice);
 void 	ft_strife(t_data *data, int id);
 void 	ft_advance(t_data *data, float angle, int param);
