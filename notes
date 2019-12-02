@@ -21,7 +21,7 @@ vecs:
 vectors struct :
           rays[W][2];
           0 -> x.y = pos_camera
-          1 -> x.y = 
+          1 -> x.y =
                   posrayon.x : pos_cam.x + (raylength * cos(angle+FOV)/2) - i-(m_fov/W));
                   posrayon.y : pos_cam.y + (raylength * sin(angle+FOV)/2) - i-(m_fov/W));
 
@@ -32,20 +32,20 @@ t_vector
   double pox2;
   double posy2;
  }
- 
+
  deplacement:
  position.x += dcos(angle*speedmove);
           .y -= sin()
- 
- 
+
+
  if (angle >360)  angle = 0
  if (angle < 0) angle = 360
- 
+
  du coup si N : angle = 0
             E : angle = 90
             S : angle = 180;
             W : angle = 180 + 90
 
 
-
-
+hp -> htex
+R  -> 1

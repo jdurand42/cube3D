@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 15:11:46 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/02 19:47:10 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/02 20:37:09 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,13 @@ void 	ft_do_colum(t_data *data)
 		if (hp <= data->R[1])
 			j = (data->R[1] / 2) - (hp / 2);
 		else
+		{
 			j = 0;
+			color.n_pixel = (color.hp - data->R[1]) / 2;
+		}
 		if (i == data->R[0] / 2)
 			printf("j : %lu\n", j);
-		while (j < (data->R[1] / 2) + (hp / 2))
+		while (j < (data->R[1] / 2) + (hp / 2) && j < data->R[1])
 		{
 			ft_get_tex_ypixel(data, &color);
 			data->img[j * data->sl + (data->R[0] - 1 - i) * 4 + 0] = color.color[0];

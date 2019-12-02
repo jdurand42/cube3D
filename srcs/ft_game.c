@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 17:26:07 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/02 18:17:56 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/02 21:01:01 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,17 +52,14 @@ void 	ft_putcamera(t_data *data)
 int	ft_main_loop(int keycode, void *params)
 {
 	t_data *data;
-	int 	exit;
 
 	data = (t_data*)params;
-	exit = 0;
 	printf("keycode %d\n", keycode);
-	exit = ft_keyboard_loop(data, keycode);
+	ft_keyboard_loop(data, keycode);
+	if (data->exit_status == 1)
+		exit(0);
 //	printf("x, y: %lf, %lf post loop\n", data->posx, data->posy);
 	int i = 0;
-	if (exit == 1)
-		data->exit_status = 1;
-	printf("%d\n", exit);
 	ft_setbackground(data);
 	do_rays(data);
 //	printf("wallx %lf, wally %lf, dist: %lf, angle %lf\n", data->vec[data->R[0] / 2].id_wallx
@@ -79,10 +76,10 @@ int 	ft_game_loop(t_data *data, int **map)
 	ft_setbackground(data);
 	do_rays(data);
 	mlx_key_hook(data->mlx_wd, ft_main_loop, data);
-//	if (data->exit_status == 1)
-//		exit(0);
+	printf("ddddddddd\n");
 //	printf("%d\n", data->exit_status); // ?????
 	mlx_loop(data->mlx_p);
+	printf("dasdadas");
 	return (1);
 }
 
@@ -99,6 +96,7 @@ int 	ft_setup_mlx(t_data *data, int **map)
 	data->img = mlx_get_data_addr(data->mlx_img, &(data->bpp), &(data->sl), &(data->endian));
 	if (!(ft_setup_tex(data)))
 		return (0);
+	data->exit_status = 0;
 	printf("bpp: %d, sizeline: %d, endian: %d\n", data->bpp, data->sl, data->endian);
 	return (1);
 }
