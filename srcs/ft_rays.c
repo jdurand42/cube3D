@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 14:08:39 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/02 17:04:21 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/02 18:16:58 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void 	ft_setup_rays(t_data *data, int **map)
 {
 	int 	i;
 	float pas = 60 / (double)data->R[0];
-	float len = 0.001;
 
 	i = 0;
 	if (!(data->vec = (t_vector*)malloc(data->R[0] * sizeof(t_vector))))

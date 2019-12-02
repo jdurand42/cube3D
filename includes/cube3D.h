@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:55:14 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/02 17:12:21 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/02 18:21:40 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define speed 300
 # define speed_angle 2
 # define speed_div 0.001
-# define rayon 0.1
+# define rayon 0.3
 # define epsilon 0.5
 # define ABS(n) (n > 0) ? (n) : (-n)
 
@@ -82,6 +82,15 @@ typedef struct	s_tex
 	int		bpp;
 	int		endian;
 }				t_tex;
+
+typedef struct s_color
+{
+	unsigned char 	color[3];
+	int 			tex_x;
+	int 			n_pixel;
+	int 			side;
+	int 			hp;
+}				t_color;
 
 typedef struct	s_data
 {
@@ -165,5 +174,7 @@ void 	free_paths(t_data *data);
 
 int	ft_setup_tex(t_data *data);
 void 	ft_get_info_tex(t_tex *tex);
+unsigned int 	ft_get_tex_xpixel(t_data *data, t_color *color, int i);
+void 	ft_get_tex_ypixel(t_data *data, t_color *color);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 15:11:46 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/02 17:13:21 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/02 18:21:43 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,25 +44,26 @@ void 	ft_do_colum(t_data *data)
 	unsigned long int		j = 0;
 	int		hp;
 	int		i = 0;
-	unsigned int 			color;
-	int 					n_pixel = 1;
+	t_color 			color;
 
 	while (i < data->R[0])
 	{
 		hp = ft_get_dist_info(data, i);
-		color = ft_choose_color(data, i);
+		color.tex_x = ft_get_tex_xpixel(data, &color, i);
+		color.hp = hp;
+		color.n_pixel = 1;
 		j = (data->R[1] / 2 * data->sl) - (hp / 2 * data->sl);
 			while (j >= (data->R[1] / 2 * data->sl) - (hp / 2 * data->sl) && j < (data->R[1] / 2 * data->sl) + (hp / 2 * data->sl))
 			{
-				data->img[j + (data->R[0] - 1 - i) * 4 + 0] = (char)(color >> 0);
-				data->img[j + (data->R[0] - 1 - i) * 4 + 1] = (char)(color >> 8);
-				data->img[j + (data->R[0] - 1 - i) * 4 + 2] = (char)(color >> 16);
+				ft_get_tex_ypixel(data, &color);
+				data->img[j + (data->R[0] - 1 - i) * 4 + 0] = color.color[0];
+				data->img[j + (data->R[0] - 1 - i) * 4 + 1] = color.color[1];
+				data->img[j + (data->R[0] - 1 - i) * 4 + 2] = color.color[2];
 				data->img[j + (data->R[0] - 1 - i) * 4 + 3] = (char)0;
 				j += data->sl;
-				n_pixel++;
+				color.n_pixel += 1;
 			}
 		i++;
-		n_pixel = 1;
 	}
 }
 
@@ -78,53 +79,49 @@ int 	ft_get_dist_info(t_data *data, int i)
 		distance = 1;
 	return (data->R[1] / distance);
 }
-/*
-unsigned int 	ft_choose_tex_pixel(t_data *data, int i, int hp)
+
+void 	ft_get_tex_ypixel(t_data *data, t_color *color)
 {
-	int	tex_w;
-	unsigned int color;
+	int	ypixel;
+	int i;
 
-	tex_x = ft_get_tex_pixel(data, i);
-	color = ft_regle_de_3(data, i, hp, tex_x);
-
+	i = color->side;
+	ypixel = (int)(data->tex[i].h * color->n_pixel / color->hp);
+	color->color[0] = data->tex[i].img[ypixel * data->tex[i].sl + (color->tex_x * 4)];
+	color->color[1] = data->tex[i].img[ypixel * data->tex[i].sl + (color->tex_x * 4) + 1];
+	color->color[2] = data->tex[i].img[ypixel * data->tex[i].sl + (color->tex_x * 4) + 2];
 }
 
-unsigned int ft_regle_de_3(t_data *data, int i, int hp, int tex_w, int n_pixel)
+unsigned int 	ft_get_tex_xpixel(t_data *data, t_color *color, int i)
 {
 	if (data->vec[i].wall_type == 1)
 	{
 		if (data->vec[i].roty > 0)
-	 	{
-
-		}//sud
-		else
-			return ((int)(data->tex[0].w * data->vec[i].id_wally)); // nord
-	}
-}
-
-unsigned int 	ft_get_tex_xpixel(t_data *data, int i)
-{
-	if (data->vec[i].wall_type == 1)
-	{
-		if (data->vec[i].roty > 0)
+		{
+			color->side = 2;
 			return ((int)(data->tex[2].w * data->vec[i].id_wally)); //sud
+		}
 		else
+		{
+			color->side = 0;
 			return ((int)(data->tex[0].w * data->vec[i].id_wally)); // nord
+		}
 	}
 	else
 	{
 		if (data->vec[i].rotx < 0)
-			return ((int)(data->tex[1].w * data->vec[i].wallx)); // E
+		{
+			color->side = 1;
+			return ((int)(data->tex[1].w * data->vec[i].id_wallx)); // E
+		}
 		else
-			return ((int)(data->tex[3].w * data->vec[i].wally)); // W
+		{
+			color->side = 3;
+			return ((int)(data->tex[3].w * data->vec[i].id_wallx)); // W
+		}
 	}
 }
-
-unsigned int 	ft_get_tex_pixel(t_data *data, t_tex *tex, int i)
-{
-
-}å
-*/
+/*
 unsigned int 	ft_choose_color(t_data *data, int i)
 {
 	if (data->vec[i].wall_type == 1)
@@ -142,7 +139,7 @@ unsigned int 	ft_choose_color(t_data *data, int i)
 			return (ft_rgb(0, 0, 0)); // W
 	}
 }
-
+*/
 
 /*
 ** wall_type 0 > x > E ou W
