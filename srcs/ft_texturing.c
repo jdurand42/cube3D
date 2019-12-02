@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 15:11:46 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/02 18:21:43 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/02 19:47:10 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void 	ft_get_info_tex(t_tex *tex)
 
 void 	ft_do_colum(t_data *data)
 {
-	unsigned long int		j = 0;
+	unsigned long		j = 0;
 	int		hp;
 	int		i = 0;
 	t_color 			color;
@@ -49,35 +49,49 @@ void 	ft_do_colum(t_data *data)
 	while (i < data->R[0])
 	{
 		hp = ft_get_dist_info(data, i);
+		if (i == data->R[0] / 2)
+			printf("hp in main: %d\n", hp);
 		color.tex_x = ft_get_tex_xpixel(data, &color, i);
 		color.hp = hp;
 		color.n_pixel = 1;
-		j = (data->R[1] / 2 * data->sl) - (hp / 2 * data->sl);
-			while (j >= (data->R[1] / 2 * data->sl) - (hp / 2 * data->sl) && j < (data->R[1] / 2 * data->sl) + (hp / 2 * data->sl))
-			{
-				ft_get_tex_ypixel(data, &color);
-				data->img[j + (data->R[0] - 1 - i) * 4 + 0] = color.color[0];
-				data->img[j + (data->R[0] - 1 - i) * 4 + 1] = color.color[1];
-				data->img[j + (data->R[0] - 1 - i) * 4 + 2] = color.color[2];
-				data->img[j + (data->R[0] - 1 - i) * 4 + 3] = (char)0;
-				j += data->sl;
-				color.n_pixel += 1;
-			}
+		if (hp <= data->R[1])
+			j = (data->R[1] / 2) - (hp / 2);
+		else
+			j = 0;
+		if (i == data->R[0] / 2)
+			printf("j : %lu\n", j);
+		while (j < (data->R[1] / 2) + (hp / 2))
+		{
+			ft_get_tex_ypixel(data, &color);
+			data->img[j * data->sl + (data->R[0] - 1 - i) * 4 + 0] = color.color[0];
+			data->img[j * data->sl + (data->R[0] - 1 - i) * 4 + 1] = color.color[1];
+			data->img[j * data->sl + (data->R[0] - 1 - i) * 4 + 2] = color.color[2];
+			data->img[j * data->sl + (data->R[0] - 1 - i) * 4 + 3] = (char)0;
+			j += 1;
+			color.n_pixel += 1;
+		}
 		i++;
 	}
 }
 
 int 	ft_get_dist_info(t_data *data, int i)
 {
-	float distance;
+	float 	distance;
+	double		hp;
 
 	if (i < data->R[0])
 		distance = data->vec[i].dist_towall * cos(ft_toradian(30 - data->vec[i].angle_rela));
 	else if (i > data->R[0])
 		distance = data->vec[i].dist_towall * cos(ft_toradian(data->vec[i].angle_rela - 30));
-	if (distance < 1)
-		distance = 1;
-	return (data->R[1] / distance);
+//	if (i == data->R[0] / 2)
+//		printf("d pre: %f\n", distance);
+	hp = data->R[1] / (double)distance;
+/*	if (i == data->R[0] / 2)
+	{
+		printf("d: %f, hp: %f\n", distance, hp);
+		printf("%d\n, %d\n", 1800 / distance, (int)(1800 / 0.50));
+	}*/
+	return ((int)(data->R[1] / distance));
 }
 
 void 	ft_get_tex_ypixel(t_data *data, t_color *color)
