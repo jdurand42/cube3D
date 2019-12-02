@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 17:26:07 by jdurand           #+#    #+#             */
-/*   Updated: 2019/11/28 17:26:02 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/02 14:26:55 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,25 @@ void 	ft_setbackground(t_data *data)
 {
 	int i = 0; int j = 0;
 
+	//printf("shift : %d\n", data->F - (data->F >> 8));
 	while (j < data->R[1])
 	{
 		while (i < (data->R[0] * 4))
 		{
 			if (j < data->R[1] / 2)
 			{
-				data->img[i + (j * data->size_line)] = (char)200;
-				data->img[i + 1 + (j * data->size_line)] = (char)200;
-				data->img[i + 2 + (j * data->size_line)] = (char)200;
-				data->img[i + 3 + (j * data->size_line)] = (char)0;
+				data->img[i + (j * data->sl)] = data->F >> 16;
+				data->img[i + 1 + (j * data->sl)] = data->F >> 8;
+				data->img[i + 2 + (j * data->sl)] = data->F >> 0;
+				data->img[i + 3 + (j * data->sl)] = (char)0;
 				i += 4;
 			}
 			else
 			{
-				data->img[i + (j * data->size_line)] = (char)101;
-				data->img[i + 1 + (j * data->size_line)] = (char)101;
-				data->img[i + 2 + (j * data->size_line)] = (char)101;
-				data->img[i + 3 + (j * data->size_line)] = (char)0;
+				data->img[i + (j * data->sl)] = data->C >> 16;
+				data->img[i + 1 + (j * data->sl)] = data->C >> 8;
+				data->img[i + 2 + (j * data->sl)] = data->C >> 0;
+				data->img[i + 3 + (j * data->sl)] = (char)0;
 				i += 4;
 			}
 		}
@@ -94,7 +95,7 @@ int 	ft_setup_mlx(t_data *data, int **map)
 	data->mlx_img = mlx_new_image(data->mlx_p, data->R[0], data->R[1]);
 	if (!data->mlx_img)
 		return (0);
-	data->img = mlx_get_data_addr(data->mlx_img, &(data->bit_p_p), &(data->size_line), &(data->endian));
-	printf("bpp: %d, sizeline: %d, endian: %d\n", data->bit_p_p, data->size_line, data->endian);
+	data->img = mlx_get_data_addr(data->mlx_img, &(data->bpp), &(data->sl), &(data->endian));
+	printf("bpp: %d, sizeline: %d, endian: %d\n", data->bpp, data->sl, data->endian);
 	return (1);
 }

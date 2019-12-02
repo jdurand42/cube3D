@@ -6,18 +6,18 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:36:37 by jdurand           #+#    #+#             */
-/*   Updated: 2019/11/28 19:09:44 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/02 14:25:58 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cube3D.h"
 
 
-void 	coloring(unsigned int *rgb, char *line, int *check)
+unsigned int 	coloring(char *line, int *check)
 {
 	size_t	j;
 	size_t	i;
-	unsigned char rgbt[3];
+	unsigned char rgb[3];
 
 	i = 0;
 	j = 0;
@@ -25,16 +25,19 @@ void 	coloring(unsigned int *rgb, char *line, int *check)
 		i++;
 	while (line[i] != 0 && j < 3)
 	{
-		rgbt[j++] = (unsigned char)ft_atoi(&line[++i]);
-		while (line[i] != 0 && line[i] != ',')
+		rgb[j++] = (unsigned char)ft_atoi(&line[i]);
+		while (line[i] != 0 && line[i] == ',')
 			i++;
 	}
 	if (j == 3)
 		*check += 1;
 	else
+	{
 		*check = -1;
-	*rgb = ft_rgb(rgbt[0], rgbt[1], rgbt[2]);
-	printf("color F-C: %u\n", *rgb);
+		return (0);
+	}
+	//printf("color F-C: %u\n", *rgb);
+	return (ft_rgb(rgb[0], rgb[1], rgb[2]));
 }
 
 void 	parse_color(t_data *data, char *line)
@@ -47,9 +50,9 @@ void 	parse_color(t_data *data, char *line)
 	while (line[i] != 0 && line[i] == ' ')
 		i++;
 	if (!ft_strncmp(&line[i], "F", 1))
-		coloring(&data->F, &line[i], &data->check);
+		data->F = coloring(&line[i], &data->check);
 	else if (!ft_strncmp(&line[i], "C", 1))
-		coloring(&data->C, &line[i], &data->check);
+		data->C = coloring(&line[i], &data->check);
 }
 
 int 	ft_parse_aline(t_data *data, int **map, char *line, int count)

@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 16:31:29 by jdurand           #+#    #+#             */
-/*   Updated: 2019/11/28 19:09:33 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/02 14:12:25 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ void 	ft_perform_dda(t_data *data, int i)
 {
 	float		tan_theta;
 	int 		ret;
-	t_intercept	x_;
-	t_intercept	y_;
+	t_int	x_;
+	t_int	y_;
 
 	tan_theta = tan(ft_toradian(get_theta(data, i)));
 	x_.delta = data->dda[i].dx * tan_theta;
@@ -91,7 +91,7 @@ void 	ft_perform_dda(t_data *data, int i)
 	//printf(GREEN "---\n" RESET);
 }
 
-int 	ft_dox(t_data *data, t_intercept *x_, int i)
+int 	ft_dox(t_data *data, t_int *x_, int i)
 {
 	//printf("deltax : %lf\nx, y : %lf %lf\n, x_, x_y: %lf %lf\n", x_->delta, data->posx, data->posy, x_->x, x_->y);
 	if (data->vec[i].rotx < 0)
@@ -118,7 +118,7 @@ int 	ft_dox(t_data *data, t_intercept *x_, int i)
 	return (0);
 }
 
-int 	ft_doy(t_data *data, t_intercept *y_, int i)
+int 	ft_doy(t_data *data, t_int *y_, int i)
 {
 	if (data->vec[i].roty > 0)
 	{
@@ -145,7 +145,7 @@ int 	ft_doy(t_data *data, t_intercept *y_, int i)
 }
 
 
-void 	do_dist(t_data *data, t_intercept *x_, t_intercept *y_, int i)
+void 	do_dist(t_data *data, t_int *x_, t_int *y_, int i)
 {
 	float	dist_x;
 	float	dist_y;
@@ -176,7 +176,7 @@ float	get_theta(t_data *data, int i)
 	return (0);
 }
 
-void 	ft_init_deltas(t_data *data, t_intercept *x_, t_intercept *y_, int i)
+void 	ft_init_deltas(t_data *data, t_int *x_, t_int *y_, int i)
 {
 	x_->x = data->vec[i].x1 + (data->dda[i].dx * data->dda[i].xsign);
 	x_->y = data->vec[i].y1 + (x_->delta * data->dda[i].ysign);

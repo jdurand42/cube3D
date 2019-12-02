@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:55:14 by jdurand           #+#    #+#             */
-/*   Updated: 2019/11/28 18:59:53 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/02 14:21:52 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,13 @@ typedef struct	s_cam
 	float	roty;
 }				t_cam;
 
-typedef	struct	s_intercept
+typedef	struct	s_int
 {
 	float	delta;
 	float	x;
 	float	y;
 	float	dist;
-}				t_intercept;
+}				t_int;
 
 typedef struct	s_dda
 {
@@ -92,9 +92,9 @@ typedef struct	s_data
 	void 				*mlx_p;
 	void 				*mlx_wd;
 	void 				*mlx_img;
-	int 				size_line;
+	int 				sl;
 	int 				endian;
-	int 				bit_p_p;
+	int 				bpp;
 	int 				**map;
 	struct s_vector 	*vec;
 	struct s_dda		*dda;
@@ -108,7 +108,7 @@ void 	parse_color(t_data *data, char *line);
 void 	parse_path(t_data *data, char *line);
 char	*pathing(char *path, char *line, int *check);
 void 	parse_res(t_data *data, char *line);
-void 	coloring(unsigned int *rgb, char *line, int *check);
+unsigned int 	coloring(char *line, int *check);
 
 int 	ft_game_loop(t_data *data, int **map);
 
@@ -131,12 +131,12 @@ void 	ft_do_colum(t_data *data);
 void 	ft_dda(t_data *data, int i);
 void 	ft_perform_dda(t_data *data, int i);
 float	get_theta(t_data *data, int i);
-void 	do_dist(t_data *data, t_intercept *x_, t_intercept *y_, int i);
+void 	do_dist(t_data *data, t_int *x_, t_int *y_, int i);
 
-int 	ft_dox(t_data *data, t_intercept *x_, int i);
-int 	ft_doy(t_data *data, t_intercept *y_, int i);
+int 	ft_dox(t_data *data, t_int *x_, int i);
+int 	ft_doy(t_data *data, t_int *y_, int i);
 
-void 	ft_init_deltas(t_data *data, t_intercept *x_, t_intercept *y_, int i);
+void 	ft_init_deltas(t_data *data, t_int *x_, t_int *y_, int i);
 
 unsigned int 	ft_choose_color(t_data *data, int i);
 
