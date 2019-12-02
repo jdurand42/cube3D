@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 17:26:07 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/02 14:26:55 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/02 16:33:00 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void 	ft_setbackground(t_data *data)
 {
 	int i = 0; int j = 0;
 
-	//printf("shift : %d\n", data->F - (data->F >> 8));
 	while (j < data->R[1])
 	{
 		while (i < (data->R[0] * 4))
@@ -66,6 +65,9 @@ int	ft_main_loop(int keycode, void *params)
 	printf("%d\n", exit);
 	ft_setbackground(data);
 	do_rays(data);
+	printf("wallx %lf, wally %lf, dist: %lf, angle %lf\n", data->vec[data->R[0] / 2].id_wallx
+	, data->vec[data->R[0] / 2].id_wally, data->vec[data->R[0] / 2].dist_towall, data->vec[data->R[0] / 2].angle);
+	//mlx_put_image_to_window(data->mlx_p, data->mlx_wd, data->tex[3].img_p, data->R[0] / 2, data->R[1] / 2);
 	return (0);
 }
 
@@ -87,15 +89,16 @@ int 	ft_game_loop(t_data *data, int **map)
 int 	ft_setup_mlx(t_data *data, int **map)
 {
 	data->map = map;
-	if ((data->mlx_p = mlx_init()))
-		printf("succes mlx\n");
-	data->mlx_wd = mlx_new_window(data->mlx_p, data->R[0], data->R[1], "Wolf3D");
-	if (data->mlx_wd)
-		printf("%p\n", data->mlx_wd);
+	if (!(data->mlx_p = mlx_init()))
+		return (0);
+	if (!(data->mlx_wd = mlx_new_window(data->mlx_p, data->R[0], data->R[1], "Wolf3D")))
+		return (0);
 	data->mlx_img = mlx_new_image(data->mlx_p, data->R[0], data->R[1]);
 	if (!data->mlx_img)
 		return (0);
 	data->img = mlx_get_data_addr(data->mlx_img, &(data->bpp), &(data->sl), &(data->endian));
+	if (!(ft_setup_tex(data)))
+		return (0);
 	printf("bpp: %d, sizeline: %d, endian: %d\n", data->bpp, data->sl, data->endian);
 	return (1);
 }

@@ -1,9 +1,9 @@
 R 1800 1000
-NO ./path_to_the_north_texture
-SO ./path_to_the_south_texture
-WE ./path_to_the_west_texture
-ES ./path_to_the_east_texture
-S ./path_to_the_sprite_texture
+NO ./textures_xpm/wood.xpm
+SO ./textures_xpm/redbrick.xpm
+WE ./textures_xpm/eagle.xpm
+ES ./textures_xpm/purplestone.xpm
+S ./path_to_sprite
 F 200,201,202
 C 101,101,101
 1 1 1 1 1 1 1 1 1 1

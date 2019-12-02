@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 14:08:39 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/02 14:26:06 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/02 17:04:21 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,38 +73,6 @@ void 	ft_setray(t_data *data, int i)
 //		data->vec[i].rotx, data->vec[i].roty);
 }
 
-void 	ft_do_colum(t_data *data)
-{
-	unsigned long int		j = 0;
-	int		hp;
-	int		i = 0;
-	float 	distance;
-	unsigned int 			color;
-
-	while (i < data->R[0])
-	{
-		if (i < data->R[0])
-			distance = data->vec[i].dist_towall * cos(ft_toradian(30 - data->vec[i].angle_rela));
-		else if (i > data->R[0])
-			distance = data->vec[i].dist_towall * cos(ft_toradian(data->vec[i].angle_rela - 30));
-		if (distance < 1)
-			distance = 1;
-		hp = data->R[1] / distance;
-	//		printf("%d, %lf\n", i, data->vec[i].angle_rela);
-		color = ft_choose_color(data, i);
-		j = (data->R[1] / 2 * data->sl) - (hp / 2 * data->sl);
-			while (j >= (data->R[1] / 2 * data->sl) - (hp / 2 * data->sl) && j < (data->R[1] / 2 * data->sl) + (hp / 2 * data->sl))
-			{
-				data->img[j + (data->R[0] - 1 - i) * 4 + 0] = (char)(color >> 0);
-				data->img[j + (data->R[0] - 1 - i) * 4 + 1] = (char)(color >> 8);
-				data->img[j + (data->R[0] - 1 - i) * 4 + 2] = (char)(color >> 16);
-				data->img[j + (data->R[0] - 1 - i) * 4 + 3] = (char)0;
-				j += data->sl;
-			}
-		i++;
-	}
-}
-
 /*
 ** wall_type 0 > x > E ou W
 ** wall_type 1 > y > N ou S
@@ -120,7 +88,7 @@ void 	ft_do_colum(t_data *data)
 **  -> rotx < 0 -> E
 **
 */
-
+/*
 unsigned int 	ft_choose_color(t_data *data, int i)
 {
 	if (data->vec[i].wall_type == 1)
@@ -138,3 +106,4 @@ unsigned int 	ft_choose_color(t_data *data, int i)
 			return (ft_rgb(0, 128, 128));
 	}
 }
+*/

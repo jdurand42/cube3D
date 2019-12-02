@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:55:14 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/02 14:21:52 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/02 17:12:21 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ typedef struct	s_vector
 	float 	angle_rela;
 	int		wall_type;
 	float	dist_towall;
+	float	id_wallx;
+	float	id_wally;
 }				t_vector;
 
 typedef struct	s_cam
@@ -70,6 +72,17 @@ typedef struct	s_dda
 	int		ysign;
 }				t_dda;
 
+typedef struct	s_tex
+{
+	void 	*img_p;
+	char	*img;
+	int		w;
+	int 	h;
+	int		sl;
+	int		bpp;
+	int		endian;
+}				t_tex;
+
 typedef struct	s_data
 {
 	int					check;
@@ -85,7 +98,6 @@ typedef struct	s_data
 	char 				*WE;
 	char 				*ES;
 	char 				*S;
-	char				tex[4];
 	unsigned int		F;
 	unsigned int		C;
 	char				*img;
@@ -99,6 +111,7 @@ typedef struct	s_data
 	struct s_vector 	*vec;
 	struct s_dda		*dda;
 	struct s_cam		cam;
+	struct s_tex		tex[4];
 }				t_data;
 
 int		ft_iserror(int code);
@@ -146,8 +159,11 @@ void 	ft_strife(t_data *data, int id);
 void 	ft_advance(t_data *data, float angle, int param);
 void 	ft_collision(t_data *data, float angle);
 void 	ft_collision_back(t_data *data, float angle);
-
+int 	ft_get_dist_info(t_data *data, int i);
 
 void 	free_paths(t_data *data);
+
+int	ft_setup_tex(t_data *data);
+void 	ft_get_info_tex(t_tex *tex);
 
 #endif

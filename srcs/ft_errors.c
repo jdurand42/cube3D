@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:33:42 by jdurand           #+#    #+#             */
-/*   Updated: 2019/11/18 15:23:26 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/02 15:24:53 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,6 @@ int		ft_iserror(int code)
 	else if (code == 2)
 		ft_putstr("Error\nWhile gnl\n");
 	else if (code == 3)
-		ft_putstr("Error\nIn game loop");
+		ft_putstr("Error\nIn game loop\n");
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 16:31:29 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/02 14:12:25 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/02 16:12:40 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,37 +16,24 @@ void 	ft_dda(t_data *data, int i)
 {
 	if (data->vec[i].rotx > 0) // Look right 270 - 90
 	{
-		// posx < dirx
 		data->dda[i].xsign = 1;
 		data->dda[i].dx = (int)(data->vec[i].x1) + 1 - data->vec[i].x1;
-//		if (data->dda[i].dx == (int)data->dda[i].dx)
-//			data->dda[i].dx = 1;
 	}
 	else if (data->vec[i].rotx < 0) // look left 90 - 270
 	{
-		//posx > dix
 		data->dda[i].xsign = -1;
 		data->dda[i].dx = data->vec[i].x1 - (int)(data->vec[i].x1);
-	//	if (data->dda[i].dx == (int)data->dda[i].dx)
-	//		data->dda[i].dx = 1;
 	}
 	if (data->vec[i].roty > 0) // look up 0 - 180
 	{
-		//posy > diry
 		data->dda[i].ysign = -1;
 		data->dda[i].dy = data->vec[i].y1 - (int)(data->vec[i].y1);
-//		if (data->dda[i].dy == (int)data->dda[i].dy)
-//			data->dda[i].dy = 1;
 	}
 	else if (data->vec[i].roty < 0) // look down 180 - 360
 	{
-		//posy < diry
 		data->dda[i].ysign = 1;
 		data->dda[i].dy = (int)(data->vec[i].y1) + 1 - data->vec[i].y1;
-	//	if (data->dda[i].dy == (int)data->dda[i].dy)
-	//		data->dda[i].dy = 1;
 	}
-
 //	printf("ray : %d, dx : %.15f, dy: %.15f, angle: %f\n", i, data->dda[i].dx, data->dda[i].dy, data->vec[i].angle);
 	ft_perform_dda(data, i);
 }
@@ -55,8 +42,8 @@ void 	ft_perform_dda(t_data *data, int i)
 {
 	float		tan_theta;
 	int 		ret;
-	t_int	x_;
-	t_int	y_;
+	t_int		x_;
+	t_int		y_;
 
 	tan_theta = tan(ft_toradian(get_theta(data, i)));
 	x_.delta = data->dda[i].dx * tan_theta;
@@ -100,17 +87,19 @@ int 	ft_dox(t_data *data, t_int *x_, int i)
 		{
 			x_->dist = sqrt(((x_->x - data->vec[i].x1) * (x_->x - data->vec[i].x1)) +
 			((x_->y - data->vec[i].y1) * (x_->y - data->vec[i].y1)));
+			data->vec[i].id_wallx = x_->y - (int)x_->y;
 			return (1);
 		}
 	}
 	else
 	{
-	if (data->map[(int)x_->y][(int)x_->x] > 0)
-	{
+		if (data->map[(int)x_->y][(int)x_->x] > 0)
+		{
 			x_->dist = sqrt(((x_->x - data->vec[i].x1) * (x_->x - data->vec[i].x1)) +
 			((x_->y - data->vec[i].y1) * (x_->y - data->vec[i].y1)));
+			data->vec[i].id_wallx = x_->y - (int)x_->y;
 			return (1);
-	}
+		}
 	}
 	x_->x += data->dda[i].xsign;
 	x_->y += x_->delta;
@@ -122,12 +111,13 @@ int 	ft_doy(t_data *data, t_int *y_, int i)
 {
 	if (data->vec[i].roty > 0)
 	{
-	if (data->map[(int)y_->y + data->dda[i].ysign][(int)y_->x] > 0)
-	{
-		y_->dist = sqrt(((y_->x - data->vec[i].x1) * (y_->x - data->vec[i].x1)) +
-		((y_->y - data->vec[i].y1) * (y_->y - data->vec[i].y1)));
-		return (1);
-	}
+		if (data->map[(int)y_->y + data->dda[i].ysign][(int)y_->x] > 0)
+		{
+			y_->dist = sqrt(((y_->x - data->vec[i].x1) * (y_->x - data->vec[i].x1)) +
+			((y_->y - data->vec[i].y1) * (y_->y - data->vec[i].y1)));
+			data->vec[i].id_wally = y_->x - (int)y_->x;
+			return (1);
+		}
 	}
 	else
 	{
@@ -135,6 +125,7 @@ int 	ft_doy(t_data *data, t_int *y_, int i)
 		{
 			y_->dist = sqrt(((y_->x - data->vec[i].x1) * (y_->x - data->vec[i].x1)) +
 			((y_->y - data->vec[i].y1) * (y_->y - data->vec[i].y1)));
+			data->vec[i].id_wally = y_->x - (int)y_->x;
 			return (1);
 		}
 	}
@@ -155,11 +146,13 @@ void 	do_dist(t_data *data, t_int *x_, t_int *y_, int i)
 	{
 		data->vec[i].wall_type = 0;
 		data->vec[i].dist_towall = x_->dist;
+		data->vec[i].id_wally = -1;
 	}
 	else
 	{
 		data->vec[i].wall_type = 1;
 		data->vec[i].dist_towall = y_->dist;
+		data->vec[i].id_wallx = -1;
 	}
 }
 
