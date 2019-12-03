@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:55:14 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/02 18:31:20 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/03 15:22:52 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ typedef struct	s_data
 	struct s_vector 	*vec;
 	struct s_dda		*dda;
 	struct s_cam		cam;
-	struct s_tex		tex[4];
+	struct s_tex		tex[5];
 }				t_data;
 
 int		ft_iserror(int code);

@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 15:11:46 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/02 20:37:09 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/03 15:26:31 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@ int	ft_setup_tex(t_data *data)
 	if (!(data->tex[3].img_p = mlx_xpm_file_to_image(data->mlx_p, data->WE,
 		&data->tex[3].w, &data->tex[3].h)))
 		return (0);
+	if (!(data->tex[4].img_p = mlx_xpm_file_to_image(data->mlx_p, data->S,
+		&data->tex[4].w, &data->tex[4].h)))
+		return (0);
 	//if sprites
 	ft_get_info_tex(data->tex);
 	return (1);
@@ -37,6 +40,7 @@ void 	ft_get_info_tex(t_tex *tex)
 	tex[1].img = mlx_get_data_addr(tex[1].img_p, &tex[1].bpp, &tex[1].sl, &tex[1].endian);
 	tex[2].img = mlx_get_data_addr(tex[2].img_p, &tex[2].bpp, &tex[2].sl, &tex[2].endian);
 	tex[3].img = mlx_get_data_addr(tex[3].img_p, &tex[3].bpp, &tex[3].sl, &tex[3].endian);
+	tex[4].img = mlx_get_data_addr(tex[4].img_p, &tex[4].bpp, &tex[4].sl, &tex[4].endian);
 }
 
 void 	ft_do_colum(t_data *data)
@@ -49,8 +53,6 @@ void 	ft_do_colum(t_data *data)
 	while (i < data->R[0])
 	{
 		hp = ft_get_dist_info(data, i);
-		if (i == data->R[0] / 2)
-			printf("hp in main: %d\n", hp);
 		color.tex_x = ft_get_tex_xpixel(data, &color, i);
 		color.hp = hp;
 		color.n_pixel = 1;
@@ -61,9 +63,7 @@ void 	ft_do_colum(t_data *data)
 			j = 0;
 			color.n_pixel = (color.hp - data->R[1]) / 2;
 		}
-		if (i == data->R[0] / 2)
-			printf("j : %lu\n", j);
-		while (j < (data->R[1] / 2) + (hp / 2) && j < data->R[1])
+		while (j <= (data->R[1] / 2) + (hp / 2) && j <  data->R[1])
 		{
 			ft_get_tex_ypixel(data, &color);
 			data->img[j * data->sl + (data->R[0] - 1 - i) * 4 + 0] = color.color[0];
@@ -86,14 +86,7 @@ int 	ft_get_dist_info(t_data *data, int i)
 		distance = data->vec[i].dist_towall * cos(ft_toradian(30 - data->vec[i].angle_rela));
 	else if (i > data->R[0])
 		distance = data->vec[i].dist_towall * cos(ft_toradian(data->vec[i].angle_rela - 30));
-//	if (i == data->R[0] / 2)
-//		printf("d pre: %f\n", distance);
 	hp = data->R[1] / (double)distance;
-/*	if (i == data->R[0] / 2)
-	{
-		printf("d: %f, hp: %f\n", distance, hp);
-		printf("%d\n, %d\n", 1800 / distance, (int)(1800 / 0.50));
-	}*/
 	return ((int)(data->R[1] / distance));
 }
 
@@ -138,26 +131,6 @@ unsigned int 	ft_get_tex_xpixel(t_data *data, t_color *color, int i)
 		}
 	}
 }
-/*
-unsigned int 	ft_choose_color(t_data *data, int i)
-{
-	if (data->vec[i].wall_type == 1)
-	{
-		if (data->vec[i].roty > 0)
-			return (ft_rgb(255, 0, 0)); //sud
-		else
-			return (ft_rgb(0, 255, 0)); // nord
-	}
-	else
-	{
-		if (data->vec[i].rotx < 0)
-			return (ft_rgb(0, 0, 255)); // E
-		else
-			return (ft_rgb(0, 0, 0)); // W
-	}
-}
-*/
-
 /*
 ** wall_type 0 > x > E ou W
 ** wall_type 1 > y > N ou S

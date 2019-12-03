@@ -1,9 +1,9 @@
-R 1800 1000
+R 1000 750
 NO ./textures_xpm/wood.xpm
 SO ./textures_xpm/redbrick.xpm
 WE ./textures_xpm/eagle.xpm
 ES ./textures_xpm/purplestone.xpm
-S ./path_to_sprite
+S ./sprites/king_gun.xpm
 F 200,201,202
 C 101,101,101
 1 1 1 1 1 1 1 1 1 1
