@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:55:14 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/03 15:22:52 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/03 19:51:02 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,28 @@
 # define speed_div 0.001
 # define rayon 0.1
 # define epsilon 0.5
-# define ABS(n) (n > 0) ? (n) : (-n)
+# define sprite_max 10
 
 # define GREEN   "\x1b[32m"
 # define RESET   "\x1b[0m"
 
 # define W_MAX 2560
 # define H_MAX 1440
+/*
+typedef struct	s_sprite
+{
+	float			dist;
+	float			x;
+	float			y;
+}				t_sprite;
+*/
+
+typedef struct	s_lst_sprite
+{
+	float				dist;
+	float				offset;
+	struct s_lst_sprite *next;
+}				t_lst_sprite;
 
 typedef struct	s_vector
 {
@@ -47,6 +62,7 @@ typedef struct	s_vector
 	float	dist_towall;
 	float	id_wallx;
 	float	id_wally;
+	t_lst_sprite	*sprite_lst;
 }				t_vector;
 
 typedef struct	s_cam
@@ -176,5 +192,13 @@ int	ft_setup_tex(t_data *data);
 void 	ft_get_info_tex(t_tex *tex);
 unsigned int 	ft_get_tex_xpixel(t_data *data, t_color *color, int i);
 void 	ft_get_tex_ypixel(t_data *data, t_color *color);
+
+void ft_check_sprite(t_data *data, t_int *coor, int i, int map_value);
+void ft_show_sprites(t_data *data);
+void	ft_lstadd_sprite(t_lst_sprite **alst, t_lst_sprite *new);
+t_lst_sprite 	*ft_lst_newsprite(float dist, float x, float y);
+void 	ft_do_colum_sprite(t_data *data, t_lst_sprite *sprite, int i);
+void 	ft_get_sprite_ypixel(t_data *data, t_color *sprite_c, t_lst_sprite *sprite);
+void ft_do_sprites(t_data *data);
 
 #endif
