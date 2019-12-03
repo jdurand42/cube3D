@@ -49,3 +49,10 @@ t_vector
 
 hp -> htex
 R  -> 1
+
+if (sprite dans champ de vision)
+->
+	distx = x - xsprite
+	disty = y - ysprite
+	distperp = distx^2 + disty^2
+	afficher au pixel correspondant

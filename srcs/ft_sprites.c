@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 15:45:29 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/03 19:51:05 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/03 21:30:53 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,18 @@
 
 void ft_check_sprite(t_data *data, t_int *coor, int i, int map_value)
 {
+	float				distx;
+	float 				disty;
 	float				dist;
 	t_lst_sprite		*new;
 
 	if (map_value != 2)
 		return ;
 
-	dist = sqrt(((coor->x - data->vec[i].x1) *
-	(coor->x - data->vec[i].x1)) +
-	((coor->y - data->vec[i].y1) * (coor->y - data->vec[i].y1)));
-	if (i < data->R[0] / 2)
-		dist *= cos(ft_toradian(30 - data->vec[i].angle_rela));
-	else if (i > data->R[0] / 2)
-		dist *= cos(ft_toradian(data->vec[i].angle_rela - 30));
+	distx = data->posx - (int)coor->x;
+	disty = data->posy - (int)coor->y;
+	dist = sqrt((distx * distx) + (disty * disty));
+	printf("distx, disty, dist: %f, %f, %f\n", distx, disty, dist);
 	if (!(new = ft_lst_newsprite(dist, coor->x, coor->y))) // with exit function after
 		return ;
 	ft_lstadd_sprite(&data->vec[i].sprite_lst, new);
@@ -93,10 +92,13 @@ void 	ft_do_colum_sprite(t_data *data, t_lst_sprite *sprite, int i)
 	while (j <= (data->R[1] / 2) + (color.hp / 2) && j <  data->R[1])
 	{
 		ft_get_sprite_ypixel(data, &color, sprite);
+		if (color.color[0] != 0 && color.color[1] != 0 && color.color[2] != 0)
+		{
 		data->img[j * data->sl + (data->R[0] - 1 - i) * 4 + 0] = color.color[0];
 		data->img[j * data->sl + (data->R[0] - 1 - i) * 4 + 1] = color.color[1];
 		data->img[j * data->sl + (data->R[0] - 1 - i) * 4 + 2] = color.color[2];
 		data->img[j * data->sl + (data->R[0] - 1 - i) * 4 + 3] = (char)0;
+		}
 		j += 1;
 		color.n_pixel += 1;
 	}

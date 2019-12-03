@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:55:14 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/03 19:51:02 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/03 21:06:32 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,5 +200,7 @@ t_lst_sprite 	*ft_lst_newsprite(float dist, float x, float y);
 void 	ft_do_colum_sprite(t_data *data, t_lst_sprite *sprite, int i);
 void 	ft_get_sprite_ypixel(t_data *data, t_color *sprite_c, t_lst_sprite *sprite);
 void ft_do_sprites(t_data *data);
+
+float ft_abs(float n);
 
 #endif
