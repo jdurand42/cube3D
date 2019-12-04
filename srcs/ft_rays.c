@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 14:08:39 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/03 21:09:31 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/04 17:57:23 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void 	ft_setup_rays(t_data *data, int **map)
 	{
 		data->vec[i].angle_rela = (float)i * pas;
 	//	printf("1: %lf ", data->vec[i].angle_rela);
-		data->vec[i].sprite_lst = NULL; // voir ou on free ca
+//		data->vec[i].sprite_lst = NULL; // voir ou on free ca
 		i++;
 	}
 }
@@ -45,8 +45,9 @@ void 	do_rays(t_data *data)
 		i++;
 	}
 	ft_do_colum(data);
-	ft_do_sprites(data);
+//	ft_do_sprites(data);
 	printf(GREEN "---------------\n" RESET);
+	ft_do_sprites(data);
 	mlx_put_image_to_window(data->mlx_p, data->mlx_wd, data->mlx_img, 0, 0);
 }
 
@@ -68,7 +69,7 @@ void 	ft_setray(t_data *data, int i)
 	data->vec[i].wall_type = -1;
 	//if (data->vec[i].sprite_lst)
 	//	ft_lstclear(data->vec[i].sprite_lst, ft_del_sprite);
-	data->vec[i].sprite_lst = NULL;
+	//data->vec[i].sprite_lst = NULL;
 
 //	if (i == data->R[0] / 2) //|| i == 0 || i == data->R[0] - 1)
 	//	printf(GREEN "ray %d: x1: %lf, y1: %lf\nangle : %lf\n, rotx : %lf, roty: %lf\n"

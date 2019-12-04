@@ -56,3 +56,15 @@ if (sprite dans champ de vision)
 	disty = y - ysprite
 	distperp = distx^2 + disty^2
 	afficher au pixel correspondant
+
+	n_first -> 0
+	n_last  -> tex.h
+	n_first -> 1
+	tex.h -> n_first - n_last;
+	pas	  ->
+
+	n_first - n_last -> tex->w
+	offset			-> 1
+
+
+	pas = n_first - n_last / pas

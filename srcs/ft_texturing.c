@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 15:11:46 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/03 19:42:48 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/04 17:49:30 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int 	ft_get_dist_info(t_data *data, int i)
 
 void 	ft_get_tex_ypixel(t_data *data, t_color *color)
 {
-	int	ypixel;
+	unsigned int	ypixel;
 	int i;
 
 	i = color->side;
