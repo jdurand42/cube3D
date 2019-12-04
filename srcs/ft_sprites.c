@@ -6,144 +6,93 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 15:45:29 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/04 18:09:00 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/04 20:44:00 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cube3D.h"
 
-void ft_check_sprite(t_data *data, t_int *coor, int i, int map_value)
+
+void 		ft_check_if_hit(t_data *data, int i, int map, t_int *coor)
 {
-	float				distx;
-	float 				disty;
-	float				dist;
-	t_lst_sprite		*new;
+	int s;
 
-	if (map_value != 2)
+	s = 0;
+	if (!(map == 2))
 		return ;
-
-	distx = data->posx - (int)coor->x;
-	disty = data->posy - (int)coor->y;
-	dist = sqrt((distx * distx) + (disty * disty));
-	printf("distx, disty, dist: %f, %f, %f\n", distx, disty, dist);
-	if (!(new = ft_lst_newsprite(dist, coor->x, coor->y))) // with exit function after
-		return ;
-	ft_lstadd_sprite(&data->vec[i].sprite_lst, new);
-	if (i == data->R[0] / 2)
-		printf("sprite ici : %f\n", data->vec[i].sprite_lst->dist);
-}
-
-void ft_show_sprites(t_data *data)
-{
-	int i;
-	t_lst_sprite *b;
-
-	i = 0;
-	while (i < data->R[0])
+	while (s < data->s_max)
 	{
-		if (data->vec[i].sprite_lst)
+		if (data->tsprite[s].x == (int)coor->x && data->tsprite[s].y == (int)coor->y)
 		{
-			printf("sprite in do sprite: %f, %f\n", data->vec[i].sprite_lst->dist, data->vec[i].sprite_lst->offset);
-			b = data->vec[i].sprite_lst->next;
-			while (b)
+			data->tsprite[s].hit |= 1;
+			if (data->tsprite[s].pixel_hit == -1)
 			{
-				printf("next sprite: %f, %f\n", b->dist, b->offset);
-				b = b->next;
+				data->tsprite[s].pixel_hit = i;
+				if ((int)coor->x == coor->x)
+					data->tsprite[s].offset = coor->x - (int)coor->x;
+				else
+				data->tsprite[s].offset = coor->y - (int)coor->y;
 			}
 		}
-		i++;
+		s++;
 	}
 }
 
-void ft_do_sprites(t_data *data)
+void 	ft_show_tsprite(t_sprite *tsprite, int s_max)
 {
-	int				i;
-	t_lst_sprite	*b;
+	int i;
 
 	i = 0;
-	while (i < data->R[0])
+	while (i < s_max)
 	{
-		b = data->vec[i].sprite_lst;
-		while (b)
-		{
-			ft_do_colum_sprite(data, b, i);
-			b = b->next;
-		}
+		printf("i : %d x, y: %d, %d, pix %d, hit: %d, dist: %f, offset: %f\n", i,
+		tsprite[i].x, tsprite[i].y, tsprite[i].pixel_hit, tsprite[i].hit, tsprite[i].dist,
+		tsprite[i].offset);
 		i++;
 	}
 }
 
-void 	ft_do_colum_sprite(t_data *data, t_lst_sprite *sprite, int i)
+void		ft_do_tsprite(t_data *data)
 {
-	unsigned long		j = 0;
-	int					hp;
-	t_color 			color;
-	int					n_pixel;
+	int x;
+	int y;
+	int	i;
 
-	color.hp = data->R[1] / sprite->dist;
-	color.n_pixel = 1;
-	if (color.hp <= data->R[1])
-	j = (data->R[1] / 2) - (color.hp / 2);
-	else
+	x = 0;
+	y = 0;
+	i = 0;
+	if (!(data->tsprite = (t_sprite*)malloc(data->s_max * sizeof(t_sprite))))
+		exit(0);
+	while (y < data->height)
 	{
-		j = 0;
-		color.n_pixel = (color.hp - data->R[1]) / 2;
-	}
-	while (j <= (data->R[1] / 2) + (color.hp / 2) && j <  data->R[1])
-	{
-		ft_get_sprite_ypixel(data, &color, sprite);
-		if (color.color[0] != 0 && color.color[1] != 0 && color.color[2] != 0)
+		while (x < data->width)
 		{
-		data->img[j * data->sl + (data->R[0] - 1 - i) * 4 + 0] = color.color[0];
-		data->img[j * data->sl + (data->R[0] - 1 - i) * 4 + 1] = color.color[1];
-		data->img[j * data->sl + (data->R[0] - 1 - i) * 4 + 2] = color.color[2];
-		data->img[j * data->sl + (data->R[0] - 1 - i) * 4 + 3] = (char)0;
+			if (data->map[y][x] == 2)
+			{
+				printf("%d, %d\n", x, y);
+				data->tsprite[i].x = x;
+				data->tsprite[i].y = y;
+				data->tsprite[i].pixel_hit = -1;
+				data->tsprite[i].hit = 0;
+				data->tsprite[i].offset = -1;
+				i++;
+			}
+			x++;
 		}
-		j += 1;
-		color.n_pixel += 1;
+		x = 0;
+		y++;
 	}
 }
 
-void 	ft_get_sprite_ypixel(t_data *data, t_color *sprite_c, t_lst_sprite *sprite)
+void 	ft_reset_tsprite(t_sprite *tsprite, int s_max)
 {
-	int	ypixel;
-	int offset;
-	int sl;
+	int i = 0;
 
-	ypixel = (int)(data->tex[4].h * sprite_c->n_pixel / sprite_c->hp);
-	offset = (int)(sprite->offset * data->tex[4].w);
-	sl = data->tex[4].sl;
-	sprite_c->color[0] = data->tex[4].img[ypixel * sl + (offset * 4)];
-	sprite_c->color[1] = data->tex[4].img[ypixel * sl + (offset * 4) + 1];
-	sprite_c->color[2] = data->tex[4].img[ypixel * sl + (offset * 4) + 2];
-}
-
-void	ft_lstadd_sprite(t_lst_sprite **alst, t_lst_sprite *new)
-{
-	if (new == NULL || alst == NULL)
-		return ;
-	if (*alst == NULL)
+	while (i < s_max)
 	{
-		*alst = new;
-		return ;
+		tsprite[i].pixel_hit = -1;
+		tsprite[i].hit = 0;
+		tsprite[i].offset = -1;
+		i++;
 	}
-	new->next = *alst;
-	*alst = new;
-}
-
-t_lst_sprite 	*ft_lst_newsprite(float dist, float x, float y)
-{
-	t_lst_sprite *sprite;
-
-	if (!(sprite = (t_lst_sprite*)malloc(sizeof(t_lst_sprite))))
-		return (NULL);
-	sprite->dist = dist;
-	if ((int)y < y)
-		sprite->offset = y - (int)y;
-	else if ((int)x < x)
-		sprite->offset = x - (int)x;
-	else
-		sprite->offset = 0;
-	sprite->next = NULL;
-	return (sprite);
 }

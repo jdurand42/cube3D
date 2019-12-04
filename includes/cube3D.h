@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:55:14 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/03 21:06:32 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/04 20:41:23 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@
 # define speed_div 0.001
 # define rayon 0.1
 # define epsilon 0.5
-# define sprite_max 10
 
 # define GREEN   "\x1b[32m"
 # define RESET   "\x1b[0m"
@@ -43,13 +42,6 @@ typedef struct	s_sprite
 }				t_sprite;
 */
 
-typedef struct	s_lst_sprite
-{
-	float				dist;
-	float				offset;
-	struct s_lst_sprite *next;
-}				t_lst_sprite;
-
 typedef struct	s_vector
 {
 	float	x1;
@@ -62,7 +54,6 @@ typedef struct	s_vector
 	float	dist_towall;
 	float	id_wallx;
 	float	id_wally;
-	t_lst_sprite	*sprite_lst;
 }				t_vector;
 
 typedef struct	s_cam
@@ -108,6 +99,16 @@ typedef struct s_color
 	int 			hp;
 }				t_color;
 
+typedef struct s_sprite
+{
+	int		x;
+	int		y;
+	int		pixel_hit;
+	int		hit;
+	float	dist;
+	float	offset;
+}				t_sprite;
+
 typedef struct	s_data
 {
 	int					check;
@@ -133,10 +134,12 @@ typedef struct	s_data
 	int 				endian;
 	int 				bpp;
 	int 				**map;
+	int					s_max;
 	struct s_vector 	*vec;
 	struct s_dda		*dda;
 	struct s_cam		cam;
 	struct s_tex		tex[5];
+	struct s_sprite		*tsprite;
 }				t_data;
 
 int		ft_iserror(int code);
@@ -193,13 +196,10 @@ void 	ft_get_info_tex(t_tex *tex);
 unsigned int 	ft_get_tex_xpixel(t_data *data, t_color *color, int i);
 void 	ft_get_tex_ypixel(t_data *data, t_color *color);
 
-void ft_check_sprite(t_data *data, t_int *coor, int i, int map_value);
-void ft_show_sprites(t_data *data);
-void	ft_lstadd_sprite(t_lst_sprite **alst, t_lst_sprite *new);
-t_lst_sprite 	*ft_lst_newsprite(float dist, float x, float y);
-void 	ft_do_colum_sprite(t_data *data, t_lst_sprite *sprite, int i);
-void 	ft_get_sprite_ypixel(t_data *data, t_color *sprite_c, t_lst_sprite *sprite);
-void ft_do_sprites(t_data *data);
+void ft_do_tsprite(t_data * data);
+void 		ft_check_if_hit(t_data *data, int i, int map, t_int *coor);
+void 	ft_show_tsprite(t_sprite *tsprite, int s_max);
+void 	ft_reset_tsprite(t_sprite *tsprite, int s_max);
 
 float ft_abs(float n);
 

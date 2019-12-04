@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 14:45:47 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/02 20:50:12 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/04 20:20:57 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int 	ft_keyboard_loop(t_data *data, int keycode)
 {
 //	printf("angle: %lf\n", data->cam.angle);
 //	printf("x, y: %lf, %lf\n", data->posx, data->posy);
-	printf("keycode: %d\n", keycode);
+	//printf("keycode: %d\n", keycode);
 	printf("angle: %lf\n", data->cam.angle);
 	if (keycode == 13)
 		ft_collision(data, data->cam.angle);

@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:36:37 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/03 20:44:17 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/04 20:35:17 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,17 @@ int 	ft_parse_aline(t_data *data, int **map, char *line, int count)
 			return (-1);
 		if (ft_isargvalid(line[i]))
 		{
+			if (line[i] - '0' == 2)
+				data->s_max += 1;
 			if (line[i] == 'N' || line[i] == 'S' || line[i] == 'W'
 			|| line[i] == 'E')
 			{
 				data->posx = j;
-				data->posy = count;
+				data->posy = count; // on remet pas la pos a zero?
+				map[count][j++] = 0;
 			}
-			map[count][j++] = line[i] - '0';
+			else
+				map[count][j++] = line[i] - '0';
 			check++;
 		}
 		i++;
@@ -121,6 +125,7 @@ int		**ft_parse_stuff(t_data *data, int fd)
 
 	i = 0;
 	data->check = 0;
+	data->s_max = 0;
 	count = 0;
 	lst = NULL;
 	while (get_next_line(fd, &line) > 0)
