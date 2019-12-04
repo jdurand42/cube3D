@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 15:45:29 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/04 20:44:00 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/04 20:46:33 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,11 @@ void 		ft_check_if_hit(t_data *data, int i, int map, t_int *coor)
 			if (data->tsprite[s].pixel_hit == -1)
 			{
 				data->tsprite[s].pixel_hit = i;
-				if ((int)coor->x == coor->x)
+				if ((int)coor->x != coor->x)
 					data->tsprite[s].offset = coor->x - (int)coor->x;
 				else
-				data->tsprite[s].offset = coor->y - (int)coor->y;
+					data->tsprite[s].offset = coor->y - (int)coor->y;
+				
 			}
 		}
 		s++;
