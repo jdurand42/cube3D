@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:55:14 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/04 20:41:23 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/05 19:22:16 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,11 @@ typedef struct s_sprite
 	int		pixel_hit;
 	int		hit;
 	float	dist;
+	float   distx;
+	float	disty;
 	float	offset;
+	int	sizex;
+	int	sizey;
 }				t_sprite;
 
 typedef struct	s_data
@@ -197,10 +201,16 @@ unsigned int 	ft_get_tex_xpixel(t_data *data, t_color *color, int i);
 void 	ft_get_tex_ypixel(t_data *data, t_color *color);
 
 void ft_do_tsprite(t_data * data);
-void 		ft_check_if_hit(t_data *data, int i, int map, t_int *coor);
+void 		ft_check_if_hit(t_data *data);
 void 	ft_show_tsprite(t_sprite *tsprite, int s_max);
 void 	ft_reset_tsprite(t_sprite *tsprite, int s_max);
+void 	ft_do_dist_sprite(t_data *data);
+void 	ft_draw_sprites(t_data *data);
+void 	ft_draw_a_colum_sprite(t_data *data, int tex_x, int pixel_hit, t_sprite *sprite);
 
 float ft_abs(float n);
+
+void 	ft_do_sort_sprite(t_data *data);
+void 	ft_swap_sprite(t_sprite *a, t_sprite *b);
 
 #endif

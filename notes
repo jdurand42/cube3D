@@ -56,3 +56,55 @@ if (sprite dans champ de vision)
 	disty = y - ysprite
 	distperp = distx^2 + disty^2
 	afficher au pixel correspondant
+
+afficher une sprite:
+
+
+calculer distance;
+calculer la taille en h et en w;
+les triers;
+colorier chaque colonne comme les textures
+colorier en x a partir du pixel hit (1 - offset)
+
+coloriage:
+
+R 	  -> tex.h
+sizey -> ?
+intervalley = sizey * tex.h / R
+
+data->R[0] / 2 -> tex.w
+sizex          -> ?
+intervallex = sizex * tex.w / dat->R[0] / 2
+
+1      -> intervallex
+offset ->                   // tout ce qu'il y a a colorier
+
+
+
+pour les x :
+tex.w * offset, incrementer offset par rapport au pas de chaque rayon ?
+tant que on dessine le nombre de pixel voulu avec i < sizex?
+
+while (pixel dessiner < sizex)
+{
+	x = tex.w * offset
+	if (pixel_hit.dist < dist mur)
+		do y(x)
+	x = tex.w * pixel_dessiner * offset;
+	pixel_dessiner++;
+	pxel_hit++;
+}
+
+do y -> while (intervalle classique)
+{
+	dessiner (y tex + x) de tex into (j + pixel_hit)
+}
+
+okay l'elite
+
+on peut considerer que:
+
+pixel_hit = le premier pixel a partir de ou dessiner
+sizex: la taille en pixelx a dessiner
+sizey: la taille en pixely a dessiner
+offset: le ratio de 0 a 1 a partir duquel dessiner le sprite, o si en entier

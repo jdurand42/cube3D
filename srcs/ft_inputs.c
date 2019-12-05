@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 14:45:47 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/05 13:46:36 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/05 18:19:08 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int 	ft_keyboard_loop(t_data *data, int keycode)
 	else if (keycode == 53)
 		data->exit_status = 1;
 	if (data->cam.angle > 359)
-		data->cam.angle = 0;
+		data->cam.angle = 1;
 	else if (data->cam.angle < 0)
 		data->cam.angle = 359;
 	return (0);
@@ -131,7 +131,7 @@ void 	ft_strife(t_data *data, int id)
 	if (strife_angle > 359)
 		strife_angle = strife_angle - 360;
 	else if (strife_angle < 0)
-		strife_angle = 270 + data->cam.angle;
+		strife_angle = 360 + strife_angle;
 //	printf("%lf, %lf\n", data->cam.angle, strife_angle);
 	ft_collision(data, strife_angle);
 }

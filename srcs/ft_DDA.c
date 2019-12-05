@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 16:31:29 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/04 20:43:42 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/05 17:39:50 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int 	ft_dox(t_data *data, t_int *x_, int i)
 			data->vec[i].id_wallx = x_->y - (int)x_->y;
 			return (1);
 		}
-		ft_check_if_hit(data, i, data->map[(int)x_->y][(int)x_->x + data->dda[i].xsign], x_);
+	//	ft_check_if_hit(data, i, data->map[(int)x_->y][(int)x_->x + data->dda[i].xsign], x_);
 	}
 	else
 	{
@@ -101,7 +101,7 @@ int 	ft_dox(t_data *data, t_int *x_, int i)
 			data->vec[i].id_wallx = x_->y - (int)x_->y;
 			return (1);
 		}
-		ft_check_if_hit(data, i, data->map[(int)x_->y][(int)x_->x], x_);
+	//	ft_check_if_hit(data, i, data->map[(int)x_->y][(int)x_->x], x_);
 	}
 	x_->x += data->dda[i].xsign;
 	x_->y += x_->delta;
@@ -120,7 +120,7 @@ int 	ft_doy(t_data *data, t_int *y_, int i)
 			data->vec[i].id_wally = y_->x - (int)y_->x;
 			return (1);
 		}
-		ft_check_if_hit(data, i, data->map[(int)y_->y + data->dda[i].ysign][(int)y_->x], y_);
+		//ft_check_if_hit(data, i, data->map[(int)y_->y + data->dda[i].ysign][(int)y_->x], y_);
 	}
 	else
 	{
@@ -131,7 +131,7 @@ int 	ft_doy(t_data *data, t_int *y_, int i)
 			data->vec[i].id_wally = y_->x - (int)y_->x;
 			return (1);
 		}
-		ft_check_if_hit(data, i, data->map[(int)y_->y][(int)y_->x], y_);
+		//ft_check_if_hit(data, i, data->map[(int)y_->y][(int)y_->x], y_);
 	}
 	y_->y += data->dda[i].ysign;
 	y_->x += y_->delta;

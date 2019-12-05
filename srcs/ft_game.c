@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 17:26:07 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/04 20:43:40 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/05 19:24:36 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	ft_main_loop(int keycode, void *params)
 	int i = 0;
 	ft_setbackground(data);
 	do_rays(data);
-	ft_show_tsprite(data->tsprite, data->s_max);
+//	ft_show_tsprite(data->tsprite, data->s_max);
 //	printf("wallx %lf, wally %lf, dist: %lf, angle %lf\n", data->vec[data->R[0] / 2].id_wallx
 //	, data->vec[data->R[0] / 2].id_wally, data->vec[data->R[0] / 2].dist_towall, data->vec[data->R[0] / 2].angle);
 	//mlx_put_image_to_window(data->mlx_p, data->mlx_wd, data->tex[3].img_p, data->R[0] / 2, data->R[1] / 2);
@@ -75,9 +75,9 @@ int 	ft_game_loop(t_data *data, int **map)
 	if (!ft_setup_mlx(data, map))
 		return (0);
 	ft_do_tsprite(data);
-	ft_show_tsprite(data->tsprite, data->s_max);
 	ft_setup_rays(data, map);
 	ft_setbackground(data);
+	ft_show_tsprite(data->tsprite, data->s_max);
 	do_rays(data);
 	mlx_key_hook(data->mlx_wd, ft_main_loop, data);
 	//printf("ddddddddd\n");
