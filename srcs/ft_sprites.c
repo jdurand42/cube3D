@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 15:45:29 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/05 20:55:31 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/05 20:58:20 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void 		ft_check_if_hit(t_data *data) // marchera pas dans le dda
 				theta = data->vec[i].angle_rela;
 				if (theta > 30)
 				 	theta = theta - 30;
+				else if (theta < 30)
+					theta = 30 - theta;
 				tan_theta = tan(ft_toradian(theta));
 				delta = data->tsprite[s].dist * tan_theta;
 				dist_r = sqrt(delta * delta + data->tsprite[s].dist * data->tsprite[s].dist);
