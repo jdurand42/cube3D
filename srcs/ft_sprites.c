@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 15:45:29 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/05 19:53:44 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/05 20:55:31 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,24 @@ void 		ft_check_if_hit(t_data *data) // marchera pas dans le dda
 	int s = 0;
 	int i = 0;
 	float x, y;
+	float theta;
+	float dist_r;
+	float delta;
+	float tan_theta;
 
 	while (s < data->s_max)
 	{
 		while (i < data->R[0])
 		{
-			x = data->posx + ((data->tsprite[s].dist * cos(ft_toradian(data->vec[i].angle_rela))) * data->vec[i].rotx);
-			y = data->posy - ((data->tsprite[s].dist * cos(ft_toradian(data->vec[i].angle_rela))) * data->vec[i].roty);
+				theta = data->vec[i].angle_rela;
+				if (theta > 30)
+				 	theta = theta - 30;
+				tan_theta = tan(ft_toradian(theta));
+				delta = data->tsprite[s].dist * tan_theta;
+				dist_r = sqrt(delta * delta + data->tsprite[s].dist * data->tsprite[s].dist);
+				printf("%f\n", dist_r);
+				x = data->posx + (dist_r * data->vec[i].rotx);
+				y = data->posy - (dist_r * data->vec[i].roty);
 		//	if ((int)y == (int)data->tsprite[s].y && (int)x == (int)data->tsprite[s].x)
 				printf(GREEN "sp n : %d, RAYON: %i, x, y hit: %f, %f\n" RESET, s, i, x, y);
 			i++;
