@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 15:45:29 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/04 20:46:33 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/05 13:54:36 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,23 @@
 void 		ft_check_if_hit(t_data *data, int i, int map, t_int *coor)
 {
 	int s;
+	int ysign;
+	int xsign;
 
 	s = 0;
 	if (!(map == 2))
 		return ;
+	if (data->vec[i].rotx > 0)
+		xsign = 0;
+	else
+		xsign = -1;
+	if (data->vec[i].roty > 0)
+		ysign = -1;
+	else
+		ysign = 0;
 	while (s < data->s_max)
 	{
-		if (data->tsprite[s].x == (int)coor->x && data->tsprite[s].y == (int)coor->y)
+		if ((int)coor->x + xsign == data->tsprite[s].x && (int)coor->y + ysign == data->tsprite[s].y)
 		{
 			data->tsprite[s].hit |= 1;
 			if (data->tsprite[s].pixel_hit == -1)
@@ -32,7 +42,7 @@ void 		ft_check_if_hit(t_data *data, int i, int map, t_int *coor)
 					data->tsprite[s].offset = coor->x - (int)coor->x;
 				else
 					data->tsprite[s].offset = coor->y - (int)coor->y;
-				
+
 			}
 		}
 		s++;
@@ -73,9 +83,6 @@ void		ft_do_tsprite(t_data *data)
 				printf("%d, %d\n", x, y);
 				data->tsprite[i].x = x;
 				data->tsprite[i].y = y;
-				data->tsprite[i].pixel_hit = -1;
-				data->tsprite[i].hit = 0;
-				data->tsprite[i].offset = -1;
 				i++;
 			}
 			x++;
@@ -83,6 +90,7 @@ void		ft_do_tsprite(t_data *data)
 		x = 0;
 		y++;
 	}
+	ft_reset_tsprite(data->tsprite, data->s_max);
 }
 
 void 	ft_reset_tsprite(t_sprite *tsprite, int s_max)
