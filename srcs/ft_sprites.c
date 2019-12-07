@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 15:45:29 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/07 14:43:29 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/07 18:08:32 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,22 +39,14 @@ void 		ft_check_if_hit(t_data *data) // marchera pas dans le dda
 			///	printf("%f\n", dist_r);
 				x = data->posx + (data->tsprite[s].dist * data->vec[i].rotx);
 				y = data->posy - (data->tsprite[s].dist * data->vec[i].roty);
-			if (data->vec[i].roty > 0)
-				ysign = -1;
-			else
-				ysign = 1;
-			if (data->vec[i].rotx < 0)
-				xsign = -1;
-			else
-				xsign = 1;
 			if ((int)y == (int)data->tsprite[s].y && (int)x == (int)data->tsprite[s].x)
 			{
-				//printf(GREEN "sp n : %d, RAYON: %i, x, y hit: %f, %f\n" RESET, s, i, x, y);
-				if (data->tsprite[s].hit == 0)
-				{
+				printf(GREEN "sp n : %d, RAYON: %i, x, y hit: %f, %f\n" RESET, s, i, x, y);
+				if (data->tsprite[s].pixel_hit == -1)
 					data->tsprite[s].pixel_hit = i;
-					data->tsprite[s].hit = 1;
-				}
+				else
+					data->tsprite[s].pixel_last = i;
+				data->tsprite[s].hit |= 1;
 			}
 			i++;
 		}
@@ -74,7 +66,7 @@ void 	ft_do_dist_sprite(t_data *data)
 	while (i < data->s_max)
 	{
 		distx = data->posx - (data->tsprite[i].x + 0.5);
-		disty = data->posy - (data->tsprite[i].y + 0.5);
+		disty = data->posy - (data->tsprite[i].y +  0.5);
 		data->tsprite[i].distx = distx;
 		data->tsprite[i].disty = disty;
 		data->tsprite[i].dist = sqrt((distx * distx) + (disty * disty));
@@ -141,7 +133,7 @@ void 	ft_reset_tsprite(t_sprite *tsprite, int s_max)
 	{
 		tsprite[i].pixel_hit = -1;
 		tsprite[i].hit = 0;
-		tsprite[i].offset = -1;
+		tsprite[i].pixel_last = -1;
 		tsprite[i].dist = -1;
 		tsprite[i].dist = -1;
 		tsprite[i].dist = -1;
@@ -160,20 +152,47 @@ void 	ft_draw_sprites(t_data *data)
 		if (data->tsprite[n].hit == 1)
 		{
 			hp = data->R[1] / data->tsprite[n].dist;
-			w_sprite = hp / 2;
+			w_sprite = (data->tsprite[n].pixel_last - data->tsprite[n].pixel_hit);
 			i = data->tsprite[n].pixel_hit;
-			while (i < data->R[0] && i < data->tsprite[n].pixel_hit + w_sprite)
-			{
-				if (data->tsprite[n].dist < data->vec[i].dist_towall) // draw a collum
-					ft_draw_a_colum_sprite(data, i, hp);
-				i++;
-			}
+		//	if (i > data->R[0] / 2)
+				while (i < data->R[0] && i < data->tsprite[n].pixel_hit + w_sprite)
+				{
+					if (data->tsprite[n].dist < data->vec[i].dist_towall) // draw a collum
+							ft_draw_a_colum_sprite(data, i, hp);
+					i++;
+				}
+		//	else
+		//	{
+
+		//		i = data->tsprite[n].pixel_last - w_sprite;
+		//		printf("i: %d\nlsat - hit: %d, width: %d\n", i, data->tsprite[n].pixel_last - data->tsprite[n].pixel_hit, w_sprite);
+		//	}
 		}
 		n++;
 	}
 }
 
 void 	ft_draw_a_colum_sprite(t_data *data, int i, int hp)
+{
+	unsigned long		j = 0;
+
+	if (hp <= data->R[1])
+		j = (data->R[1] / 2) - (hp / 2);
+	else
+	{
+		j = 0;
+	}
+		while (j <= (data->R[1] / 2) + (hp / 2) && j <  data->R[1])
+		{
+			data->img[j * data->sl + (data->R[0] - 1 - i) * 4 + 0] = (char)0;
+			data->img[j * data->sl + (data->R[0] - 1 - i) * 4 + 1] = (char)0;
+			data->img[j * data->sl + (data->R[0] - 1 - i) * 4 + 2] = (char)255;
+			data->img[j * data->sl + (data->R[0] - 1 - i) * 4 + 3] = (char)0;
+			j++;
+		}
+}
+
+void 	ft_draw_a_colum_sprite_rev(t_data *data, int i, int hp)
 {
 	unsigned long		j = 0;
 

@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:55:14 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/07 14:35:52 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/07 17:32:30 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ typedef struct s_sprite
 	float	x;
 	float	y;
 	int		pixel_hit;
+	int		pixel_last;
 	int		hit;
 	float	dist;
 	float   distx;
@@ -199,10 +200,12 @@ void 	ft_reset_tsprite(t_sprite *tsprite, int s_max);
 void 	ft_do_dist_sprite(t_data *data);
 void 	ft_draw_sprites(t_data *data);
 void 	ft_draw_a_colum_sprite(t_data *data, int i, int hp);
+void 	ft_draw_a_colum_sprite_rev(t_data *data, int i, int hp);
 
 float ft_abs(float n);
 
 void 	ft_do_sort_sprite(t_data *data);
 void 	ft_swap_sprite(t_sprite *a, t_sprite *b);
+
 
 #endif
