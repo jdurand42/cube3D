@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:55:14 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/05 19:22:16 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/07 14:35:52 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,6 @@
 
 # define W_MAX 2560
 # define H_MAX 1440
-/*
-typedef struct	s_sprite
-{
-	float			dist;
-	float			x;
-	float			y;
-}				t_sprite;
-*/
 
 typedef struct	s_vector
 {
@@ -101,8 +93,8 @@ typedef struct s_color
 
 typedef struct s_sprite
 {
-	int		x;
-	int		y;
+	float	x;
+	float	y;
 	int		pixel_hit;
 	int		hit;
 	float	dist;
@@ -206,7 +198,7 @@ void 	ft_show_tsprite(t_sprite *tsprite, int s_max);
 void 	ft_reset_tsprite(t_sprite *tsprite, int s_max);
 void 	ft_do_dist_sprite(t_data *data);
 void 	ft_draw_sprites(t_data *data);
-void 	ft_draw_a_colum_sprite(t_data *data, int tex_x, int pixel_hit, t_sprite *sprite);
+void 	ft_draw_a_colum_sprite(t_data *data, int i, int hp);
 
 float ft_abs(float n);
 
