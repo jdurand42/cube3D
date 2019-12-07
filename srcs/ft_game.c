@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 17:26:07 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/07 12:22:57 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/07 20:50:45 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	ft_main_loop(int keycode, void *params)
 	data = (t_data*)params;
 	printf("keycode %d\n", keycode);
 	ft_keyboard_loop(data, keycode);
-	ft_reset_tsprite(data->tsprite, data->s_max);
+	ft_reset_tsprite(data->tsprite, data->s_max, data);
 	if (data->exit_status == 1)
 		exit(0);
 //	printf("x, y: %lf, %lf post loop\n", data->posx, data->posy);
