@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:55:14 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/07 21:23:40 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/09 15:19:50 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ typedef struct s_sprite
 	float	dist;
 	float   distx;
 	float	disty;
+	double	angle;
+	double	rot;
 	int		ref_pixel;
 	float	offset;
 	int	sizex;
@@ -206,9 +208,7 @@ float ft_abs(float n);
 
 void 	ft_do_sort_sprite(t_data *data);
 void 	ft_swap_sprite(t_sprite *a, t_sprite *b);
-
-void 	ft_soft_ddax(t_data *data, int i, t_int *x_);
-void 	ft_soft_dday(t_data *data, int i, t_int *y_);
+double  ft_todegree(double radian);
 
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 16:31:29 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/07 22:17:26 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/09 15:11:01 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,6 @@ int 	ft_dox(t_data *data, t_int *x_, int i)
 			return (1);
 		}
 	}
-	ft_soft_ddax(data, i, x_);
 	x_->x += data->dda[i].xsign;
 	x_->y += x_->delta;
 //	printf("x_x: %lf, x_y : %lf\n", x_->x, x_->y);
@@ -132,7 +131,6 @@ int 	ft_doy(t_data *data, t_int *y_, int i)
 		}
 		//ft_check_if_hit(data, i, data->map[(int)y_->y][(int)y_->x], y_);
 	}
-	ft_soft_dday(data, i, y_);
 	y_->y += data->dda[i].ysign;
 	y_->x += y_->delta;
 //	printf("y_x: %lf, y_y : %lf\n", y_->x, y_->y);

@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 15:45:29 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/07 22:30:03 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/09 15:25:30 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,8 @@ void 		ft_check_if_hit(t_data *data) // marchera pas dans le dda
 	{
 		while (i < data->R[0])
 		{
-		//		theta = data->vec[i].angle_rela;
-		//		if (theta > 30)
-		//		 	theta = theta - 30;
-		//		else if (theta < 30)
-		//			theta = 30 - theta;
-		//		tan_theta = tan(ft_toradian(theta));
-		//		delta = data->tsprite[s].dist * tan_theta;
-		//		dist_r = sqrt(delta * delta + data->tsprite[s].dist * data->tsprite[s].dist);
-			///	printf("%f\n", dist_r);
-				x = data->posx + (data->tsprite[s].dist * data->vec[i].rotx);
-				y = data->posy - (data->tsprite[s].dist * data->vec[i].roty);
+			x = data->posx + (data->tsprite[s].dist * data->vec[i].rotx);
+			y = data->posy - (data->tsprite[s].dist * data->vec[i].roty);
 			if ((int)y == (int)data->tsprite[s].y && (int)x == (int)data->tsprite[s].x)
 			{
 				//printf(GREEN "sp n : %d, RAYON: %i, x, y hit: %f, %f\n" RESET, s, i, x, y);
@@ -41,10 +32,6 @@ void 		ft_check_if_hit(t_data *data) // marchera pas dans le dda
 				{
 					data->tsprite[s].hit |= 1;
 					data->tsprite[s].pixel_hit = i;
-					if (data->tsprite[s].offset == 0)
-						data->tsprite[s].offset = x - (int)x;
-					else if (data->tsprite[s].offset == 1)
-						data->tsprite[s].offset = y - (int)y;
 					printf(GREEN "x, y : %f, %f, ref: %d\noffset: %f\n" RESET, x, y, data->tsprite[s].ref_pixel, data->tsprite[s].offset);
 					break ;
 				}
@@ -57,22 +44,22 @@ void 		ft_check_if_hit(t_data *data) // marchera pas dans le dda
 		s++;
 	}
 }
-
+/*
 void 	ft_soft_ddax(t_data *data, int i, t_int *x_) // si toucher sprite en x et en y est pas possible
 {
 	int n;
-	int xsign;
+ 	float xsign;
 
 	n = 0;
 	if (data->dda[i].xsign == 1)
-		xsign = 0;
+		xsign = 0.5;
 	else
-		xsign = data->dda[i].xsign;
-	if (!(data->map[(int)x_->y][(int)x_->x + xsign] == 2))
+		xsign = -0.5;
+	if (!(data->map[(int)x_->y][(int)(x_->x + xsign)] == 2))
 		return ;
 	while (n < data->s_max)
 	{
-		if ((int)data->tsprite[n].y == (int)x_->y && (int)data->tsprite[n].x == (int)x_->x + xsign)
+		if ((int)data->tsprite[n].y == (int)x_->y && (int)data->tsprite[n].x == (int)(x_->x + xsign))
 		{
 			if (i < data->tsprite[n].ref_pixel)
 			{
@@ -87,18 +74,18 @@ void 	ft_soft_ddax(t_data *data, int i, t_int *x_) // si toucher sprite en x et 
 void 	ft_soft_dday(t_data *data, int i, t_int *y_)
 {
 	int n;
-	int ysign;
+	float ysign;
 
 	n = 0;
 	if (data->dda[i].ysign == 1)
-		ysign = 0;
+		ysign = 0.5;
 	else
-		ysign = data->dda[i].ysign;
-	if (!(data->map[(int)y_->y + ysign][(int)y_->x] == 2))
+		ysign = -0.5;
+	if (!(data->map[(int)(y_->y + ysign)][(int)y_->x] == 2))
 		return ;
 	while (n < data->s_max)
 	{
-		if ((int)data->tsprite[n].y + ysign == (int)y_->y && (int)data->tsprite[n].x == (int)y_->x)
+		if ((int)(data->tsprite[n].y + ysign) == (int)y_->y && (int)data->tsprite[n].x == (int)y_->x)
 		{
 			if (i < data->tsprite[n].ref_pixel)
 			{
@@ -109,7 +96,7 @@ void 	ft_soft_dday(t_data *data, int i, t_int *y_)
 		n++;
 	}
 }
-
+*/
 void 	ft_do_dist_sprite(t_data *data)
 {
 	int		i;
@@ -120,12 +107,12 @@ void 	ft_do_dist_sprite(t_data *data)
 	while (i < data->s_max)
 	{
 		distx = data->posx - (data->tsprite[i].x + 0.5);
-		disty = data->posy - (data->tsprite[i].y +  0.5);
+		disty = data->posy - (data->tsprite[i].y + 0.5);
 		data->tsprite[i].distx = distx;
 		data->tsprite[i].disty = disty;
 		data->tsprite[i].dist = sqrt((distx * distx) + (disty * disty));
-		data->tsprite[i].sizey = (int)(data->R[1] / data->tsprite[i].dist);
-		data->tsprite[i].sizex = (int)(data->tsprite[i].sizey / 2);
+		data->tsprite[i].rot = distx / data->tsprite[i].dist;
+		data->tsprite[i].angle = ft_todegree(acos(data->tsprite[i].rot));
 		i++;
 	}
 	printf(GREEN "--Presort--\n" RESET);
@@ -142,9 +129,9 @@ void 	ft_show_tsprite(t_sprite *tsprite, int s_max)
 	i = 0;
 	while (i < s_max)
 	{
-		printf("i : %d x, y: %f, %f, pix %d, hit: %d, dist: %f, offset: %f\nsizexy: %d, %d\n", i,
+		printf("i : %d x, y: %f, %f, pix %d, hit: %d, dist: %f, offset: %f\n angle: cos: %lf, angle: %lf\n", i,
 		tsprite[i].x, tsprite[i].y, tsprite[i].pixel_hit, tsprite[i].hit, tsprite[i].dist,
-		tsprite[i].offset, tsprite[i].sizex, tsprite[i].sizey);
+		tsprite[i].offset, tsprite[i].rot, tsprite[i].angle);
 		i++;
 	}
 }
@@ -189,11 +176,10 @@ void 	ft_reset_tsprite(t_sprite *tsprite, int s_max, t_data *data)
 		tsprite[i].hit = 0;
 		tsprite[i].offset = -1;
 		tsprite[i].ref_pixel = data->R[0];
+		tsprite[i].angle = 0;
 		tsprite[i].dist = -1;
 		tsprite[i].dist = -1;
 		tsprite[i].dist = -1;
-		tsprite[i].sizex = 0;
-		tsprite[i].sizey = 0;
 		i++;
 	}
 }
