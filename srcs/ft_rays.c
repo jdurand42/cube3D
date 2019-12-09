@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 14:08:39 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/09 15:10:45 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/09 19:10:05 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void 	do_rays(t_data *data)
 	}
 	ft_do_colum(data);
 	ft_do_dist_sprite(data);
-	ft_check_if_hit(data);
+	ft_check_if_visible(data);
 	ft_show_tsprite(data->tsprite, data->s_max);
 	ft_draw_sprites(data);
 	printf(GREEN "---------------\n" RESET);

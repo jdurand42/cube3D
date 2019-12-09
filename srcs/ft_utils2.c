@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/05 15:15:57 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/09 15:24:33 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/09 19:08:33 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void 	ft_do_sort_sprite(t_data *data)
 void 	ft_swap_sprite(t_sprite *a, t_sprite *b)
 {
 	float	f_b;
-	double  lf_b;
+	float  lf_b;
 	int		i_b;
 
 	i_b = a->x;
@@ -59,16 +59,19 @@ void 	ft_swap_sprite(t_sprite *a, t_sprite *b)
 	f_b = a->offset;
 	a->offset = b->offset;
 	b->offset = f_b;
-	lf_b = a->rot;
-	a->rot = b->rot;
-	b->rot = lf_b;
+	lf_b = a->rotx;
+	a->rotx = b->rotx;
+	b->rotx = lf_b;
+	lf_b = a->roty;
+	a->roty = b->roty;
+	b->roty = lf_b;
 	lf_b = a->angle;
 	a->angle = b->angle;
 	b->angle = lf_b;
 
 }
 
-double  ft_todegree(double radian)
+float  ft_todegree(float radian)
 {
 	return (radian * (180 / pi));
 }

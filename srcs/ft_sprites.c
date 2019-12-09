@@ -6,13 +6,13 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 15:45:29 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/09 15:25:30 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/09 19:07:04 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cube3D.h"
 
-
+/*
 void 		ft_check_if_hit(t_data *data) // marchera pas dans le dda
 {
 	int s = 0;
@@ -43,7 +43,7 @@ void 		ft_check_if_hit(t_data *data) // marchera pas dans le dda
 		i = 0;
 		s++;
 	}
-}
+} */
 /*
 void 	ft_soft_ddax(t_data *data, int i, t_int *x_) // si toucher sprite en x et en y est pas possible
 {
@@ -69,8 +69,8 @@ void 	ft_soft_ddax(t_data *data, int i, t_int *x_) // si toucher sprite en x et 
 		}
 		n++;
 	}
-}
-
+}*/
+/*
 void 	ft_soft_dday(t_data *data, int i, t_int *y_)
 {
 	int n;
@@ -106,13 +106,27 @@ void 	ft_do_dist_sprite(t_data *data)
 	i = 0;
 	while (i < data->s_max)
 	{
-		distx = data->posx - (data->tsprite[i].x + 0.5);
-		disty = data->posy - (data->tsprite[i].y + 0.5);
+		distx = (data->tsprite[i].x + 0.5) - data->posx;
+		disty = (data->tsprite[i].y + 0.5) - data->posy;
 		data->tsprite[i].distx = distx;
 		data->tsprite[i].disty = disty;
 		data->tsprite[i].dist = sqrt((distx * distx) + (disty * disty));
-		data->tsprite[i].rot = distx / data->tsprite[i].dist;
-		data->tsprite[i].angle = ft_todegree(acos(data->tsprite[i].rot));
+		data->tsprite[i].rotx = distx / data->tsprite[i].dist;
+		data->tsprite[i].roty = disty / data->tsprite[i].dist;
+		if (distx > 0)
+		{
+			data->tsprite[i].angle = ft_todegree(acos(ft_abs(data->tsprite[i].rotx)));
+			if (disty > 0)
+				data->tsprite[i].angle = 360 - data->tsprite[i].angle;
+		}
+		else
+		{
+			data->tsprite[i].angle = ft_todegree(acos(ft_abs(data->tsprite[i].rotx)));
+			if (disty < 0)
+				data->tsprite[i].angle = 90 + (90 - data->tsprite[i].angle);
+			else
+				data->tsprite[i].angle = 180 + data->tsprite[i].angle;
+		}
 		i++;
 	}
 	printf(GREEN "--Presort--\n" RESET);
@@ -122,6 +136,46 @@ void 	ft_do_dist_sprite(t_data *data)
 	ft_show_tsprite(data->tsprite, data->s_max);
 }
 
+void 	ft_check_if_visible(t_data *data)
+{
+	int i;
+	int n;
+	int	sizex;
+	int sizey;
+	float pas;
+
+	i = 0;
+	pas = 60 / (float)data->R[0];
+	printf("%f\n", pas);
+	while (i < data->s_max)
+	{
+		sizey = data->R[1] / data->tsprite[i].dist;
+		sizex = sizey / 2;
+		data->tsprite[i].angle_f = data->tsprite[i].angle + (pas * (sizex / 2));
+		data->tsprite[i].angle_l = data->tsprite[i].angle - (pas * (sizex / 2));
+		if (data->tsprite[i].angle_l < 0)
+			data->tsprite[i].angle_l = 360 + data->tsprite[i].angle_l;
+		if (data->tsprite[i].angle_l > 359)
+			data->tsprite[i].angle_l = data->tsprite[i].angle_l - 359;
+		if (data->tsprite[i].angle_f < 0)
+			data->tsprite[i].angle_f = 360 + data->tsprite[i].angle_f;
+		if (data->tsprite[i].angle_f > 359)
+			data->tsprite[i].angle_f = data->tsprite[i].angle_f - 359;
+			for (int j = 0; j < data->R[0]; j++)
+			{
+				if ((float)data->tsprite[i].angle_f == data->vec[j].angle)
+					printf(GREEN "_f : %lf, j: %d\n" RESET, data->tsprite[i].angle_f, j);
+				if ((float)data->tsprite[i].angle_l == data->vec[j].angle)
+					printf(GREEN "_l : %lf, j: %d\n" RESET, data->tsprite[i].angle_l, j);
+				if ((float)data->tsprite[i].angle == data->vec[j].angle)
+					printf(GREEN "angle : %lf, j: %d\n" RESET, data->tsprite[i].angle, j);
+			}
+
+		printf(GREEN "sizex: %d, _f, _l: %lf, %lf\n" RESET, sizex, data->tsprite[i].angle_f, data->tsprite[i].angle_l);
+		i++;
+	}
+}
+
 void 	ft_show_tsprite(t_sprite *tsprite, int s_max)
 {
 	int i;
@@ -129,9 +183,10 @@ void 	ft_show_tsprite(t_sprite *tsprite, int s_max)
 	i = 0;
 	while (i < s_max)
 	{
-		printf("i : %d x, y: %f, %f, pix %d, hit: %d, dist: %f, offset: %f\n angle: cos: %lf, angle: %lf\n", i,
+		printf("i : %d x, y: %f, %f, pix %d, hit: %d, dist: %f, offset: %f\n angle: cos: %lf, sin: %lf, angle: %lf\n", i,
 		tsprite[i].x, tsprite[i].y, tsprite[i].pixel_hit, tsprite[i].hit, tsprite[i].dist,
-		tsprite[i].offset, tsprite[i].rot, tsprite[i].angle);
+		tsprite[i].offset, tsprite[i].rotx, tsprite[i].roty, tsprite[i].angle);
+		printf("dx, dy: %f, %f\n", tsprite[i].distx, tsprite[i].disty);
 		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:55:14 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/09 15:19:50 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/09 19:10:38 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,12 +100,13 @@ typedef struct s_sprite
 	float	dist;
 	float   distx;
 	float	disty;
-	double	angle;
-	double	rot;
+	float	angle;
+	float	angle_f;
+	float 	angle_l;
+	float	rotx;
+	float	roty;
 	int		ref_pixel;
 	float	offset;
-	int	sizex;
-	int	sizey;
 }				t_sprite;
 
 typedef struct	s_data
@@ -203,12 +204,12 @@ void 	ft_do_dist_sprite(t_data *data);
 void 	ft_draw_sprites(t_data *data);
 void 	ft_draw_a_colum_sprite(t_data *data, int i, int hp);
 void 	ft_draw_a_colum_sprite_rev(t_data *data, int i, int hp);
-
+void 	ft_check_if_visible(t_data *data);
 float ft_abs(float n);
 
 void 	ft_do_sort_sprite(t_data *data);
 void 	ft_swap_sprite(t_sprite *a, t_sprite *b);
-double  ft_todegree(double radian);
+float  ft_todegree(float radian);
 
 
 #endif
