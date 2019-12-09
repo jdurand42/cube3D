@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 15:45:29 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/09 21:53:49 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/09 23:26:54 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -275,33 +275,61 @@ void 	ft_reset_tsprite(t_sprite *tsprite, int s_max, t_data *data)
 void 	ft_draw_sprites(t_data *data, int pixel, int sizex, t_sprite *sprite)
 {
 	int i = 0;
+	int xpixel;
+	int xn_pixel;
+	int x_pas;
 
 	i = pixel;
+	xn_pixel = data->tex[4].w / sprite->sizex;
+	xpixel = data->tex[4].w * (sizex / sprite->sizex);
 	while (i < data->R[0] && i < sizex + pixel)
 	{
 		if (sprite->dist < data->vec[i].dist_towall) // draw a collum
-			ft_draw_a_colum_sprite(data, i, sprite->sizey);
+			ft_draw_a_colum_sprite(data, i, sprite->sizey, xpixel);
 		i++;
+		xpixel += (data->tex[4].w / sprite->sizex);
 		//		printf("i: %d\nlsat - hit: %d, width: %d\n", i, data->tsprite[n].pixel_last - data->tsprite[n].pixel_hit, w_sprite);
 	}
 }
 
-void 	ft_draw_a_colum_sprite(t_data *data, int i, int hp)
+void 	ft_draw_a_colum_sprite(t_data *data, int i, int hp, int xpixel)
 {
 	unsigned long		j = 0;
+	int					n_pixel;
+	unsigned char		color[3];
 
+	n_pixel = 1;
 	if (hp <= data->R[1])
 		j = (data->R[1] / 2) - (hp / 2);
 	else
 	{
 		j = 0;
+		n_pixel = (hp - data->R[1]) / 2;
 	}
-		while (j <= (data->R[1] / 2) + (hp / 2) && j <  data->R[1])
-		{
-			data->img[j * data->sl + (data->R[0] - 1 - i) * 4 + 0] = (char)0;
-			data->img[j * data->sl + (data->R[0] - 1 - i) * 4 + 1] = (char)0;
-			data->img[j * data->sl + (data->R[0] - 1 - i) * 4 + 2] = (char)255;
-			data->img[j * data->sl + (data->R[0] - 1 - i) * 4 + 3] = (char)0;
-			j++;
-		}
+	while (j <= (data->R[1] / 2) + (hp / 2) && j <  data->R[1])
+	{
+		ft_get_tex_ypixel_sprite(data, xpixel, n_pixel, color, hp);
+	//	if (color[0] == 0 && color[1] == 0 && color[2] == 0)
+	//		break ;
+		data->img[j * data->sl + (data->R[0] - 1 - i) * 4 + 0] = (char)color[0];
+		data->img[j * data->sl + (data->R[0] - 1 - i) * 4 + 1] = (char)color[1];
+		data->img[j * data->sl + (data->R[0] - 1 - i) * 4 + 2] = (char)color[2];
+		data->img[j * data->sl + (data->R[0] - 1 - i) * 4 + 3] = (char)0;
+		j++;
+		n_pixel += 1;
+	}
+}
+
+void 	ft_get_tex_ypixel_sprite(t_data *data, int xpixel, int n_pixel, unsigned char *color, int hp)
+{
+	int	ypixel;
+
+	ypixel = (int)(data->tex[4].h * n_pixel / hp);
+	if (ypixel > data->tex[4].h - 1)
+		ypixel = data->tex[4].h - 1;
+	if (xpixel > data->tex[4].w - 1)
+		xpixel = data->tex[4].w - 1;
+	color[0] = data->tex[4].img[ypixel * data->tex[4].sl + (xpixel * 4)];
+	color[1] = data->tex[4].img[ypixel * data->tex[4].sl + (xpixel * 4) + 1];
+	color[2] = data->tex[4].img[ypixel * data->tex[4].sl + (xpixel * 4) + 2];
 }

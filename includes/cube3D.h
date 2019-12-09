@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:55:14 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/09 21:51:12 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/09 22:49:04 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,12 +204,13 @@ void 	ft_show_tsprite(t_sprite *tsprite, int s_max);
 void 	ft_reset_tsprite(t_sprite *tsprite, int s_max, t_data *data);
 void 	ft_do_dist_sprite(t_data *data);
 void 	ft_draw_sprites(t_data *data, int pixel, int sizex, t_sprite *sprite);
-void 	ft_draw_a_colum_sprite(t_data *data, int i, int hp);
+void 	ft_draw_a_colum_sprite(t_data *data, int i, int hp, int xpixel);
 void 	ft_draw_a_colum_sprite_rev(t_data *data, int i, int hp);
 void 	ft_check_if_visible(t_data *data);
 float ft_abs(float n);
 
 void 	ft_zbuffer(t_data *data, t_sprite *sprite, float pas);
+void 	ft_get_tex_ypixel_sprite(t_data *data, int xpixel, int n_pixel, unsigned char *color, int hp);
 
 void 	ft_do_sort_sprite(t_data *data);
 void 	ft_swap_sprite(t_sprite *a, t_sprite *b);
