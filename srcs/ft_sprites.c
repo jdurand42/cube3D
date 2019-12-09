@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 15:45:29 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/09 19:07:04 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/09 21:53:49 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ void 	ft_do_dist_sprite(t_data *data)
 	//ft_show_tsprite(data->tsprite, data->s_max);
 	ft_do_sort_sprite(data);
 	printf(GREEN "--Postsort--\n" RESET);
-	ft_show_tsprite(data->tsprite, data->s_max);
+//	ft_show_tsprite(data->tsprite, data->s_max);
 }
 
 void 	ft_check_if_visible(t_data *data)
@@ -149,31 +149,64 @@ void 	ft_check_if_visible(t_data *data)
 	printf("%f\n", pas);
 	while (i < data->s_max)
 	{
-		sizey = data->R[1] / data->tsprite[i].dist;
-		sizex = sizey / 2;
-		data->tsprite[i].angle_f = data->tsprite[i].angle + (pas * (sizex / 2));
-		data->tsprite[i].angle_l = data->tsprite[i].angle - (pas * (sizex / 2));
-		if (data->tsprite[i].angle_l < 0)
-			data->tsprite[i].angle_l = 360 + data->tsprite[i].angle_l;
-		if (data->tsprite[i].angle_l > 359)
-			data->tsprite[i].angle_l = data->tsprite[i].angle_l - 359;
-		if (data->tsprite[i].angle_f < 0)
-			data->tsprite[i].angle_f = 360 + data->tsprite[i].angle_f;
-		if (data->tsprite[i].angle_f > 359)
-			data->tsprite[i].angle_f = data->tsprite[i].angle_f - 359;
-			for (int j = 0; j < data->R[0]; j++)
-			{
-				if ((float)data->tsprite[i].angle_f == data->vec[j].angle)
-					printf(GREEN "_f : %lf, j: %d\n" RESET, data->tsprite[i].angle_f, j);
-				if ((float)data->tsprite[i].angle_l == data->vec[j].angle)
-					printf(GREEN "_l : %lf, j: %d\n" RESET, data->tsprite[i].angle_l, j);
-				if ((float)data->tsprite[i].angle == data->vec[j].angle)
-					printf(GREEN "angle : %lf, j: %d\n" RESET, data->tsprite[i].angle, j);
-			}
+		data->tsprite[i].sizey = data->R[1] / data->tsprite[i].dist;
+		data->tsprite[i].sizex = data->tsprite[i].sizey / 2;
+		data->tsprite[i].angle_f = data->tsprite[i].angle - (pas * (data->tsprite[i].sizex / 2));
+		data->tsprite[i].angle_l = data->tsprite[i].angle + (pas * (data->tsprite[i].sizex / 2));
+		if ((data->tsprite[i].angle_f >= data->cam.angle - 30 && data->tsprite[i].angle_f <= data->cam.angle + 30) ||
+			(data->tsprite[i].angle_l <= data->cam.angle + 30 && data->tsprite[i].angle_l >= data->cam.angle - 30))
+		{
+			if (data->tsprite[i].angle_l < 0)
+				data->tsprite[i].angle_l = 360 + data->tsprite[i].angle_l;
+			if (data->tsprite[i].angle_l > 359)
+				data->tsprite[i].angle_l = data->tsprite[i].angle_l - 359;
+			if (data->tsprite[i].angle_f < 0)
+				data->tsprite[i].angle_f = 360 + data->tsprite[i].angle_f;
+			if (data->tsprite[i].angle_f > 359)
+				data->tsprite[i].angle_f = data->tsprite[i].angle_f - 359;
+				printf(GREEN "sizex: %d, _f, _l: %lf, %lf\n" RESET, data->tsprite[i].sizex, data->tsprite[i].angle_f, data->tsprite[i].angle_l);
+			ft_zbuffer(data, &data->tsprite[i], pas);
+		}
+		//if ((float)data->tsprite[i].angle == data->vec[data->R[0] / 2].angle)
+		//		printf(GREEN "angle : %lf, j: %d\n" RESET, data->tsprite[i].angle, j);
 
-		printf(GREEN "sizex: %d, _f, _l: %lf, %lf\n" RESET, sizex, data->tsprite[i].angle_f, data->tsprite[i].angle_l);
 		i++;
 	}
+}
+
+void 	ft_zbuffer(t_data *data, t_sprite *sprite, float pas)
+{
+	printf("---drawing sprite---\n");
+	int i;
+	float angle_s;
+	int size;
+	int	pixel;
+
+	i = 0;
+	pixel = -1;
+	size = 0;
+	angle_s = sprite->angle_f;
+	while (size <= sprite->sizey)
+	{
+		while (i < data->R[0] - 1)
+		{
+			//printf("angle: %f, %f\n", data->vec[i].angle, data->vec[i+1].angle);
+			if (angle_s >= data->vec[i].angle && angle_s <= data->vec[i + 1].angle)
+			{
+				pixel = i;
+				break ;
+			}
+			i++;
+		}
+		if (pixel != -1)
+			break;
+		size++;
+		angle_s += pas;
+		i = 0;
+		printf("size:_s :%d\n", sprite->sizex - size);
+	}
+	ft_draw_sprites(data, pixel, sprite->sizex - size, sprite);
+	printf("pixel: %d\n", pixel);
 }
 
 void 	ft_show_tsprite(t_sprite *tsprite, int s_max)
@@ -239,52 +272,21 @@ void 	ft_reset_tsprite(t_sprite *tsprite, int s_max, t_data *data)
 	}
 }
 
-void 	ft_draw_sprites(t_data *data)
+void 	ft_draw_sprites(t_data *data, int pixel, int sizex, t_sprite *sprite)
 {
-	int i = 0; int j = 0; int n = 0; int hp; int w_sprite;
+	int i = 0;
 
-	while (n < data->s_max)
+	i = pixel;
+	while (i < data->R[0] && i < sizex + pixel)
 	{
-		if (data->tsprite[n].hit == 1)
-		{
-			hp = data->R[1] / data->tsprite[n].dist;
-			if (data->tsprite[n].offset < 0)
-				data->tsprite[n].offset = 1;
-			w_sprite = (hp / 2) * data->tsprite[n].offset;
-			i = data->tsprite[n].pixel_hit;
-				while (i < data->R[0] && i < data->tsprite[n].pixel_hit + w_sprite)
-				{
-					if (data->tsprite[n].dist < data->vec[i].dist_towall) // draw a collum
-							ft_draw_a_colum_sprite(data, i, hp);
-					i++;
-				}
+		if (sprite->dist < data->vec[i].dist_towall) // draw a collum
+			ft_draw_a_colum_sprite(data, i, sprite->sizey);
+		i++;
 		//		printf("i: %d\nlsat - hit: %d, width: %d\n", i, data->tsprite[n].pixel_last - data->tsprite[n].pixel_hit, w_sprite);
-			}
-		n++;
 	}
 }
 
 void 	ft_draw_a_colum_sprite(t_data *data, int i, int hp)
-{
-	unsigned long		j = 0;
-
-	if (hp <= data->R[1])
-		j = (data->R[1] / 2) - (hp / 2);
-	else
-	{
-		j = 0;
-	}
-		while (j <= (data->R[1] / 2) + (hp / 2) && j <  data->R[1])
-		{
-			data->img[j * data->sl + (data->R[0] - 1 - i) * 4 + 0] = (char)0;
-			data->img[j * data->sl + (data->R[0] - 1 - i) * 4 + 1] = (char)0;
-			data->img[j * data->sl + (data->R[0] - 1 - i) * 4 + 2] = (char)255;
-			data->img[j * data->sl + (data->R[0] - 1 - i) * 4 + 3] = (char)0;
-			j++;
-		}
-}
-
-void 	ft_draw_a_colum_sprite_rev(t_data *data, int i, int hp)
 {
 	unsigned long		j = 0;
 

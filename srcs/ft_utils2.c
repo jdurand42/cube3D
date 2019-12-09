@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/05 15:15:57 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/09 19:08:33 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/09 21:05:12 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,12 @@ void 	ft_swap_sprite(t_sprite *a, t_sprite *b)
 	lf_b = a->angle;
 	a->angle = b->angle;
 	b->angle = lf_b;
+	i_b = a->sizex;
+	a->sizex = b->sizex;
+	b->sizex = i_b;
+	i_b = a->sizey;
+	a->sizey = b->sizey;
+	b->sizey = i_b;
 
 }
 
