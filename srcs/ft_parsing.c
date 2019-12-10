@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:36:37 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/10 16:14:25 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/10 18:35:57 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,21 +81,21 @@ int 	ft_parse_aline(t_data *data, int **map, char *line, int count)
 		}
 		i++;
 	}
-	free(line);
 	return (1);
 }
 
-int		**ft_parse_map(t_list *lst, size_t count, int *check, t_data *data)
+int		**ft_parse_map(t_list **lst, size_t count, int *check, t_data *data)
 {
 	int		**map;
 	char	*line;
+	t_list  *lst2;
 	size_t	i;
 	size_t	j;
 
 	i = 0;
 	data->width = 0;
 	j = 0;
-	line = (char*)lst->content;
+	line = (char*)(*lst)->content;
 	while (line[i] != 0)
 		if (ft_isargvalid(line[i++]))
 			data->width += 1;
@@ -103,15 +103,17 @@ int		**ft_parse_map(t_list *lst, size_t count, int *check, t_data *data)
 	if (!(map = (int**)malloc(count * sizeof(int*))))
 		return (NULL);
 	count -= 1;
-	while (count >= 0 && lst != NULL)
+	lst2 = *lst;
+	while (count >= 0 && lst2 != NULL)
 	{
-		if (ft_parse_aline(data, map, (char*)lst->content, count) == -1)
+		if (ft_parse_aline(data, map, (char*)lst2->content, count) == -1)
 			return (NULL);
 		count--;
-		lst = lst->next;
+		lst2 = lst2->next;
 	//free line and lst
 	}
-	ft_lstclear(&lst, ft_clear_list);
+	printf("here\n");
+	ft_lst_free(lst);
 	return (map);
 }
 
@@ -151,5 +153,5 @@ int		**ft_parse_stuff(t_data *data, int fd)
 		return (NULL);
 	free(line);
 	line = NULL;
-	return (ft_parse_map(lst, count, &data->check, data));
+	return (ft_parse_map(&lst, count, &data->check, data));
 }

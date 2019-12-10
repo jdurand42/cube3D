@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 17:26:07 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/10 16:41:54 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/10 17:52:45 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ void 	ft_setbackground(t_data *data)
 
 int	ft_main_loop(t_data  *data)
 {
-	ft_keyboard_loop(data);
-	ft_reset_tsprite(data->tsprite, data->s_max, data);
 	if (data->exit_status == 1)
 		ft_exit_all(data);
+	ft_keyboard_loop(data);
+	ft_reset_tsprite(data->tsprite, data->s_max, data);
 //	printf("x, y: %lf, %lf post loop\n", data->posx, data->posy);
 	int i = 0;
 	ft_setbackground(data);

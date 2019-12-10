@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 14:45:47 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/10 16:04:13 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/10 17:57:57 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int		keypress(int keycode, void *param)
 	else if (data->cam.angle < 0)
 		data->cam.angle = 359;
 	ft_main_loop(data);
-	return (0);
+	return (1);
 }
 
 int 	keyrelease(int keycode, void *param)
@@ -73,8 +73,8 @@ int 	keyrelease(int keycode, void *param)
 	if (keycode == 14)
 		data->move -= RIGHT;
 	if (keycode == 53)
-		data->exit_status = 1;
-	return (0);
+		ft_exit_all(data);
+	return (1);
 }
 
 void    ft_do_looping(t_data *data)
@@ -105,7 +105,7 @@ int 	ft_keyboard_loop(t_data *data)
 	if (data->move & 32)
 		data->cam.angle -= speed_angle;
 	if (data->move & 64)
-		data->exit_status = 1;
+		ft_exit_all(data);
 	if (data->cam.angle > 359)
 		data->cam.angle = 1;
 	else if (data->cam.angle < 0)

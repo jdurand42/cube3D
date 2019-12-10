@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:55:14 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/10 16:54:36 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/10 18:24:35 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,7 +153,8 @@ typedef struct	s_data
 
 int		ft_iserror(int code);
 int		**ft_parse_stuff(t_data *data, int fd);
-void 	parse_map(t_data *data, char *line);
+int		**ft_parse_map(t_list **lst, size_t count, int *check, t_data *data);
+int 	ft_parse_aline(t_data *data, int **map, char *line, int count);
 void 	parse_color(t_data *data, char *line);
 void 	parse_path(t_data *data, char *line);
 char	*pathing(char *path, char *line, int *check);
@@ -240,5 +241,6 @@ void 	ft_free_vec(t_data *data);
 void 	ft_free_dda(t_data *data);
 void 	ft_free_tsprite(t_data *data);
 void 	ft_free_tex(t_data *data);
+void 	ft_lst_free(t_list **lst);
 
 #endif

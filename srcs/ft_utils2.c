@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/05 15:15:57 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/10 16:12:05 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/10 18:18:07 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,33 @@ int	ft_comp_sprite_angle(float angle_f, float angle_l, t_data *data)
 }
 
 
+void ft_lst_free(t_list **lst)
+{
+	t_list *b;
+	t_list *b_n;
+
+	b = *lst;
+	if (b == NULL)
+	{
+		printf("b NULL\n");
+		return ;
+	}
+	while (b != NULL)
+	{
+		b_n = b->next;
+		free(b->content);
+		b->content = NULL;
+		free(b);
+		b = NULL;
+		b = b_n;
+	}
+}
+
 void ft_clear_list(void *content)
 {
+	printf("now here\n");
+	printf("%s\n", (char*)content);
 	if (content)
 		free(content);
+	content = NULL;
 }
