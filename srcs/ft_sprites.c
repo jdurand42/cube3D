@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 15:45:29 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/10 16:32:11 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/10 16:38:46 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ void 	ft_do_dist_sprite(t_data *data)
 //	printf(GREEN "--Presort--\n" RESET);
 	//ft_show_tsprite(data->tsprite, data->s_max);
 	ft_do_sort_sprite(data);
-	printf(GREEN "--Postsort--\n" RESET);
+//	printf(GREEN "--Postsort--\n" RESET);
 //	ft_show_tsprite(data->tsprite, data->s_max);
 }
 
@@ -239,7 +239,7 @@ void		ft_do_tsprite(t_data *data)
 		{
 			if (data->map[y][x] == 2)
 			{
-				printf("%d, %d\n", x, y);
+		//		printf("%d, %d\n", x, y);
 				data->tsprite[i].x = x;
 				data->tsprite[i].y = y;
 				i++;

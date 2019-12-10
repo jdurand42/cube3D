@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 17:26:07 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/10 16:34:20 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/10 16:41:08 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void 	ft_setbackground(t_data *data)
 		i = 0;
 		j += 1;
 	}
-	mlx_put_image_to_window(data->mlx_p, data->mlx_wd, data->mlx_img, 0, 0);
+//	mlx_put_image_to_window(data->mlx_p, data->mlx_wd, data->mlx_img, 0, 0);
 }
 
 void 	ft_putcamera(t_data *data)
@@ -75,8 +75,6 @@ int 	ft_game_loop(t_data *data, int **map)
 	ft_do_tsprite(data);
 	ft_setup_rays(data, map);
 	ft_setbackground(data);
-	if (data->tsprite)
-		ft_show_tsprite(data->tsprite, data->s_max);
 	do_rays(data);
 	ft_do_looping(data);
 	//printf("dasdadas");
