@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:55:14 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/10 16:26:14 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/10 16:54:36 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -239,6 +239,6 @@ void 	ft_free_map(t_data *data);
 void 	ft_free_vec(t_data *data);
 void 	ft_free_dda(t_data *data);
 void 	ft_free_tsprite(t_data *data);
-
+void 	ft_free_tex(t_data *data);
 
 #endif

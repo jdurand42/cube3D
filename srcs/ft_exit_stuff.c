@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 16:14:45 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/10 16:29:46 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/10 16:54:55 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,10 @@ void 	ft_exit_all(t_data *data)
 	ft_free_vec(data);
 	ft_free_dda(data);
 	ft_free_tsprite(data);
+	if (data->mlx_img)
+		mlx_destroy_image(data->mlx_p, data->mlx_img);
+	ft_free_tex(data);
+	mlx_destroy_window(data->mlx_p, data->mlx_wd);
 	exit(0);
 }
 
@@ -50,6 +54,19 @@ void 	ft_free_dda(t_data *data)
 	if (!data->dda)
 		return ;
 	free(data->dda);
+}
+
+void ft_free_tex(t_data *data)
+{
+	int i;
+
+	i = 0;
+	while (i < 4)
+	{
+		if (data->tex[i].img_p)
+			mlx_destroy_image(data->mlx_p, data->tex[i].img_p);
+		i++;
+	}
 }
 
 void 	ft_free_tsprite(t_data *data)
