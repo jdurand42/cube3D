@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 14:45:47 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/10 16:01:07 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/10 15:29:12 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,78 +33,60 @@ int		keypress(int keycode, void *param)
 	data = (t_data*)param;
 	if (keycode == 13)
 		data->move |= UPWARD;
-	if (keycode == 1)
+	else if (keycode == 1)
 		data->move |= BACKWARD;
-	if (keycode == 0)
-		data->move |= STRAFE_L;
-	if (keycode == 2)
-		data->move |= STRAFE_R;
-	if (keycode == 12)
-		data->move |= LEFT;
-	if (keycode == 14)
-		data->move |= RIGHT;
-	if (keycode == 15)
+	else if (keycode == 0)
+		data->move |= STRAFE
+	else if (keycode == 2)
+		ft_strafe(data, -1);
+	else if (keycode == 12)
+		data->cam.angle += speed_angle;
+	else if (keycode == 14)
+		data->cam.angle -= speed_angle;
+	else if (keycode == 15)
 		data->cam.angle -= 90;
-	if (keycode == 17)
+	else if (keycode == 17)
 		data->cam.angle += 90;
+	else if (keycode == 53)
+		data->exit_status = 1;
 	if (data->cam.angle > 359)
 		data->cam.angle = 1;
 	else if (data->cam.angle < 0)
 		data->cam.angle = 359;
-	ft_main_loop(data);
-	return (0);
-}
-
-int 	keyrelease(int keycode, void *param)
-{
-	t_data *data;
-
-	data = (t_data*)param;
-	if (keycode == 13)
-		data->move -= UPWARD;
-	if (keycode == 1)
-		data->move -= BACKWARD;
-	if (keycode == 0)
-		data->move -= STRAFE_L;
-	if (keycode == 2)
-		data->move -= STRAFE_R;
-	if (keycode == 12)
-		data->move -= LEFT;
-	if (keycode == 14)
-		data->move -= RIGHT;
-	if (keycode == 53)
-		data->exit_status = 1;
-	return (0);
 }
 
 void    ft_do_looping(t_data *data)
 {
-	mlx_hook(data->mlx_wd, 2, 0, keypress, data);
+	//mlx_hook(data->mlx_wd, 2, 0, keypress, data);
 	//mlx_hook(data->mlx_wd, 3, 0, release_key, data);
-	//mlx_key_hook(data->mlx_wd, ft_main_loop, data);
+	mlx_key_hook(data->mlx_wd, ft_main_loop, data);
 	//printf("\n\nlooooop\n\n");
 	mlx_loop(data->mlx_p);
 }
 
-int 	ft_keyboard_loop(t_data *data)
+int 	ft_keyboard_loop(t_data *data, int keycode)
 {
 //	printf("angle: %lf\n", data->cam.angle);
 //	printf("x, y: %lf, %lf\n", data->posx, data->posy);
 	//printf("keycode: %d\n", keycode);
 	printf("angle: %lf\n", data->cam.angle);
-	if (data->move & 1)
+	if (keycode == 13)
 		ft_collision(data, data->cam.angle);
-	if (data->move & 2)
+	else if (keycode == 1)
 		ft_collision_back(data, data->cam.angle);
-	if (data->move & 4)
+	else if (keycode == 0)
 		ft_strafe(data, 1);
-	if (data->move & 8)
+	else if (keycode == 2)
 		ft_strafe(data, -1);
-	if (data->move & 16)
+	else if (keycode == 12)
 		data->cam.angle += speed_angle;
-	if (data->move & 32)
+	else if (keycode == 14)
 		data->cam.angle -= speed_angle;
-	if (data->move & 64)
+	else if (keycode == 15)
+		data->cam.angle -= 90;
+	else if (keycode == 17)
+		data->cam.angle += 90;
+	else if (keycode == 53)
 		data->exit_status = 1;
 	if (data->cam.angle > 359)
 		data->cam.angle = 1;

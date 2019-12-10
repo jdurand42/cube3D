@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:55:14 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/10 15:02:20 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/10 15:44:03 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,13 @@
 # define speed_angle 2
 # define speed_div 0.001
 # define rayon 0.1
-# define epsilon 0.5
+# define UPWARD 1
+# define BACKWARD 2
+# define STRAFE_L 4
+# define STRAFE_R 8
+# define LEFT 16
+# define RIGHT 32
+# define EXIT 64
 
 # define GREEN   "\x1b[32m"
 # define RESET   "\x1b[0m"
@@ -137,6 +143,7 @@ typedef struct	s_data
 	int 				bpp;
 	int 				**map;
 	int					s_max;
+	int					move;
 	struct s_vector 	*vec;
 	struct s_dda		*dda;
 	struct s_cam		cam;
@@ -157,7 +164,7 @@ int 	ft_game_loop(t_data *data, int **map);
 
 int 			ft_setup_mlx(t_data *data, int **map);
 void 	ft_setup_rays(t_data *data, int **map);
-int		ft_main_loop(int keycode, void *params);
+int		ft_main_loop(t_data *data);
 
 unsigned int 	ft_rgb(int r, int g, int b);
 float 			ft_toradian(float angle);
@@ -183,9 +190,9 @@ void 	ft_init_deltas(t_data *data, t_int *x_, t_int *y_, int i);
 
 unsigned int 	ft_choose_color(t_data *data, int i);
 
-int 	ft_keyboard_loop(t_data *data, int keycode);
+int 	ft_keyboard_loop(t_data *data);
 void	ft_do_colision(t_data *data, int choice);
-void 	ft_strife(t_data *data, int id);
+void 	ft_strafe(t_data *data, int id);
 void 	ft_advance(t_data *data, float angle, int param);
 void 	ft_collision(t_data *data, float angle);
 void 	ft_collision_back(t_data *data, float angle);
@@ -218,4 +225,7 @@ float  ft_todegree(float radian);
 float	lissage_angle(float angle);
 int	ft_comp_sprite_angle(float angle_f, float angle_l, t_data *data);
 
+void    ft_do_looping(t_data *data);
+int		keypress(int keycode, void *param);
+int 	keyrelease(int keycode, void *param);
 #endif

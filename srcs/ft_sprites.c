@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 15:45:29 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/10 15:08:01 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/10 15:23:58 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ void 	ft_check_if_visible(t_data *data)
 
 	i = 0;
 	pas = 60 / (float)data->R[0];
-	printf("%f\n", pas);
+//	printf("%f\n", pas);
 	while (i < data->s_max)
 	{
 		data->tsprite[i].sizey = (int)(data->R[1] / data->tsprite[i].dist);
@@ -174,7 +174,7 @@ void 	ft_check_if_visible(t_data *data)
 
 void 	ft_zbuffer(t_data *data, t_sprite *sprite, float pas)
 {
-	printf("---drawing sprite---\n");
+//	printf("---drawing sprite---\n");
 	int i;
 	float angle_s;
 	int size;
@@ -255,7 +255,7 @@ void		ft_do_tsprite(t_data *data)
 void 	ft_reset_tsprite(t_sprite *tsprite, int s_max, t_data *data)
 {
 	int i = 0;
-
+	return ;
 	while (i < s_max)
 	{
 		tsprite[i].pixel_hit = -1;
@@ -279,7 +279,7 @@ void 	ft_draw_sprites(t_data *data, int pixel, int sizex, t_sprite *sprite)
 	i = pixel;
 	x_pas = data->tex[4].w / sprite->sizex;
 		xpixel = sprite->sizex - sizex;
-	printf("x_pas: %f\ntex.w: %d\nsize total: %d\nsizex: %d\ntex.h: %d\n", x_pas, data->tex[4].w, sprite->sizex, sizex, data->tex[4].h);
+//	printf("x_pas: %f\ntex.w: %d\nsize total: %d\nsizex: %d\ntex.h: %d\n", x_pas, data->tex[4].w, sprite->sizex, sizex, data->tex[4].h);
 	while (i < data->R[0] && xpixel < sprite->sizex)
 	{
 		if (sprite->dist < data->vec[i].dist_towall) // draw a collum

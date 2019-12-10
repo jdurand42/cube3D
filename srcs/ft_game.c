@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 17:26:07 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/07 20:50:45 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/10 15:42:33 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,9 @@ void 	ft_putcamera(t_data *data)
 	mlx_put_image_to_window(data->mlx_p, data->mlx_wd, data->mlx_img, 0, 0);
 }
 
-int	ft_main_loop(int keycode, void *params)
+int	ft_main_loop(t_data  *data)
 {
-	t_data *data;
-
-	data = (t_data*)params;
-	printf("keycode %d\n", keycode);
-	ft_keyboard_loop(data, keycode);
+	ft_keyboard_loop(data);
 	ft_reset_tsprite(data->tsprite, data->s_max, data);
 	if (data->exit_status == 1)
 		exit(0);
@@ -63,6 +59,7 @@ int	ft_main_loop(int keycode, void *params)
 	int i = 0;
 	ft_setbackground(data);
 	do_rays(data);
+	mlx_hook(data->mlx_wd, 3, 0, keyrelease, data);
 //	ft_show_tsprite(data->tsprite, data->s_max);
 //	printf("wallx %lf, wally %lf, dist: %lf, angle %lf\n", data->vec[data->R[0] / 2].id_wallx
 //	, data->vec[data->R[0] / 2].id_wally, data->vec[data->R[0] / 2].dist_towall, data->vec[data->R[0] / 2].angle);
@@ -74,15 +71,13 @@ int 	ft_game_loop(t_data *data, int **map)
 {
 	if (!ft_setup_mlx(data, map))
 		return (0);
+	data->move = 0;
 	ft_do_tsprite(data);
 	ft_setup_rays(data, map);
 	ft_setbackground(data);
 	ft_show_tsprite(data->tsprite, data->s_max);
 	do_rays(data);
-	mlx_key_hook(data->mlx_wd, ft_main_loop, data);
-	//printf("ddddddddd\n");
-//	printf("%d\n", data->exit_status); // ?????
-	mlx_loop(data->mlx_p);
+	ft_do_looping(data);
 	//printf("dasdadas");
 	return (1);
 }
