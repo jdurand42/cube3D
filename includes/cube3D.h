@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:55:14 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/09 22:49:04 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/10 15:02:20 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,6 +215,7 @@ void 	ft_get_tex_ypixel_sprite(t_data *data, int xpixel, int n_pixel, unsigned c
 void 	ft_do_sort_sprite(t_data *data);
 void 	ft_swap_sprite(t_sprite *a, t_sprite *b);
 float  ft_todegree(float radian);
-
+float	lissage_angle(float angle);
+int	ft_comp_sprite_angle(float angle_f, float angle_l, t_data *data);
 
 #endif
