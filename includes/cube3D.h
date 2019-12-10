@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:55:14 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/10 18:24:35 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/10 19:10:14 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,11 +101,7 @@ typedef struct s_sprite
 {
 	float	x;
 	float	y;
-	int		pixel_hit;
-	int		hit;
 	float	dist;
-	float   distx;
-	float	disty;
 	int 	sizex;
 	int 	sizey;
 	float	angle;
@@ -113,8 +109,6 @@ typedef struct s_sprite
 	float 	angle_l;
 	float	rotx;
 	float	roty;
-	int		ref_pixel;
-	float	offset;
 }				t_sprite;
 
 typedef struct	s_data

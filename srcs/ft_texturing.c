@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 15:11:46 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/09 22:41:08 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/10 19:11:45 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int	ft_setup_tex(t_data *data)
 	if (!(data->tex[4].img_p = mlx_xpm_file_to_image(data->mlx_p, data->S,
 		&data->tex[4].w, &data->tex[4].h)))
 		return (0);
-	//if sprites
 	ft_get_info_tex(data->tex);
 	return (1);
 }

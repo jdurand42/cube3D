@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 16:14:45 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/10 18:37:12 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/10 18:51:10 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void 	ft_free_map(t_data *data)
 		return ;
 	while (j < data->height)
 	{
-		if (data->map[j])1
+		if (data->map[j])
 			free(data->map[j]);
 		j++;
 	}

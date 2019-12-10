@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/05 15:15:57 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/10 18:18:07 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/10 19:16:13 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,24 +41,9 @@ void 	ft_swap_sprite(t_sprite *a, t_sprite *b)
 	i_b = a->y;
 	a->y = b->y;
 	b->y = i_b;
-	i_b = a->pixel_hit;
-	a->pixel_hit = b->pixel_hit;
-	b->pixel_hit = i_b;
-	i_b = a->hit;
-	a->hit = b->hit;
-	b->hit = i_b;
 	f_b = a->dist;
 	a->dist = b->dist;
 	b->dist = f_b;
-	f_b = a->distx;
-	a->distx = b->distx;
-	b->distx = f_b;
-	f_b = a->disty;
-	a->disty = b->disty;
-	b->disty = f_b;
-	f_b = a->offset;
-	a->offset = b->offset;
-	b->offset = f_b;
 	lf_b = a->rotx;
 	a->rotx = b->rotx;
 	b->rotx = lf_b;
@@ -74,7 +59,6 @@ void 	ft_swap_sprite(t_sprite *a, t_sprite *b)
 	i_b = a->sizey;
 	a->sizey = b->sizey;
 	b->sizey = i_b;
-
 }
 
 float  ft_todegree(float radian)

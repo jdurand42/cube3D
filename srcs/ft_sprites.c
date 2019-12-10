@@ -6,97 +6,12 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 15:45:29 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/10 16:38:46 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/10 19:18:08 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cube3D.h"
 
-/*
-void 		ft_check_if_hit(t_data *data) // marchera pas dans le dda
-{
-	int s = 0;
-	int i = 0;
-	float x, y;
-
-	while (s < data->s_max)
-	{
-		while (i < data->R[0])
-		{
-			x = data->posx + (data->tsprite[s].dist * data->vec[i].rotx);
-			y = data->posy - (data->tsprite[s].dist * data->vec[i].roty);
-			if ((int)y == (int)data->tsprite[s].y && (int)x == (int)data->tsprite[s].x)
-			{
-				//printf(GREEN "sp n : %d, RAYON: %i, x, y hit: %f, %f\n" RESET, s, i, x, y);
-				if (data->tsprite[s].pixel_hit == -1)
-				{
-					data->tsprite[s].hit |= 1;
-					data->tsprite[s].pixel_hit = i;
-					printf(GREEN "x, y : %f, %f, ref: %d\noffset: %f\n" RESET, x, y, data->tsprite[s].ref_pixel, data->tsprite[s].offset);
-					break ;
-				}
-
-			}
-			i++;
-		}
-		printf("--------------------\n");
-		i = 0;
-		s++;
-	}
-} */
-/*
-void 	ft_soft_ddax(t_data *data, int i, t_int *x_) // si toucher sprite en x et en y est pas possible
-{
-	int n;
- 	float xsign;
-
-	n = 0;
-	if (data->dda[i].xsign == 1)
-		xsign = 0.5;
-	else
-		xsign = -0.5;
-	if (!(data->map[(int)x_->y][(int)(x_->x + xsign)] == 2))
-		return ;
-	while (n < data->s_max)
-	{
-		if ((int)data->tsprite[n].y == (int)x_->y && (int)data->tsprite[n].x == (int)(x_->x + xsign))
-		{
-			if (i < data->tsprite[n].ref_pixel)
-			{
-				data->tsprite[n].ref_pixel = i;
-				data->tsprite[n].offset = 0;
-			}
-		}
-		n++;
-	}
-}*/
-/*
-void 	ft_soft_dday(t_data *data, int i, t_int *y_)
-{
-	int n;
-	float ysign;
-
-	n = 0;
-	if (data->dda[i].ysign == 1)
-		ysign = 0.5;
-	else
-		ysign = -0.5;
-	if (!(data->map[(int)(y_->y + ysign)][(int)y_->x] == 2))
-		return ;
-	while (n < data->s_max)
-	{
-		if ((int)(data->tsprite[n].y + ysign) == (int)y_->y && (int)data->tsprite[n].x == (int)y_->x)
-		{
-			if (i < data->tsprite[n].ref_pixel)
-			{
-				data->tsprite[n].ref_pixel = i;
-				data->tsprite[n].offset = 1;
-			}
-		}
-		n++;
-	}
-}
-*/
 void 	ft_do_dist_sprite(t_data *data)
 {
 	int		i;
@@ -108,8 +23,6 @@ void 	ft_do_dist_sprite(t_data *data)
 	{
 		distx = (data->tsprite[i].x + 0.5) - data->posx;
 		disty = (data->tsprite[i].y + 0.5) - data->posy;
-		data->tsprite[i].distx = distx;
-		data->tsprite[i].disty = disty;
 		data->tsprite[i].dist = sqrt((distx * distx) + (disty * disty));
 		data->tsprite[i].rotx = distx / data->tsprite[i].dist;
 		data->tsprite[i].roty = disty / data->tsprite[i].dist;
@@ -153,28 +66,15 @@ void 	ft_check_if_visible(t_data *data)
 		data->tsprite[i].sizex = data->tsprite[i].sizey * 1.33;
 		data->tsprite[i].angle_f = data->tsprite[i].angle - (pas * (data->tsprite[i].sizex / 2));
 		data->tsprite[i].angle_l = data->tsprite[i].angle + (pas * (data->tsprite[i].sizex / 2));
-//		printf("angle_f: %f, angle_l%f\n", data->tsprite[i].angle_f, data->tsprite[i].angle_l);
-//		printf("angle cam: %f, angle_cam -30: %f, angle_cam +30: %f\n", data->cam.angle, data->vec[0].angle, data->vec[data->R[0] - 1].angle);
-
-		//if ((data->tsprite[i].angle_f >= data->vec[0].angle && data->tsprite[i].angle_f <= data->vec[data->R[0] - 1].angle) ||
-		//	(data->tsprite[i].angle_l <= data->vec[data->R[0] - 1].angle && data->tsprite[i].angle_l >= data->vec[0].angle))
-		//if (ft_comp_sprite_angle(data->tsprite[i].angle_f, data->tsprite[i].angle_l, data))
-		//{
-			data->tsprite[i].angle_f = lissage_angle(data->tsprite[i].angle_f);
-			data->tsprite[i].angle_l = lissage_angle(data->tsprite[i].angle_l);
-//				printf(GREEN "sizex: %d, _f, _l: %lf, %lf\n" RESET, data->tsprite[i].sizex, data->tsprite[i].angle_f, data->tsprite[i].angle_l);
-			ft_zbuffer(data, &data->tsprite[i], pas);
-		//}
-		//if ((float)data->tsprite[i].angle == data->vec[data->R[0] / 2].angle)
-		//		printf(GREEN "angle : %lf, j: %d\n" RESET, data->tsprite[i].angle, j);
-
+		data->tsprite[i].angle_f = lissage_angle(data->tsprite[i].angle_f);
+		data->tsprite[i].angle_l = lissage_angle(data->tsprite[i].angle_l);
+		ft_zbuffer(data, &data->tsprite[i], pas);
 		i++;
 	}
 }
 
 void 	ft_zbuffer(t_data *data, t_sprite *sprite, float pas)
 {
-//	printf("---drawing sprite---\n");
 	int i;
 	float angle_s;
 	int size;
@@ -188,7 +88,6 @@ void 	ft_zbuffer(t_data *data, t_sprite *sprite, float pas)
 	{
 		while (i < data->R[0] - 1)
 		{
-			//printf("angle: %f, %f\n", data->vec[i].angle, data->vec[i+1].angle);
 			if (angle_s >= data->vec[i].angle && angle_s <= data->vec[i + 1].angle)
 			{
 				pixel = i;
@@ -201,12 +100,10 @@ void 	ft_zbuffer(t_data *data, t_sprite *sprite, float pas)
 		size++;
 		angle_s += pas;
 		i = 0;
-//		printf("size:_s :%d\n", sprite->sizex - size);
 	}
 	ft_draw_sprites(data, pixel, sprite->sizex - size, sprite);
-//	printf("pixel: %d\n", pixel);
 }
-
+/*
 void 	ft_show_tsprite(t_sprite *tsprite, int s_max)
 {
 	int i;
@@ -221,7 +118,7 @@ void 	ft_show_tsprite(t_sprite *tsprite, int s_max)
 		i++;
 	}
 }
-
+*/
 void		ft_do_tsprite(t_data *data)
 {
 	int x;
@@ -258,13 +155,7 @@ void 	ft_reset_tsprite(t_sprite *tsprite, int s_max, t_data *data)
 	return ;
 	while (i < s_max)
 	{
-		tsprite[i].pixel_hit = -1;
-		tsprite[i].hit = 0;
-		tsprite[i].offset = -1;
-		tsprite[i].ref_pixel = data->R[0];
 		tsprite[i].angle = 0;
-		tsprite[i].dist = -1;
-		tsprite[i].dist = -1;
 		tsprite[i].dist = -1;
 		i++;
 	}
@@ -292,11 +183,12 @@ void 	ft_draw_sprites(t_data *data, int pixel, int sizex, t_sprite *sprite)
 
 void 	ft_draw_a_colum_sprite(t_data *data, int i, int hp, int xpixel)
 {
-	unsigned long		j = 0;
+	unsigned long		j;
 	int					n_pixel;
 	unsigned char		color[3];
 
 	n_pixel = 1;
+	j = 0;
 	if (hp <= data->R[1])
 		j = (data->R[1] / 2) - (hp / 2);
 	else
