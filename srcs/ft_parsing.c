@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:36:37 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/07 12:24:02 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/10 16:14:25 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ int		**ft_parse_map(t_list *lst, size_t count, int *check, t_data *data)
 		lst = lst->next;
 	//free line and lst
 	}
+	ft_lstclear(&lst, ft_clear_list);
 	return (map);
 }
 
@@ -139,11 +140,10 @@ int		**ft_parse_stuff(t_data *data, int fd)
 				parse_color(data, line);
 			else if (ft_search_arg(line, "1"))
 			{
-				ft_lstadd_front(&lst, ft_lstnew(line));
-//				printf("%s\n", (char*)lst->content);
+				ft_lstadd_front(&lst, ft_lstnew(ft_strdup(line)));
 				count++;
 			}
-			//free(line);
+			free(line);
 		}
 	}
 	data->height = count;

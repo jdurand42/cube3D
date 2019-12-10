@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/05 15:15:57 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/10 15:06:30 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/10 16:12:05 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,4 +106,11 @@ int	ft_comp_sprite_angle(float angle_f, float angle_l, t_data *data)
 	if (angle_l <= data->cam.angle - 30 && angle_l >= data->cam.angle + 30)
 		return (1);
 	return (0);
+}
+
+
+void ft_clear_list(void *content)
+{
+	if (content)
+		free(content);
 }

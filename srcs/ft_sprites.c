@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 15:45:29 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/10 15:23:58 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/10 16:32:11 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,7 +232,7 @@ void		ft_do_tsprite(t_data *data)
 	y = 0;
 	i = 0;
 	if (!(data->tsprite = (t_sprite*)malloc(data->s_max * sizeof(t_sprite))))
-		exit(0);
+		ft_exit_all(data);
 	while (y < data->height)
 	{
 		while (x < data->width)

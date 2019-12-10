@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 14:08:39 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/10 12:30:05 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/10 16:30:19 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void 	ft_setup_rays(t_data *data, int **map)
 	float pas = 60 / (double)data->R[0];
 
 	i = 0;
+	data->vec = NULL;
+	data->dda = NULL;
 	if (!(data->vec = (t_vector*)malloc(data->R[0] * sizeof(t_vector))))
 		return ;
 	if (!(data->dda = (t_dda*)malloc(data->R[0] * sizeof(t_dda))))
@@ -49,10 +51,11 @@ void 	do_rays(t_data *data)
 		i++;
 	}
 	ft_do_colum(data);
-	ft_do_dist_sprite(data);
-	ft_check_if_visible(data);
-	//ft_show_tsprite(data->tsprite, data->s_max);
-	//ft_draw_sprites(data);
+	if (data->tsprite)
+	{
+		ft_do_dist_sprite(data);
+		ft_check_if_visible(data);
+	}
 	printf(GREEN "---------------\n" RESET);
 	mlx_put_image_to_window(data->mlx_p, data->mlx_wd, data->mlx_img, 0, 0);
 }

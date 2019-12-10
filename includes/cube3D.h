@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:55:14 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/10 15:44:03 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/10 16:26:14 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,4 +228,17 @@ int	ft_comp_sprite_angle(float angle_f, float angle_l, t_data *data);
 void    ft_do_looping(t_data *data);
 int		keypress(int keycode, void *param);
 int 	keyrelease(int keycode, void *param);
+
+void ft_clear_list(void *content);
+void 	ft_freemap(t_data *data);
+
+
+
+void 	ft_exit_all(t_data *data);
+void 	ft_free_map(t_data *data);
+void 	ft_free_vec(t_data *data);
+void 	ft_free_dda(t_data *data);
+void 	ft_free_tsprite(t_data *data);
+
+
 #endif

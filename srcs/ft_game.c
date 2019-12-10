@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 17:26:07 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/10 15:42:33 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/10 16:34:20 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,17 @@ void 	ft_setbackground(t_data *data)
 		{
 			if (j < data->R[1] / 2)
 			{
-				data->img[i + (j * data->sl)] = data->F >> 16;
-				data->img[i + 1 + (j * data->sl)] = data->F >> 8;
-				data->img[i + 2 + (j * data->sl)] = data->F >> 0;
+				data->img[i + (j * data->sl)] = data->C >> 16;
+				data->img[i + 1 + (j * data->sl)] = data->C >> 8;
+				data->img[i + 2 + (j * data->sl)] = data->C >> 0;
 				data->img[i + 3 + (j * data->sl)] = (char)0;
 				i += 4;
 			}
 			else
 			{
-				data->img[i + (j * data->sl)] = data->C >> 16;
-				data->img[i + 1 + (j * data->sl)] = data->C >> 8;
-				data->img[i + 2 + (j * data->sl)] = data->C >> 0;
+				data->img[i + (j * data->sl)] = data->F >> 16;
+				data->img[i + 1 + (j * data->sl)] = data->F >> 8;
+				data->img[i + 2 + (j * data->sl)] = data->F >> 0;
 				data->img[i + 3 + (j * data->sl)] = (char)0;
 				i += 4;
 			}
@@ -54,7 +54,7 @@ int	ft_main_loop(t_data  *data)
 	ft_keyboard_loop(data);
 	ft_reset_tsprite(data->tsprite, data->s_max, data);
 	if (data->exit_status == 1)
-		exit(0);
+		ft_exit_all(data);
 //	printf("x, y: %lf, %lf post loop\n", data->posx, data->posy);
 	int i = 0;
 	ft_setbackground(data);
@@ -75,7 +75,8 @@ int 	ft_game_loop(t_data *data, int **map)
 	ft_do_tsprite(data);
 	ft_setup_rays(data, map);
 	ft_setbackground(data);
-	ft_show_tsprite(data->tsprite, data->s_max);
+	if (data->tsprite)
+		ft_show_tsprite(data->tsprite, data->s_max);
 	do_rays(data);
 	ft_do_looping(data);
 	//printf("dasdadas");
