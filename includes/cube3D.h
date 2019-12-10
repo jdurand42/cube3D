@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:55:14 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/10 19:19:37 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/10 20:13:57 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include <mlx.h>
+# include "../nmp/includes/libbmp.h"
 
 # define pi 3.14159265
 # define speed 300

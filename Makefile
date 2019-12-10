@@ -40,6 +40,10 @@ compil	:
 			gcc -o $(NAME) -lmlx -framework OpenGL -framework Appkit \
 			$(SRCS) $(LIB)
 
+bmp     :
+			gcc -o $(NAME) -lmlx -framework OpenGL -framework Appkit \
+			$(SRCS) $(LIB) nmp/libbmp.a
+
 sani	:
 			gcc -o $(NAME) -g3 -fsanitize=address -lmlx -framework OpenGL -framework Appkit $(SRCS) $(LIB)
 
