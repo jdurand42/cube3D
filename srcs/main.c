@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 15:28:36 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/02 20:50:50 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/10 17:48:33 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ int		main(int ac, char **av)
 	data.exit_status = 0;
 	if (!(ft_game_loop(&data, map)))
 		ft_iserror(3);
-	free_paths(&data);
 	printf("program closed\n");
 //	for (int i =0; i < data.height; i++)
 //	{

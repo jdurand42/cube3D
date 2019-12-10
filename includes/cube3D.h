@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:55:14 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/03 15:22:52 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/10 18:24:35 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,13 @@
 # define speed_angle 2
 # define speed_div 0.001
 # define rayon 0.1
-# define epsilon 0.5
-# define ABS(n) (n > 0) ? (n) : (-n)
+# define UPWARD 1
+# define BACKWARD 2
+# define STRAFE_L 4
+# define STRAFE_R 8
+# define LEFT 16
+# define RIGHT 32
+# define EXIT 64
 
 # define GREEN   "\x1b[32m"
 # define RESET   "\x1b[0m"
@@ -92,6 +97,26 @@ typedef struct s_color
 	int 			hp;
 }				t_color;
 
+typedef struct s_sprite
+{
+	float	x;
+	float	y;
+	int		pixel_hit;
+	int		hit;
+	float	dist;
+	float   distx;
+	float	disty;
+	int 	sizex;
+	int 	sizey;
+	float	angle;
+	float	angle_f;
+	float 	angle_l;
+	float	rotx;
+	float	roty;
+	int		ref_pixel;
+	float	offset;
+}				t_sprite;
+
 typedef struct	s_data
 {
 	int					check;
@@ -117,15 +142,19 @@ typedef struct	s_data
 	int 				endian;
 	int 				bpp;
 	int 				**map;
+	int					s_max;
+	int					move;
 	struct s_vector 	*vec;
 	struct s_dda		*dda;
 	struct s_cam		cam;
 	struct s_tex		tex[5];
+	struct s_sprite		*tsprite;
 }				t_data;
 
 int		ft_iserror(int code);
 int		**ft_parse_stuff(t_data *data, int fd);
-void 	parse_map(t_data *data, char *line);
+int		**ft_parse_map(t_list **lst, size_t count, int *check, t_data *data);
+int 	ft_parse_aline(t_data *data, int **map, char *line, int count);
 void 	parse_color(t_data *data, char *line);
 void 	parse_path(t_data *data, char *line);
 char	*pathing(char *path, char *line, int *check);
@@ -136,7 +165,7 @@ int 	ft_game_loop(t_data *data, int **map);
 
 int 			ft_setup_mlx(t_data *data, int **map);
 void 	ft_setup_rays(t_data *data, int **map);
-int		ft_main_loop(int keycode, void *params);
+int		ft_main_loop(t_data *data);
 
 unsigned int 	ft_rgb(int r, int g, int b);
 float 			ft_toradian(float angle);
@@ -162,9 +191,9 @@ void 	ft_init_deltas(t_data *data, t_int *x_, t_int *y_, int i);
 
 unsigned int 	ft_choose_color(t_data *data, int i);
 
-int 	ft_keyboard_loop(t_data *data, int keycode);
+int 	ft_keyboard_loop(t_data *data);
 void	ft_do_colision(t_data *data, int choice);
-void 	ft_strife(t_data *data, int id);
+void 	ft_strafe(t_data *data, int id);
 void 	ft_advance(t_data *data, float angle, int param);
 void 	ft_collision(t_data *data, float angle);
 void 	ft_collision_back(t_data *data, float angle);
@@ -176,5 +205,42 @@ int	ft_setup_tex(t_data *data);
 void 	ft_get_info_tex(t_tex *tex);
 unsigned int 	ft_get_tex_xpixel(t_data *data, t_color *color, int i);
 void 	ft_get_tex_ypixel(t_data *data, t_color *color);
+
+void ft_do_tsprite(t_data * data);
+void 		ft_check_if_hit(t_data *data);
+void 	ft_show_tsprite(t_sprite *tsprite, int s_max);
+void 	ft_reset_tsprite(t_sprite *tsprite, int s_max, t_data *data);
+void 	ft_do_dist_sprite(t_data *data);
+void 	ft_draw_sprites(t_data *data, int pixel, int sizex, t_sprite *sprite);
+void 	ft_draw_a_colum_sprite(t_data *data, int i, int hp, int xpixel);
+void 	ft_draw_a_colum_sprite_rev(t_data *data, int i, int hp);
+void 	ft_check_if_visible(t_data *data);
+float ft_abs(float n);
+
+void 	ft_zbuffer(t_data *data, t_sprite *sprite, float pas);
+void 	ft_get_tex_ypixel_sprite(t_data *data, int xpixel, int n_pixel, unsigned char *color, int hp);
+
+void 	ft_do_sort_sprite(t_data *data);
+void 	ft_swap_sprite(t_sprite *a, t_sprite *b);
+float  ft_todegree(float radian);
+float	lissage_angle(float angle);
+int	ft_comp_sprite_angle(float angle_f, float angle_l, t_data *data);
+
+void    ft_do_looping(t_data *data);
+int		keypress(int keycode, void *param);
+int 	keyrelease(int keycode, void *param);
+
+void ft_clear_list(void *content);
+void 	ft_freemap(t_data *data);
+
+
+
+void 	ft_exit_all(t_data *data);
+void 	ft_free_map(t_data *data);
+void 	ft_free_vec(t_data *data);
+void 	ft_free_dda(t_data *data);
+void 	ft_free_tsprite(t_data *data);
+void 	ft_free_tex(t_data *data);
+void 	ft_lst_free(t_list **lst);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 16:31:29 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/02 19:15:09 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/09 19:09:37 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int 	ft_dox(t_data *data, t_int *x_, int i)
 	//printf("deltax : %lf\nx, y : %lf %lf\n, x_, x_y: %lf %lf\n", x_->delta, data->posx, data->posy, x_->x, x_->y);
 	if (data->vec[i].rotx < 0)
 	{
-		if (data->map[(int)x_->y][(int)x_->x + data->dda[i].xsign] > 0)
+		if (data->map[(int)x_->y][(int)x_->x + data->dda[i].xsign] == 1)
 		{
 			x_->dist = sqrt(((x_->x - data->vec[i].x1) * (x_->x - data->vec[i].x1)) +
 			((x_->y - data->vec[i].y1) * (x_->y - data->vec[i].y1)));
@@ -93,7 +93,7 @@ int 	ft_dox(t_data *data, t_int *x_, int i)
 	}
 	else
 	{
-		if (data->map[(int)x_->y][(int)x_->x] > 0)
+		if (data->map[(int)x_->y][(int)x_->x] == 1)
 		{
 			x_->dist = sqrt(((x_->x - data->vec[i].x1) * (x_->x - data->vec[i].x1)) +
 			((x_->y - data->vec[i].y1) * (x_->y - data->vec[i].y1)));
@@ -111,23 +111,25 @@ int 	ft_doy(t_data *data, t_int *y_, int i)
 {
 	if (data->vec[i].roty > 0)
 	{
-		if (data->map[(int)y_->y + data->dda[i].ysign][(int)y_->x] > 0)
+		if (data->map[(int)y_->y + data->dda[i].ysign][(int)y_->x] == 1)
 		{
 			y_->dist = sqrt(((y_->x - data->vec[i].x1) * (y_->x - data->vec[i].x1)) +
 			((y_->y - data->vec[i].y1) * (y_->y - data->vec[i].y1)));
 			data->vec[i].id_wally = y_->x - (int)y_->x;
 			return (1);
 		}
+		//ft_check_if_hit(data, i, data->map[(int)y_->y + data->dda[i].ysign][(int)y_->x], y_);
 	}
 	else
 	{
-		if (data->map[(int)y_->y][(int)y_->x] > 0)
+		if (data->map[(int)y_->y][(int)y_->x] == 1)
 		{
 			y_->dist = sqrt(((y_->x - data->vec[i].x1) * (y_->x - data->vec[i].x1)) +
 			((y_->y - data->vec[i].y1) * (y_->y - data->vec[i].y1)));
 			data->vec[i].id_wally = y_->x - (int)y_->x;
 			return (1);
 		}
+		//ft_check_if_hit(data, i, data->map[(int)y_->y][(int)y_->x], y_);
 	}
 	y_->y += data->dda[i].ysign;
 	y_->x += y_->delta;

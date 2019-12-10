@@ -1,33 +1,13 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear_bonus.c                                :+:      :+:    :+:   */
+/*   ft_draw_sprites.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/13 15:27:19 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/10 18:20:50 by jdurand          ###   ########.fr       */
+/*   Created: 2019/12/05 15:55:23 by jdurand           #+#    #+#             */
+/*   Updated: 2019/12/07 15:06:53 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-void	ft_lstclear(t_list **lst, void (*del)(void*))
-{
-	t_list	*buffer;
-	t_list	*buffernext;
-
-	if (!(*del))
-		return ;
-	if (lst == NULL)
-		return ;
-	buffer = *lst;
-	while (buffer != NULL)
-	{
-		buffernext = buffer->next;
-		del(buffer->content);
-		free(buffer);
-		buffer = buffernext;
-	}
-	*lst = NULL;
-}
+#include "../includes/cube3D.h"

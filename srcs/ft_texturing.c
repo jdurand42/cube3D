@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 15:11:46 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/03 15:27:45 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/09 22:41:08 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,10 @@ void 	ft_get_tex_ypixel(t_data *data, t_color *color)
 
 	i = color->side;
 	ypixel = (int)(data->tex[i].h * color->n_pixel / color->hp);
+	if (ypixel > data->tex[i].h - 1)
+		ypixel = data->tex[i].h - 1;
+	if (color->tex_x > data->tex[i].w - 1)
+		color->tex_x = data->tex[i].w - 1;
 	color->color[0] = data->tex[i].img[ypixel * data->tex[i].sl + (color->tex_x * 4)];
 	color->color[1] = data->tex[i].img[ypixel * data->tex[i].sl + (color->tex_x * 4) + 1];
 	color->color[2] = data->tex[i].img[ypixel * data->tex[i].sl + (color->tex_x * 4) + 2];
