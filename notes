@@ -102,9 +102,9 @@ do y -> while (intervalle classique)
 
 okay l'elite
 
-on peut considerer que:
+sizex = 500p
+tex.w = 250p
+pas = 0.5
 
-pixel_hit = le premier pixel a partir de ou dessiner
-sizex: la taille en pixelx a dessiner
-sizey: la taille en pixely a dessiner
-offset: le ratio de 0 a 1 a partir duquel dessiner le sprite, o si en entier
+n_pixel -> size
+?       -> tex.h

@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 15:45:29 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/09 23:26:54 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/10 13:48:51 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,8 +149,8 @@ void 	ft_check_if_visible(t_data *data)
 	printf("%f\n", pas);
 	while (i < data->s_max)
 	{
-		data->tsprite[i].sizey = data->R[1] / data->tsprite[i].dist;
-		data->tsprite[i].sizex = data->tsprite[i].sizey / 2;
+		data->tsprite[i].sizey = (int)(data->R[1] / data->tsprite[i].dist);
+		data->tsprite[i].sizex = data->tsprite[i].sizey * 1;
 		data->tsprite[i].angle_f = data->tsprite[i].angle - (pas * (data->tsprite[i].sizex / 2));
 		data->tsprite[i].angle_l = data->tsprite[i].angle + (pas * (data->tsprite[i].sizex / 2));
 		if ((data->tsprite[i].angle_f >= data->cam.angle - 30 && data->tsprite[i].angle_f <= data->cam.angle + 30) ||
@@ -158,11 +158,11 @@ void 	ft_check_if_visible(t_data *data)
 		{
 			if (data->tsprite[i].angle_l < 0)
 				data->tsprite[i].angle_l = 360 + data->tsprite[i].angle_l;
-			if (data->tsprite[i].angle_l > 359)
+			else if (data->tsprite[i].angle_l > 359)
 				data->tsprite[i].angle_l = data->tsprite[i].angle_l - 359;
 			if (data->tsprite[i].angle_f < 0)
 				data->tsprite[i].angle_f = 360 + data->tsprite[i].angle_f;
-			if (data->tsprite[i].angle_f > 359)
+			else if (data->tsprite[i].angle_f > 359)
 				data->tsprite[i].angle_f = data->tsprite[i].angle_f - 359;
 				printf(GREEN "sizex: %d, _f, _l: %lf, %lf\n" RESET, data->tsprite[i].sizex, data->tsprite[i].angle_f, data->tsprite[i].angle_l);
 			ft_zbuffer(data, &data->tsprite[i], pas);
@@ -186,7 +186,7 @@ void 	ft_zbuffer(t_data *data, t_sprite *sprite, float pas)
 	pixel = -1;
 	size = 0;
 	angle_s = sprite->angle_f;
-	while (size <= sprite->sizey)
+	while (size <= sprite->sizex)
 	{
 		while (i < data->R[0] - 1)
 		{
@@ -276,18 +276,19 @@ void 	ft_draw_sprites(t_data *data, int pixel, int sizex, t_sprite *sprite)
 {
 	int i = 0;
 	int xpixel;
-	int xn_pixel;
-	int x_pas;
+	float x_pas;
 
 	i = pixel;
-	xn_pixel = data->tex[4].w / sprite->sizex;
-	xpixel = data->tex[4].w * (sizex / sprite->sizex);
-	while (i < data->R[0] && i < sizex + pixel)
+	x_pas = data->tex[4].w / sprite->sizex;
+		xpixel = (sprite->sizex - sizex);
+	printf("x_pas: %f\ntex.w: %d\nsize total: %d\nsizex: %d\ntex.h: %d\n", x_pas, data->tex[4].w, sprite->sizex, sizex, data->tex[4].h);
+	while (i < data->R[0] && xpixel < sprite->sizex)
 	{
 		if (sprite->dist < data->vec[i].dist_towall) // draw a collum
-			ft_draw_a_colum_sprite(data, i, sprite->sizey, xpixel);
+			ft_draw_a_colum_sprite(data, i, sprite->sizey, (int)(xpixel * data->tex[4].h / sprite->sizey));
 		i++;
-		xpixel += (data->tex[4].w / sprite->sizex);
+		xpixel += 1;
+		sizex--;
 		//		printf("i: %d\nlsat - hit: %d, width: %d\n", i, data->tsprite[n].pixel_last - data->tsprite[n].pixel_hit, w_sprite);
 	}
 }
@@ -309,12 +310,13 @@ void 	ft_draw_a_colum_sprite(t_data *data, int i, int hp, int xpixel)
 	while (j <= (data->R[1] / 2) + (hp / 2) && j <  data->R[1])
 	{
 		ft_get_tex_ypixel_sprite(data, xpixel, n_pixel, color, hp);
-	//	if (color[0] == 0 && color[1] == 0 && color[2] == 0)
-	//		break ;
-		data->img[j * data->sl + (data->R[0] - 1 - i) * 4 + 0] = (char)color[0];
-		data->img[j * data->sl + (data->R[0] - 1 - i) * 4 + 1] = (char)color[1];
-		data->img[j * data->sl + (data->R[0] - 1 - i) * 4 + 2] = (char)color[2];
-		data->img[j * data->sl + (data->R[0] - 1 - i) * 4 + 3] = (char)0;
+		if (!(color[0] == 0 && color[1] == 0 && color[2] == 0))
+		{
+			data->img[j * data->sl + (data->R[0] - 1 - i) * 4 + 0] = (char)color[0];
+			data->img[j * data->sl + (data->R[0] - 1 - i) * 4 + 1] = (char)color[1];
+			data->img[j * data->sl + (data->R[0] - 1 - i) * 4 + 2] = (char)color[2];
+			data->img[j * data->sl + (data->R[0] - 1 - i) * 4 + 3] = (char)0;
+		}
 		j++;
 		n_pixel += 1;
 	}
