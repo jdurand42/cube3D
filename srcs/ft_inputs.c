@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 14:45:47 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/10 17:57:57 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/10 19:22:19 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,6 @@ int		keypress(int keycode, void *param)
 		data->move |= LEFT;
 	if (keycode == 14)
 		data->move |= RIGHT;
-	if (keycode == 15)
-		data->cam.angle -= 90;
-	if (keycode == 17)
-		data->cam.angle += 90;
-	if (data->cam.angle > 359)
-		data->cam.angle = 1;
-	else if (data->cam.angle < 0)
-		data->cam.angle = 359;
 	ft_main_loop(data);
 	return (1);
 }
@@ -81,8 +73,6 @@ void    ft_do_looping(t_data *data)
 {
 	mlx_hook(data->mlx_wd, 2, 0, keypress, data);
 	//mlx_hook(data->mlx_wd, 3, 0, release_key, data);
-	//mlx_key_hook(data->mlx_wd, ft_main_loop, data);
-	//printf("\n\nlooooop\n\n");
 	mlx_loop(data->mlx_p);
 }
 

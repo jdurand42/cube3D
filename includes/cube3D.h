@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:55:14 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/10 19:10:14 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/10 19:19:37 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,7 +202,6 @@ void 	ft_get_tex_ypixel(t_data *data, t_color *color);
 
 void ft_do_tsprite(t_data * data);
 void 		ft_check_if_hit(t_data *data);
-void 	ft_show_tsprite(t_sprite *tsprite, int s_max);
 void 	ft_reset_tsprite(t_sprite *tsprite, int s_max, t_data *data);
 void 	ft_do_dist_sprite(t_data *data);
 void 	ft_draw_sprites(t_data *data, int pixel, int sizex, t_sprite *sprite);
