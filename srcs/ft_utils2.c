@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/05 15:15:57 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/11 14:18:33 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/11 16:27:55 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,24 +68,6 @@ void 	ft_swap_sprite2(t_sprite *a, t_sprite *b)
 	b->sizey = i_b;
 }
 
-float  ft_todegree(float radian)
-{
-	return (radian * (180 / pi));
-}
-
-float	lissage_angle(float angle)
-{
-	if (angle < 0)
-		angle = 360 + angle;
-	else if (angle > 359)
-		angle = angle - 359;
-	if (angle < 0)
-		angle = 360 + angle;
-	else if (angle > 359)
-		angle = angle - 359;
-	return (angle);
-}
-
 int	ft_comp_sprite_angle(float angle_f, float angle_l, t_data *data)
 {
 	if (angle_f >= data->cam.angle - 30 && angle_f <= data->cam.angle + 30)
@@ -107,10 +89,7 @@ void ft_lst_free(t_list **lst)
 
 	b = *lst;
 	if (b == NULL)
-	{
-		printf("b NULL\n");
 		return ;
-	}
 	while (b != NULL)
 	{
 		b_n = b->next;

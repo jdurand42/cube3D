@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 15:45:29 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/11 14:33:49 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/11 16:59:56 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,16 @@ void 	ft_do_dist_sprite(t_data *data)
 	i = 0;
 	while (i < data->s_max)
 	{
-		distx = (data->tsprite[i].x + 0.5) - data->posx;
-		disty = (data->tsprite[i].y + 0.5) - data->posy;
-		data->tsprite[i].dist = sqrt((distx * distx) + (disty * disty));
-		data->tsprite[i].rotx = distx / data->tsprite[i].dist;
-		data->tsprite[i].roty = disty / data->tsprite[i].dist;
+		ft_init_dist_tsprite(data, &distx, &disty, i);
 		if (distx > 0)
 		{
-			data->tsprite[i].angle = ft_todegree(acos(ft_abs(data->tsprite[i].rotx)));
+			data->tsprite[i].angle = to_d(acos(ft_abs(data->tsprite[i].rotx)));
 			if (disty > 0)
 				data->tsprite[i].angle = 360 - data->tsprite[i].angle;
 		}
 		else
 		{
-			data->tsprite[i].angle = ft_todegree(acos(ft_abs(data->tsprite[i].rotx)));
+			data->tsprite[i].angle = to_d(acos(ft_abs(data->tsprite[i].rotx)));
 			if (disty < 0)
 				data->tsprite[i].angle = 90 + (90 - data->tsprite[i].angle);
 			else
@@ -43,6 +39,15 @@ void 	ft_do_dist_sprite(t_data *data)
 		i++;
 	}
 	ft_do_sort_sprite(data);
+}
+
+void 	ft_init_dist_tsprite(t_data *data, float *distx, float *disty, int i)
+{
+	*distx = (data->tsprite[i].x + 0.5) - data->posx;
+	*disty = (data->tsprite[i].y + 0.5) - data->posy;
+	data->tsprite[i].dist = sqrt((*distx * *distx) + (*disty * *disty));
+	data->tsprite[i].rotx = *distx / data->tsprite[i].dist;
+	data->tsprite[i].roty = *disty / data->tsprite[i].dist;
 }
 
 void 	ft_check_if_visible(t_data *data)
@@ -67,37 +72,6 @@ void 	ft_check_if_visible(t_data *data)
 	}
 }
 
-void 	ft_zbuffer(t_data *data, t_sprite *sprite, float pas)
-{
-	int i;
-	float angle_s;
-	int size;
-	int	pixel;
-
-	i = 0;
-	pixel = -1;
-	size = 0;
-	angle_s = sprite->angle_f;
-	while (size <= sprite->sizex)
-	{
-		while (i < data->R[0] - 1)
-		{
-			if (angle_s >= data->vec[i].angle && angle_s <= data->vec[i + 1].angle)
-			{
-				pixel = i;
-				break ;
-			}
-			i++;
-		}
-		if (pixel != -1)
-			break;
-		size++;
-		angle_s += pas;
-		i = 0;
-	}
-	ft_draw_sprites(data, pixel, sprite->sizex - size, sprite);
-}
-
 void		ft_do_tsprite(t_data *data)
 {
 	int x;
@@ -115,7 +89,6 @@ void		ft_do_tsprite(t_data *data)
 		{
 			if (data->map[y][x] == 2)
 			{
-		//		printf("%d, %d\n", x, y);
 				data->tsprite[i].x = x;
 				data->tsprite[i].y = y;
 				i++;
@@ -138,68 +111,4 @@ void 	ft_reset_tsprite(t_sprite *tsprite, int s_max, t_data *data)
 		tsprite[i].dist = -1;
 		i++;
 	}
-}
-
-void 	ft_draw_sprites(t_data *data, int pixel, int sizex, t_sprite *sprite)
-{
-	int i = 0;
-	int xpixel;
-	float x_pas;
-
-	i = pixel;
-	x_pas = data->tex[4].w / sprite->sizex;
-	xpixel = sprite->sizex - sizex;
-//	printf("x_pas: %f\ntex.w: %d\nsize total: %d\nsizex: %d\ntex.h: %d\n", x_pas, data->tex[4].w, sprite->sizex, sizex, data->tex[4].h);
-	while (i < data->R[0] && xpixel < sprite->sizex)
-	{
-		if (sprite->dist < data->vec[i].dist_towall) // draw a collum
-			ft_draw_a_colum_sprite(data, i, sprite->sizey, (int)(xpixel * data->tex[4].h / sprite->sizey));
-		i++;
-		xpixel += 1;
-		//		printf("i: %d\nlsat - hit: %d, width: %d\n", i, data->tsprite[n].pixel_last - data->tsprite[n].pixel_hit, w_sprite);
-	}
-}
-
-void 	ft_draw_a_colum_sprite(t_data *data, int i, int hp, int xpixel)
-{
-	unsigned long		j;
-	int					n_pixel;
-	unsigned char		color[3];
-
-	n_pixel = 1;
-	j = 0;
-	if (hp <= data->R[1])
-		j = (data->R[1] / 2) - (hp / 2);
-	else
-	{
-		j = 0;
-		n_pixel = (hp - data->R[1]) / 2;
-	}
-	while (j <= (data->R[1] / 2) + (hp / 2) && j <  data->R[1])
-	{
-		ft_get_tex_ypixel_sprite(data, xpixel, n_pixel, color, hp);
-		if (!(color[0] == 0 && color[1] == 0 && color[2] == 0))
-		{
-			data->img[j * data->sl + (data->R[0] - 1 - i) * 4 + 0] = (char)color[0];
-			data->img[j * data->sl + (data->R[0] - 1 - i) * 4 + 1] = (char)color[1];
-			data->img[j * data->sl + (data->R[0] - 1 - i) * 4 + 2] = (char)color[2];
-			data->img[j * data->sl + (data->R[0] - 1 - i) * 4 + 3] = (char)0;
-		}
-		j++;
-		n_pixel += 1;
-	}
-}
-
-void 	ft_get_tex_ypixel_sprite(t_data *data, int xpixel, int n_pixel, unsigned char *color, int hp)
-{
-	int	ypixel;
-
-	ypixel = (int)(data->tex[4].h * n_pixel / hp);
-	if (ypixel > data->tex[4].h - 1)
-		ypixel = data->tex[4].h - 1;
-	if (xpixel > data->tex[4].w - 1)
-		xpixel = data->tex[4].w - 1;
-	color[0] = data->tex[4].img[ypixel * data->tex[4].sl + (xpixel * 4)];
-	color[1] = data->tex[4].img[ypixel * data->tex[4].sl + (xpixel * 4) + 1];
-	color[2] = data->tex[4].img[ypixel * data->tex[4].sl + (xpixel * 4) + 2];
 }

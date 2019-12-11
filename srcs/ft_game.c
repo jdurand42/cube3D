@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 17:26:07 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/11 15:46:20 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/11 16:21:52 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,25 +25,26 @@ void 	ft_setbackground(t_data *data)
 		{
 			if (j < data->R[1] / 2)
 			{
-				data->img[i + (j * data->sl)] = data->C >> 0;
-				data->img[i + 1 + (j * data->sl)] = data->C >> 8;
-				data->img[i + 2 + (j * data->sl)] = data->C >> 16;
-				data->img[i + 3 + (j * data->sl)] = (char)0;
+				ft_coloriage(data, i, j, data->C);
 				i += 4;
 			}
 			else
 			{
-				data->img[i + (j * data->sl)] = data->F >> 0;
-				data->img[i + 1 + (j * data->sl)] = data->F >> 8;
-				data->img[i + 2 + (j * data->sl)] = data->F >> 16;
-				data->img[i + 3 + (j * data->sl)] = (char)0;
+				ft_coloriage(data, i , j, data->F);
 				i += 4;
 			}
 		}
 		i = 0;
 		j += 1;
 	}
-//	mlx_put_image_to_window(data->mlx_p, data->mlx_wd, data->mlx_img, 0, 0);
+}
+
+void 	ft_coloriage(t_data *data, int i, int j, unsigned int color)
+{
+	data->img[i + (j * data->sl)] = color >> 0;
+	data->img[i + 1 + (j * data->sl)] = color >> 8;
+	data->img[i + 2 + (j * data->sl)] = color >> 16;
+	data->img[i + 3 + (j * data->sl)] = (char)0;
 }
 
 int	ft_main_loop(t_data  *data)
@@ -52,14 +53,8 @@ int	ft_main_loop(t_data  *data)
 		ft_exit_all(data);
 	ft_keyboard_loop(data);
 	ft_reset_tsprite(data->tsprite, data->s_max, data);
-//	printf("x, y: %lf, %lf post loop\n", data->posx, data->posy);
 	ft_setbackground(data);
 	do_rays(data);
-	mlx_hook(data->mlx_wd, 3, 0, keyrelease, data);
-//	ft_show_tsprite(data->tsprite, data->s_max);
-//	printf("wallx %lf, wally %lf, dist: %lf, angle %lf\n", data->vec[data->R[0] / 2].id_wallx
-//	, data->vec[data->R[0] / 2].id_wally, data->vec[data->R[0] / 2].dist_towall, data->vec[data->R[0] / 2].angle);
-	//mlx_put_image_to_window(data->mlx_p, data->mlx_wd, data->tex[3].img_p, data->R[0] / 2, data->R[1] / 2);
 	return (0);
 }
 
@@ -74,7 +69,6 @@ int 	ft_game_loop(t_data *data, int **map)
 	do_rays(data);
 	//export_as_bmp("./screens/screenshot.bmp", data->img, data->R[0], data->R[1]);
 	ft_do_looping(data);
-	//printf("dasdadas");
 	return (1);
 }
 
@@ -92,6 +86,5 @@ int 	ft_setup_mlx(t_data *data, int **map)
 	if (!(ft_setup_tex(data)))
 		return (0);
 	data->exit_status = 0;
-	printf("bpp: %d, sizeline: %d, endian: %d\n", data->bpp, data->sl, data->endian);
 	return (1);
 }
