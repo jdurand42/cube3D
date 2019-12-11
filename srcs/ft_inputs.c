@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 14:45:47 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/10 19:22:19 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/11 14:02:42 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,15 @@
 ** e = 14
 ** esc = 53
 */
+
+int		exit_program(int keycode, void *param)
+{
+	t_data *data;
+
+	data = param;
+	exit(0);
+	return (0);
+}
 
 int		keypress(int keycode, void *param)
 {
@@ -72,6 +81,7 @@ int 	keyrelease(int keycode, void *param)
 void    ft_do_looping(t_data *data)
 {
 	mlx_hook(data->mlx_wd, 2, 0, keypress, data);
+	mlx_hook(data->mlx_wd, 17, 0, exit_program, data);
 	//mlx_hook(data->mlx_wd, 3, 0, release_key, data);
 	mlx_loop(data->mlx_p);
 }

@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 17:26:07 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/10 20:17:15 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/11 13:56:06 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ int	ft_main_loop(t_data  *data)
 	ft_keyboard_loop(data);
 	ft_reset_tsprite(data->tsprite, data->s_max, data);
 //	printf("x, y: %lf, %lf post loop\n", data->posx, data->posy);
-	int i = 0;
 	ft_setbackground(data);
 	do_rays(data);
 	mlx_hook(data->mlx_wd, 3, 0, keyrelease, data);
@@ -70,7 +69,7 @@ int 	ft_game_loop(t_data *data, int **map)
 	ft_setup_rays(data, map);
 	ft_setbackground(data);
 	do_rays(data);
-	export_as_bmp("./screens/screenshot.bmp", data->img, data->R[0], data->R[1]);
+	//export_as_bmp("./screens/screenshot.bmp", data->img, data->R[0], data->R[1]);
 	ft_do_looping(data);
 	//printf("dasdadas");
 	return (1);

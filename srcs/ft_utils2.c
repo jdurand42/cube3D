@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/05 15:15:57 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/10 19:16:13 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/11 14:18:33 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,13 @@ void 	ft_swap_sprite(t_sprite *a, t_sprite *b)
 	lf_b = a->angle;
 	a->angle = b->angle;
 	b->angle = lf_b;
+	ft_swap_sprite2(a, b);
+}
+
+void 	ft_swap_sprite2(t_sprite *a, t_sprite *b)
+{
+	int		i_b;
+
 	i_b = a->sizex;
 	a->sizex = b->sizex;
 	b->sizex = i_b;
@@ -113,13 +120,4 @@ void ft_lst_free(t_list **lst)
 		b = NULL;
 		b = b_n;
 	}
-}
-
-void ft_clear_list(void *content)
-{
-	printf("now here\n");
-	printf("%s\n", (char*)content);
-	if (content)
-		free(content);
-	content = NULL;
 }

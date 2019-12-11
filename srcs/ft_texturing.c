@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 15:11:46 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/10 19:11:45 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/11 14:24:52 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,20 +35,27 @@ int	ft_setup_tex(t_data *data)
 
 void 	ft_get_info_tex(t_tex *tex)
 {
-	tex[0].img = mlx_get_data_addr(tex[0].img_p, &tex[0].bpp, &tex[0].sl, &tex[0].endian);
-	tex[1].img = mlx_get_data_addr(tex[1].img_p, &tex[1].bpp, &tex[1].sl, &tex[1].endian);
-	tex[2].img = mlx_get_data_addr(tex[2].img_p, &tex[2].bpp, &tex[2].sl, &tex[2].endian);
-	tex[3].img = mlx_get_data_addr(tex[3].img_p, &tex[3].bpp, &tex[3].sl, &tex[3].endian);
-	tex[4].img = mlx_get_data_addr(tex[4].img_p, &tex[4].bpp, &tex[4].sl, &tex[4].endian);
+	tex[0].img = mlx_get_data_addr(tex[0].img_p, &tex[0].bpp, &tex[0].sl,
+		&tex[0].endian);
+	tex[1].img = mlx_get_data_addr(tex[1].img_p, &tex[1].bpp, &tex[1].sl,
+		&tex[1].endian);
+	tex[2].img = mlx_get_data_addr(tex[2].img_p, &tex[2].bpp, &tex[2].sl,
+		&tex[2].endian);
+	tex[3].img = mlx_get_data_addr(tex[3].img_p, &tex[3].bpp, &tex[3].sl,
+		&tex[3].endian);
+	tex[4].img = mlx_get_data_addr(tex[4].img_p, &tex[4].bpp, &tex[4].sl,
+		&tex[4].endian);
 }
 
 void 	ft_do_colum(t_data *data)
 {
-	unsigned long		j = 0;
+	unsigned long		j;
 	int		hp;
-	int		i = 0;
+	int		i;
 	t_color 			color;
 
+	j = 0;
+	i = 0;
 	while (i < data->R[0])
 	{
 		hp = ft_get_dist_info(data, i);
@@ -79,13 +86,13 @@ void 	ft_do_colum(t_data *data)
 int 	ft_get_dist_info(t_data *data, int i)
 {
 	float 	distance;
-	double		hp;
 
 	if (i < data->R[0])
-		distance = data->vec[i].dist_towall * cos(ft_toradian(30 - data->vec[i].angle_rela));
+		distance = data->vec[i].dist_towall *
+			cos(ft_toradian(30 - data->vec[i].angle_rela));
 	else if (i > data->R[0])
-		distance = data->vec[i].dist_towall * cos(ft_toradian(data->vec[i].angle_rela - 30));
-	hp = data->R[1] / (double)distance;
+		distance = data->vec[i].dist_towall *
+			cos(ft_toradian(data->vec[i].angle_rela - 30));
 	return ((int)(data->R[1] / distance));
 }
 
@@ -100,9 +107,12 @@ void 	ft_get_tex_ypixel(t_data *data, t_color *color)
 		ypixel = data->tex[i].h - 1;
 	if (color->tex_x > data->tex[i].w - 1)
 		color->tex_x = data->tex[i].w - 1;
-	color->color[0] = data->tex[i].img[ypixel * data->tex[i].sl + (color->tex_x * 4)];
-	color->color[1] = data->tex[i].img[ypixel * data->tex[i].sl + (color->tex_x * 4) + 1];
-	color->color[2] = data->tex[i].img[ypixel * data->tex[i].sl + (color->tex_x * 4) + 2];
+	color->color[0] =
+		data->tex[i].img[ypixel * data->tex[i].sl + (color->tex_x * 4)];
+	color->color[1] =
+		data->tex[i].img[ypixel * data->tex[i].sl + (color->tex_x * 4) + 1];
+	color->color[2] =
+		data->tex[i].img[ypixel * data->tex[i].sl + (color->tex_x * 4) + 2];
 }
 
 unsigned int 	ft_get_tex_xpixel(t_data *data, t_color *color, int i)
@@ -110,28 +120,18 @@ unsigned int 	ft_get_tex_xpixel(t_data *data, t_color *color, int i)
 	if (data->vec[i].wall_type == 1)
 	{
 		if (data->vec[i].roty > 0)
-		{
 			color->side = 2;
-			return ((int)(data->tex[2].w * data->vec[i].id_wally)); //sud
-		}
 		else
-		{
 			color->side = 0;
-			return ((int)(data->tex[0].w * data->vec[i].id_wally)); // nord
-		}
+		return ((int)(data->tex[color->side].w * data->vec[i].id_wally));
 	}
 	else
 	{
 		if (data->vec[i].rotx < 0)
-		{
 			color->side = 1;
-			return ((int)(data->tex[1].w * data->vec[i].id_wallx)); // E
-		}
 		else
-		{
 			color->side = 3;
-			return ((int)(data->tex[3].w * data->vec[i].id_wallx)); // W
-		}
+		return ((int)(data->tex[color->side].w * data->vec[i].id_wallx));
 	}
 }
 /*
