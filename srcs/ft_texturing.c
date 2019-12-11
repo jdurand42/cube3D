@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 15:11:46 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/11 21:13:57 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/11 21:29:45 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void			ft_get_tex_ypixel(t_data *data, t_color *color)
 		data->tex[i].img[ypixel * data->tex[i].sl + (color->tex_x * 4) + 2];
 }
 
-unsigned int	ft_get_tex_xpixel(t_data *data, t_color *color, int i)
+int	ft_get_tex_xpixel(t_data *data, t_color *color, int i)
 {
 	if (data->vec[i].wall_type == 1)
 	{
