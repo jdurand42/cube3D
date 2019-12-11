@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 17:26:07 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/11 13:56:06 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/11 15:46:20 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,28 @@
 
 void 	ft_setbackground(t_data *data)
 {
-	int i = 0; int j = 0;
+	int i;
+	int j;
 
+	i = 0;
+	j = 0;
 	while (j < data->R[1])
 	{
 		while (i < (data->R[0] * 4))
 		{
 			if (j < data->R[1] / 2)
 			{
-				data->img[i + (j * data->sl)] = data->C >> 16;
+				data->img[i + (j * data->sl)] = data->C >> 0;
 				data->img[i + 1 + (j * data->sl)] = data->C >> 8;
-				data->img[i + 2 + (j * data->sl)] = data->C >> 0;
+				data->img[i + 2 + (j * data->sl)] = data->C >> 16;
 				data->img[i + 3 + (j * data->sl)] = (char)0;
 				i += 4;
 			}
 			else
 			{
-				data->img[i + (j * data->sl)] = data->F >> 16;
+				data->img[i + (j * data->sl)] = data->F >> 0;
 				data->img[i + 1 + (j * data->sl)] = data->F >> 8;
-				data->img[i + 2 + (j * data->sl)] = data->F >> 0;
+				data->img[i + 2 + (j * data->sl)] = data->F >> 16;
 				data->img[i + 3 + (j * data->sl)] = (char)0;
 				i += 4;
 			}

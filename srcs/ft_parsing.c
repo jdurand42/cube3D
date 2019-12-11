@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:36:37 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/10 18:35:57 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/11 15:45:22 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,13 @@ unsigned int 	coloring(char *line, int *check)
 
 	i = 0;
 	j = 0;
-	while (line[i] != 0 && !ft_isdigit(line[i]))
-		i++;
 	while (line[i] != 0 && j < 3)
 	{
-		rgb[j++] = (unsigned char)ft_atoi(&line[i]);
-		while (line[i] != 0 && line[i] == ',')
+		while (line[i] != 0 && !ft_isdigit(line[i]))
+			i++;
+		if (ft_isdigit(line[i]))
+			rgb[j++] = (unsigned char)ft_atoi(&line[i]);
+		while (line[i] != 0 && ft_isdigit(line[i]))
 			i++;
 	}
 	if (j == 3)
@@ -36,7 +37,7 @@ unsigned int 	coloring(char *line, int *check)
 		*check = -1;
 		return (0);
 	}
-	//printf("color F-C: %u\n", *rgb);
+	printf("color F-C: %u\n", rgb[2]);
 	return (ft_rgb(rgb[0], rgb[1], rgb[2]));
 }
 

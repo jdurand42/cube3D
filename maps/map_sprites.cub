@@ -4,8 +4,8 @@ SO ./textures_xpm/redbrick.xpm
 WE ./textures_xpm/eagle.xpm
 ES ./textures_xpm/purplestone.xpm
 S ./sprites/king_gun.xpm
-F 200,201,202
-C 101,101,101
+F 192,192,192
+C 173,216,230
 1 1 1 1 1 1 1 1 1 1
 1 0 2 0 1 0 0 0 0 1
 1 0 0 0 1 0 0 0 0 1

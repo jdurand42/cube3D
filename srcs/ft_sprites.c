@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 15:45:29 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/11 14:32:46 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/11 14:33:49 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,22 +97,7 @@ void 	ft_zbuffer(t_data *data, t_sprite *sprite, float pas)
 	}
 	ft_draw_sprites(data, pixel, sprite->sizex - size, sprite);
 }
-/*
-void 	ft_show_tsprite(t_sprite *tsprite, int s_max)
-{
-	int i;
 
-	i = 0;
-	while (i < s_max)
-	{
-		printf("i : %d x, y: %f, %f, pix %d, hit: %d, dist: %f, offset: %f\n angle: cos: %lf, sin: %lf, angle: %lf\n", i,
-		tsprite[i].x, tsprite[i].y, tsprite[i].pixel_hit, tsprite[i].hit, tsprite[i].dist,
-		tsprite[i].offset, tsprite[i].rotx, tsprite[i].roty, tsprite[i].angle);
-		printf("dx, dy: %f, %f\n", tsprite[i].distx, tsprite[i].disty);
-		i++;
-	}
-}
-*/
 void		ft_do_tsprite(t_data *data)
 {
 	int x;
