@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 16:31:29 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/11 19:44:28 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/11 20:06:30 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,29 +46,29 @@ void 	ft_perform_dda(t_data *data, int i)
 
 	ft_init_perform_dda(data, i, &x_, &y_);
 	ret = 0;
-	if (data->vec[i].roty > 0)
-	{
-		while (x_.y > 0 && ret == 0)
-			ret = ft_dox(data, &x_, i);
-	}
-	else
-		while (x_.y < data->height - 1 && ret == 0)
-			ret = ft_dox(data, &x_, i);
-	ret = 0;
 	if (data->vec[i].rotx > 0)
 	{
-		while (y_.x < data->width - 1 && ret == 0)
+		while (y_.x < data->width - 1 && y_.x > 0 && ret == 0)
 			ret = ft_doy(data, &y_, i);
 	}
 	else
-		while (y_.x > 0 && ret == 0)
+		while (y_.x > 0 && y_.x < data->width - 1 && ret == 0)
 			ret = ft_doy(data, &y_, i);
+	ret = 0;
+	if (data->vec[i].roty < 0)
+		while (x_.y < data->height - 1 && x_.y > 0 && ret == 0)
+				ret = ft_dox(data, &x_, i);
+		else if (data->vec[i].roty > 0 && data->vec[i].angle != 270)
+		{
+			while (x_.y > 0 && x_.y < data->height - 1 && ret == 0)
+				ret = ft_dox(data, &x_, i);
+		}
 	do_dist(data, &x_, &y_, i);
 }
 
 int 	ft_dox(t_data *data, t_int *x_, int i)
 {
-	printf("deltax : %lf\ntan: %lf, theta: %lf\n, x_, x_y: %lf %lf, angle: %lf\n", x_->delta, data->vec[i].tan_theta, get_theta(data, i), x_->x, x_->y, data->vec[i].angle);
+//	printf("deltax : %lf\ntan: %lf, theta: %lf\n, x_, x_y: %lf %lf, angle: %lf\n", x_->delta, data->vec[i].tan_theta, get_theta(data, i), x_->x, x_->y, data->vec[i].angle);
 	if (data->vec[i].rotx < 0)
 	{
 		if (data->map[(int)x_->y][(int)x_->x + data->dda[i].xsign] == 1)
