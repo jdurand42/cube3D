@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 14:08:39 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/11 18:30:23 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/11 18:39:37 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,6 @@ void 	ft_setup_rays(t_data *data, int **map)
 	if (!(data->vec = (t_vector*)malloc(data->R[0] * sizeof(t_vector))))
 		return (ft_exit_all(data));
 	if (!(data->dda = (t_dda*)malloc(data->R[0] * sizeof(t_dda))))
-		return (ft_exit_all(data));
-	if (!(data->x_ = (t_int*)malloc(data->R[0] * sizeof(t_int))))
-		return (ft_exit_all(data));
-	if (!(data->y_ = (t_int*)malloc(data->R[0] * sizeof(t_int))))
 		return (ft_exit_all(data));
 	data->cam.angle = ft_get_angle(data, map);
 	while (i < data->R[0])

@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 16:31:29 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/11 18:34:26 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/11 18:41:36 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,31 +41,29 @@ void 	ft_dda(t_data *data, int i)
 void 	ft_perform_dda(t_data *data, int i)
 {
 	int 		ret;
-	t_int 		*x_;
-	t_int		*y_;
+	t_int 		x_;
+	t_int		y_;
 
-	x_ = &data->x_[i];
-	y_ = &data->y_[i];
-	ft_init_perform_dda(data, i, x_, y_);
+	ft_init_perform_dda(data, i, &x_, &y_);
 	ret = 0;
 	if (data->vec[i].roty > 0)
 	{
-		while (x_->y > 1 && ret == 0)
-			ret = ft_dox(data, x_, i);
+		while (x_.y > 1 && ret == 0)
+			ret = ft_dox(data, &x_, i);
 	}
 	else
-		while (x_->y < data->height - 2 && ret == 0)
-			ret = ft_dox(data, x_, i);
+		while (x_.y < data->height - 2 && ret == 0)
+			ret = ft_dox(data, &x_, i);
 	ret = 0;
 	if (data->vec[i].rotx > 0)
 	{
-		while (y_->x < data->width - 2 && ret == 0)
-			ret = ft_doy(data, y_, i);
+		while (y_.x < data->width - 2 && ret == 0)
+			ret = ft_doy(data, &y_, i);
 	}
 	else
-		while (y_->x > 1 && ret == 0)
-			ret = ft_doy(data, y_, i);
-	do_dist(data, x_, y_, i);
+		while (y_.x > 1 && ret == 0)
+			ret = ft_doy(data, &y_, i);
+	do_dist(data, &x_, &y_, i);
 }
 
 int 	ft_dox(t_data *data, t_int *x_, int i)
