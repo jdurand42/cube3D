@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:36:37 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/11 21:25:27 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/11 21:41:26 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int				ft_parse_aline(t_data *data, int **map, char *line, int count)
 	return (1);
 }
 
-int				**ft_parse_map(t_list **lst, size_t count, int *check, t_data *data)
+int				**ft_parse_map(t_list **lst, size_t count, t_data *data)
 {
 	int		**map;
 	char	*line;
@@ -125,7 +125,6 @@ int				**ft_parse_stuff(t_data *data, int fd)
 {
 	size_t	i;
 	char	*line;
-	char	map_str;
 	size_t	count;
 	t_list	*lst;
 
@@ -155,5 +154,5 @@ int				**ft_parse_stuff(t_data *data, int fd)
 		return (NULL);
 	free(line);
 	line = NULL;
-	return (ft_parse_map(&lst, count, &data->check, data));
+	return (ft_parse_map(&lst, count, data));
 }

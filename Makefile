@@ -42,6 +42,11 @@ compil	:
 			gcc -o $(NAME) -lmlx -framework OpenGL -framework Appkit \
 			$(SRCS) $(LIB)
 
+wall	:
+			gcc -o $(NAME) -Wall -Wextra -Werror \
+			-lmlx -framework OpenGL -framework Appkit \
+			$(SRCS) $(LIB)
+
 bmp     :
 			gcc -o $(NAME) -lmlx -framework OpenGL -framework Appkit \
 			$(SRCS) $(LIB) nmp/libbmp.a

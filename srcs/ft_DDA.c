@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 16:31:29 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/11 21:20:56 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/11 21:43:25 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,9 +125,6 @@ int		ft_doy(t_data *data, t_int *y_, int i)
 
 void	do_dist(t_data *data, t_int *x_, t_int *y_, int i)
 {
-	float	dist_x;
-	float	dist_y;
-
 	if ((x_->dist < y_->dist && x_->dist >= 0) || !(y_->dist >= 0))
 	{
 		data->vec[i].wall_type = 0;

@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 17:26:07 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/11 21:07:36 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/11 21:46:27 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ int		ft_main_loop(int keycode, void *param)
 	if (data->exit_status == 1)
 		ft_exit_all(data);
 	ft_keyboard_loop(data);
-	ft_reset_tsprite(data->tsprite, data->s_max, data);
 	ft_setbackground(data);
 	do_rays(data);
 	return (0);

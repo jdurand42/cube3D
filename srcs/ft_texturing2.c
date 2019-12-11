@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 16:30:24 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/11 21:14:29 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/11 21:44:49 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,7 @@ int		ft_get_dist_info(t_data *data, int i)
 	else if (i > data->R[0])
 		distance = data->vec[i].dist_towall *
 			cos(ft_toradian(data->vec[i].angle_rela - 30));
+	else
+		distance = data->vec[i].dist_towall;
 	return ((int)(data->R[1] / distance));
 }

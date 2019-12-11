@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:55:14 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/11 21:34:03 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/11 21:42:28 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,11 +148,11 @@ typedef struct			s_data
 
 int		ft_iserror(int code);
 int		**ft_parse_stuff(t_data *data, int fd);
-int		**ft_parse_map(t_list **lst, size_t count, int *check, t_data *data);
+int		**ft_parse_map(t_list **lst, size_t count, t_data *data);
 int		ft_parse_aline(t_data *data, int **map, char *line, int count);
 void	parse_color(t_data *data, char *line);
 void	parse_path(t_data *data, char *line);
-char	*pathing(char *path, char *line, int *check);
+char	*pathing(char *line, int *check);
 void	parse_res(t_data *data, char *line);
 unsigned int	coloring(char *line, int *check);
 int		ft_game_loop(t_data *data, int **map);

@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 15:45:29 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/11 21:11:47 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/11 21:43:47 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,20 +97,5 @@ void	ft_do_tsprite(t_data *data)
 		}
 		x = 0;
 		y++;
-	}
-	ft_reset_tsprite(data->tsprite, data->s_max, data);
-}
-
-void	ft_reset_tsprite(t_sprite *tsprite, int s_max, t_data *data)
-{
-	int i;
-
-	return ;
-	i = 0;
-	while (i < s_max)
-	{
-		tsprite[i].angle = 0;
-		tsprite[i].dist = -1;
-		i++;
 	}
 }

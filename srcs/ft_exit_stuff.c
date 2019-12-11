@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 16:14:45 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/11 21:15:40 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/11 21:44:07 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int		exit_program(int keycode, void *param)
 	t_data	*data;
 
 	data = (t_data*)param;
+	(void)keycode;
 	exit(0);
 	return (0);
 }
