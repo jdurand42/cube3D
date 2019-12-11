@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:55:14 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/11 21:42:28 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/11 21:56:25 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ typedef struct	s_sprite
 typedef struct			s_data
 {
 	int					check;
+	int					fsave;
 	int 				width;
 	int					height;
 	int 				exit_status;
