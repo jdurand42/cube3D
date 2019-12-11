@@ -1,4 +1,4 @@
-R 1000 750
+R 2500 1500
 NO ./textures_xpm/wood.xpm
 SO ./textures_xpm/redbrick.xpm
 WE ./textures_xpm/eagle.xpm
