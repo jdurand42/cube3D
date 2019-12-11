@@ -6,13 +6,13 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 15:45:29 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/11 16:59:56 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/11 21:11:47 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cube3D.h"
 
-void 	ft_do_dist_sprite(t_data *data)
+void	ft_do_dist_sprite(t_data *data)
 {
 	int		i;
 	float	distx;
@@ -41,7 +41,7 @@ void 	ft_do_dist_sprite(t_data *data)
 	ft_do_sort_sprite(data);
 }
 
-void 	ft_init_dist_tsprite(t_data *data, float *distx, float *disty, int i)
+void	ft_init_dist_tsprite(t_data *data, float *distx, float *disty, int i)
 {
 	*distx = (data->tsprite[i].x + 0.5) - data->posx;
 	*disty = (data->tsprite[i].y + 0.5) - data->posy;
@@ -50,10 +50,10 @@ void 	ft_init_dist_tsprite(t_data *data, float *distx, float *disty, int i)
 	data->tsprite[i].roty = *disty / data->tsprite[i].dist;
 }
 
-void 	ft_check_if_visible(t_data *data)
+void	ft_check_if_visible(t_data *data)
 {
-	int i;
-	float pas;
+	int		i;
+	float	pas;
 
 	i = 0;
 	pas = 60 / (float)data->R[0];
@@ -72,10 +72,10 @@ void 	ft_check_if_visible(t_data *data)
 	}
 }
 
-void		ft_do_tsprite(t_data *data)
+void	ft_do_tsprite(t_data *data)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 	int	i;
 
 	x = 0;
@@ -101,10 +101,12 @@ void		ft_do_tsprite(t_data *data)
 	ft_reset_tsprite(data->tsprite, data->s_max, data);
 }
 
-void 	ft_reset_tsprite(t_sprite *tsprite, int s_max, t_data *data)
+void	ft_reset_tsprite(t_sprite *tsprite, int s_max, t_data *data)
 {
-	int i = 0;
+	int i;
+
 	return ;
+	i = 0;
 	while (i < s_max)
 	{
 		tsprite[i].angle = 0;

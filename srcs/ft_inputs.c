@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 14:45:47 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/11 19:54:50 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/11 21:08:13 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 
 int		keypress(int keycode, void *param)
 {
-	t_data *data;
+	t_data	*data;
 
 	data = (t_data*)param;
 	if (keycode == 13)
@@ -46,9 +46,9 @@ int		keypress(int keycode, void *param)
 	return (1);
 }
 
-int 	keyrelease(int keycode, void *param)
+int		keyrelease(int keycode, void *param)
 {
-	t_data *data;
+	t_data	*data;
 
 	data = (t_data*)param;
 	if (keycode == 13)
@@ -68,7 +68,7 @@ int 	keyrelease(int keycode, void *param)
 	return (1);
 }
 
-void    ft_do_looping(t_data *data)
+void	ft_do_looping(t_data *data)
 {
 	mlx_hook(data->mlx_wd, 3, 0, keyrelease, data);
 	mlx_hook(data->mlx_wd, 17, 0, exit_program, data);
@@ -76,9 +76,9 @@ void    ft_do_looping(t_data *data)
 	mlx_loop(data->mlx_p);
 }
 
-int 	ft_keyboard_loop(t_data *data)
+int		ft_keyboard_loop(t_data *data)
 {
-	int move;
+	int	move;
 
 	move = 0;
 	if (data->move & 1)

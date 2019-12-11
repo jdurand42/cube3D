@@ -6,24 +6,24 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 15:11:46 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/11 16:38:49 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/11 21:13:57 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cube3D.h"
 
-void 	ft_do_colum(t_data *data)
+void			ft_do_colum(t_data *data)
 {
-	int				j;
-	int				i;
-	t_color			color;
+	int		j;
+	int		i;
+	t_color	color;
 
 	j = 0;
 	i = 0;
 	while (i < data->R[0])
 	{
 		ft_init_t_color(data, &color, i, &j);
-		while (j <= (data->R[1] / 2) + (color.hp / 2) && j <  data->R[1])
+		while (j <= (data->R[1] / 2) + (color.hp / 2) && j < data->R[1])
 		{
 			ft_get_tex_ypixel(data, &color);
 			data->img[j * data->sl + (data->R[0] - 1 - i) * 4 + 0] =
@@ -40,7 +40,7 @@ void 	ft_do_colum(t_data *data)
 	}
 }
 
-void 	ft_init_t_color(t_data *data, t_color *color, int i, int *j)
+void			ft_init_t_color(t_data *data, t_color *color, int i, int *j)
 {
 	color->hp = ft_get_dist_info(data, i);
 	color->tex_x = ft_get_tex_xpixel(data, color, i);
@@ -54,10 +54,10 @@ void 	ft_init_t_color(t_data *data, t_color *color, int i, int *j)
 	}
 }
 
-void 	ft_get_tex_ypixel(t_data *data, t_color *color)
+void			ft_get_tex_ypixel(t_data *data, t_color *color)
 {
 	int	ypixel;
-	int i;
+	int	i;
 
 	i = color->side;
 	ypixel = (int)(data->tex[i].h * color->n_pixel / color->hp);
@@ -73,7 +73,7 @@ void 	ft_get_tex_ypixel(t_data *data, t_color *color)
 		data->tex[i].img[ypixel * data->tex[i].sl + (color->tex_x * 4) + 2];
 }
 
-unsigned int 	ft_get_tex_xpixel(t_data *data, t_color *color, int i)
+unsigned int	ft_get_tex_xpixel(t_data *data, t_color *color, int i)
 {
 	if (data->vec[i].wall_type == 1)
 	{
@@ -105,5 +105,4 @@ unsigned int 	ft_get_tex_xpixel(t_data *data, t_color *color, int i)
 ** if wall_type 0
 **	-> rotx > 0 -> W
 **  -> rotx < 0 -> E
-**
 */

@@ -6,18 +6,18 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 16:26:49 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/11 16:45:53 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/11 21:04:40 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cube3D.h"
 
-float 			ft_toradian(float angle)
+float	ft_toradian(float angle)
 {
 	return ((PI / 180) * angle);
 }
 
-float  to_d(float radian)
+float	to_d(float radian)
 {
 	return (radian * (180 / PI));
 }

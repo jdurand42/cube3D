@@ -6,104 +6,92 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 16:23:30 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/11 16:25:00 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/11 21:10:03 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cube3D.h"
 
-void 	ft_collision(t_data *data, float angle)
+void	ft_collision(t_data *data, float angle)
 {
-	int		hity;
-	int		hitx;
 	float	ad_x;
 	float	ad_y;
 
-	hitx = 0;
-	hity = 0;
 	data->cam.roty = sin(ft_toradian(angle));
 	data->cam.rotx = cos(ft_toradian(angle));
 	ad_x = data->cam.rotx * SPEED * SPEED_DIV;
 	ad_y = data->cam.roty * SPEED * SPEED_DIV;
-	if (data->cam.roty > 0) // up
-	{
-		if (data->map[(int)(data->posy - ad_y - RAYON)][(int)(data->posx + ad_x)] > 0) // hit
-			hity = 1;
-	}
-	else
-		if (data->map[(int)(data->posy - ad_y + RAYON)][(int)(data->posx + ad_x)] > 0)
-			hity = 1;
-	if (data->cam.rotx > 0)
-	{
-		if (data->map[(int)(data->posy - ad_y)][(int)(data->posx + ad_x + RAYON)] > 0)
-			hitx = 1;
-	}
-	else
-	{
-		if (data->map[(int)(data->posy - ad_y)][(int)(data->posx + ad_x - RAYON)] > 0)
-			hitx = 1;
-	}
-	if (hity < 1 || hitx < 1)
+	if (!ft_collision2(data, ad_x, ad_y))
 		ft_advance(data, angle, 1);
 }
 
-void 	ft_collision_back(t_data *data, float angle)
+int		ft_collision2(t_data *data, float ad_x, float ad_y)
 {
-	int		hity;
-	int		hitx;
+	if (data->cam.roty > 0)
+	{
+		if (data->map[(int)(data->posy - ad_y - RAYON)]
+		[(int)(data->posx + ad_x)] > 0)
+			return (1);
+	}
+	else
+	{
+		if (data->map[(int)(data->posy - ad_y + RAYON)]
+		[(int)(data->posx + ad_x)] > 0)
+			return (1);
+	}
+	if (data->cam.rotx > 0)
+	{
+		if (data->map[(int)(data->posy - ad_y)]
+		[(int)(data->posx + ad_x + RAYON)] > 0)
+			return (1);
+	}
+	else
+	{
+		if (data->map[(int)(data->posy - ad_y)]
+		[(int)(data->posx + ad_x - RAYON)] > 0)
+			return (1);
+	}
+	return (0);
+}
+
+void	ft_collision_back(t_data *data, float angle)
+{
 	float	ad_x;
 	float	ad_y;
 
-	hitx = 0;
-	hity = 0;
 	data->cam.roty = sin(ft_toradian(angle));
 	data->cam.rotx = cos(ft_toradian(angle));
 	ad_x = data->cam.rotx * SPEED * SPEED_DIV;
 	ad_y = data->cam.roty * SPEED * SPEED_DIV;
-	if (data->cam.roty > 0) // up
-	{
-		if (data->map[(int)(data->posy + ad_y + RAYON)][(int)(data->posx - ad_x)] > 0) // hit
-			hity = 1;
-	}
-	else
-		if (data->map[(int)(data->posy + ad_y - RAYON)][(int)(data->posx - ad_x)] > 0)
-			hity = 1;
-	if (data->cam.rotx > 0)
-	{
-		if (data->map[(int)(data->posy + ad_y)][(int)(data->posx - ad_x - RAYON)] > 0)
-			hitx = 1;
-	}
-	else
-	{
-		if (data->map[(int)(data->posy + ad_y)][(int)(data->posx - ad_x + RAYON)] > 0)
-			hitx = 1;
-	}
-	if (hity < 1 || hitx < 1)
+	if (!ft_collision_back2(data, ad_x, ad_y))
 		ft_advance(data, angle, 2);
 }
 
-void 	ft_strafe(t_data *data, int id)
+int		ft_collision_back2(t_data *data, float ad_x, float ad_y)
 {
-	float	strafe_angle;
-
-	strafe_angle = data->cam.angle + (90 * id);
-	if (strafe_angle > 359)
-		strafe_angle = strafe_angle - 360;
-	else if (strafe_angle < 0)
-		strafe_angle = 360 + strafe_angle;
-	ft_collision(data, strafe_angle);
-}
-
-void 	ft_advance(t_data *data, float angle, int param)
-{
-	if (param == 1)
+	if (data->cam.roty > 0)
 	{
-		data->posy -= (sin(ft_toradian(angle)) * SPEED * SPEED_DIV);
-		data->posx += (cos(ft_toradian(angle)) * SPEED * SPEED_DIV);
+		if (data->map[(int)(data->posy + ad_y + RAYON)]
+		[(int)(data->posx - ad_x)] > 0)
+			return (1);
 	}
-	else if (param == 2)
+	else
 	{
-		data->posy += (sin(ft_toradian(angle)) * SPEED * SPEED_DIV);
-		data->posx -= (cos(ft_toradian(angle)) * SPEED * SPEED_DIV);
+		if (data->map[(int)(data->posy + ad_y - RAYON)]
+		[(int)(data->posx - ad_x)] > 0)
+			return (1);
 	}
+	if (data->cam.rotx > 0)
+	{
+		if (data->map[(int)(data->posy + ad_y)]
+		[(int)(data->posx - ad_x - RAYON)] > 0)
+			return (1);
+	}
+	else
+	{
+		if (data->map[(int)(data->posy + ad_y)]
+		[(int)(data->posx - ad_x + RAYON)] > 0)
+			return (1);
+	}
+	return (0);
 }

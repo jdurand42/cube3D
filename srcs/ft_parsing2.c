@@ -6,13 +6,13 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 15:16:00 by jdurand           #+#    #+#             */
-/*   Updated: 2019/11/28 18:59:45 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/11 21:23:07 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cube3D.h"
 
-void 	parse_res(t_data *data, char *line)
+void	parse_res(t_data *data, char *line)
 {
 	size_t	i;
 
@@ -40,7 +40,7 @@ void 	parse_res(t_data *data, char *line)
 char	*pathing(char *pathe, char *line, int *check)
 {
 	size_t	i;
-	char *path;
+	char	*path;
 
 	i = 0;
 	while (line[i] != 0 && line[i] != '.')
@@ -56,7 +56,7 @@ char	*pathing(char *pathe, char *line, int *check)
 	return (path);
 }
 
-void 	parse_path(t_data *data, char *line)
+void	parse_path(t_data *data, char *line)
 {
 	size_t	i;
 

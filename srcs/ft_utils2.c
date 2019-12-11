@@ -6,15 +6,15 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/05 15:15:57 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/11 16:27:55 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/11 21:04:26 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cube3D.h"
 
-void 	ft_do_sort_sprite(t_data *data)
+void	ft_do_sort_sprite(t_data *data)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < data->s_max - 1)
@@ -29,10 +29,10 @@ void 	ft_do_sort_sprite(t_data *data)
 	}
 }
 
-void 	ft_swap_sprite(t_sprite *a, t_sprite *b)
+void	ft_swap_sprite(t_sprite *a, t_sprite *b)
 {
 	float	f_b;
-	float  lf_b;
+	float	lf_b;
 	int		i_b;
 
 	i_b = a->x;
@@ -56,9 +56,9 @@ void 	ft_swap_sprite(t_sprite *a, t_sprite *b)
 	ft_swap_sprite2(a, b);
 }
 
-void 	ft_swap_sprite2(t_sprite *a, t_sprite *b)
+void	ft_swap_sprite2(t_sprite *a, t_sprite *b)
 {
-	int		i_b;
+	int	i_b;
 
 	i_b = a->sizex;
 	a->sizex = b->sizex;
@@ -68,24 +68,10 @@ void 	ft_swap_sprite2(t_sprite *a, t_sprite *b)
 	b->sizey = i_b;
 }
 
-int	ft_comp_sprite_angle(float angle_f, float angle_l, t_data *data)
+void	ft_lst_free(t_list **lst)
 {
-	if (angle_f >= data->cam.angle - 30 && angle_f <= data->cam.angle + 30)
-		return (1);
-	if (angle_l >= data->cam.angle - 30 && angle_l <= data->cam.angle + 30)
-		return (1);
-	if (angle_f <= data->cam.angle - 30 && angle_f >= data->cam.angle + 30)
-		return (1);
-	if (angle_l <= data->cam.angle - 30 && angle_l >= data->cam.angle + 30)
-		return (1);
-	return (0);
-}
-
-
-void ft_lst_free(t_list **lst)
-{
-	t_list *b;
-	t_list *b_n;
+	t_list	*b;
+	t_list	*b_n;
 
 	b = *lst;
 	if (b == NULL)

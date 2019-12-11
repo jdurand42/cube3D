@@ -6,18 +6,17 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:36:37 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/11 15:45:22 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/11 21:25:27 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cube3D.h"
 
-
-unsigned int 	coloring(char *line, int *check)
+unsigned int	coloring(char *line, int *check)
 {
-	size_t	j;
-	size_t	i;
-	unsigned char rgb[3];
+	size_t			j;
+	size_t			i;
+	unsigned char	rgb[3];
 
 	i = 0;
 	j = 0;
@@ -41,7 +40,7 @@ unsigned int 	coloring(char *line, int *check)
 	return (ft_rgb(rgb[0], rgb[1], rgb[2]));
 }
 
-void 	parse_color(t_data *data, char *line)
+void			parse_color(t_data *data, char *line)
 {
 	size_t	i;
 	size_t	j;
@@ -56,10 +55,15 @@ void 	parse_color(t_data *data, char *line)
 		data->C = coloring(&line[i], &data->check);
 }
 
-int 	ft_parse_aline(t_data *data, int **map, char *line, int count)
+int				ft_parse_aline(t_data *data, int **map, char *line, int count)
 {
-	int i = 0; int j = 0; int check = 0;
+	int i;
+	int j;
+	int check;
 
+	i = 0;
+	j = 0;
+	check = 0;
 	if (!(map[count] = (int*)malloc(data->width * sizeof(int))))
 		return (-1);
 	while (line[i] != 0)
@@ -74,8 +78,7 @@ int 	ft_parse_aline(t_data *data, int **map, char *line, int count)
 			|| line[i] == 'E')
 			{
 				data->posx = j + 0.5;
-				data->posy = count + 0.5; // on remet pas la pos a zero?
-		//		map[count][j++] = 0;
+				data->posy = count + 0.5;
 			}
 				map[count][j++] = line[i] - '0';
 			check++;
@@ -85,7 +88,7 @@ int 	ft_parse_aline(t_data *data, int **map, char *line, int count)
 	return (1);
 }
 
-int		**ft_parse_map(t_list **lst, size_t count, int *check, t_data *data)
+int				**ft_parse_map(t_list **lst, size_t count, int *check, t_data *data)
 {
 	int		**map;
 	char	*line;
@@ -118,7 +121,7 @@ int		**ft_parse_map(t_list **lst, size_t count, int *check, t_data *data)
 	return (map);
 }
 
-int		**ft_parse_stuff(t_data *data, int fd)
+int				**ft_parse_stuff(t_data *data, int fd)
 {
 	size_t	i;
 	char	*line;
@@ -127,8 +130,6 @@ int		**ft_parse_stuff(t_data *data, int fd)
 	t_list	*lst;
 
 	i = 0;
-	data->check = 0;
-	data->s_max = 0;
 	count = 0;
 	lst = NULL;
 	while (get_next_line(fd, &line) > 0)

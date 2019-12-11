@@ -6,16 +6,16 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 14:08:39 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/11 19:10:38 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/11 21:06:10 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cube3D.h"
 
-void 	ft_setup_rays(t_data *data, int **map)
+void	ft_setup_rays(t_data *data, int **map)
 {
-	int 	i;
-	float pas;
+	int		i;
+	float	pas;
 
 	pas = 60 / (float)data->R[0];
 	i = 0;
@@ -33,9 +33,9 @@ void 	ft_setup_rays(t_data *data, int **map)
 	}
 }
 
-void 	do_rays(t_data *data)
+void	do_rays(t_data *data)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < data->R[0])
@@ -54,9 +54,9 @@ void 	do_rays(t_data *data)
 	mlx_put_image_to_window(data->mlx_p, data->mlx_wd, data->mlx_img, 0, 0);
 }
 
-void 	ft_setray(t_data *data, int i)
+void	ft_setray(t_data *data, int i)
 {
-	float pas;
+	float	pas;
 
 	pas = 60 / (float)data->R[0];
 	data->vec[i].x1 = data->posx;
@@ -85,5 +85,4 @@ void 	ft_setray(t_data *data, int i)
 ** if wall_type 0
 **	-> rotx > 0 -> W
 **  -> rotx < 0 -> E
-**
 */

@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:55:14 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/11 19:44:54 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/11 20:59:43 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,10 +192,12 @@ unsigned int 	ft_choose_color(t_data *data, int i);
 
 int 	ft_keyboard_loop(t_data *data);
 void	ft_do_colision(t_data *data, int choice);
+int 	ft_collision2(t_data *data, float ad_x, float ad_y);
 void 	ft_strafe(t_data *data, int id);
 void 	ft_advance(t_data *data, float angle, int param);
 void 	ft_collision(t_data *data, float angle);
 void 	ft_collision_back(t_data *data, float angle);
+int		ft_collision_back2(t_data *data, float ad_x, float ad_y);
 int 	ft_get_dist_info(t_data *data, int i);
 
 void 	free_paths(t_data *data);

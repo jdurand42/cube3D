@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 15:28:36 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/10 17:48:33 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/11 21:26:39 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int		main(int ac, char **av)
 	int			**map;
 
 	file = NULL;
+	data.check = 0;
+	data.s_max = 0;
 	if (ac != 2)
 		fd = open("./maps/long_map.cub", O_RDONLY);
 	else

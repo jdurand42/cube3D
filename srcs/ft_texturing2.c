@@ -6,13 +6,13 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 16:30:24 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/11 16:32:34 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/11 21:14:29 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cube3D.h"
 
-int	ft_setup_tex(t_data *data)
+int		ft_setup_tex(t_data *data)
 {
 	if (!(data->tex[0].img_p = mlx_xpm_file_to_image(data->mlx_p, data->NO,
 		&data->tex[0].w, &data->tex[0].h)))
@@ -33,7 +33,7 @@ int	ft_setup_tex(t_data *data)
 	return (1);
 }
 
-void 	ft_get_info_tex(t_tex *tex)
+void	ft_get_info_tex(t_tex *tex)
 {
 	tex[0].img = mlx_get_data_addr(tex[0].img_p, &tex[0].bpp, &tex[0].sl,
 		&tex[0].endian);
@@ -47,9 +47,9 @@ void 	ft_get_info_tex(t_tex *tex)
 		&tex[4].endian);
 }
 
-int 	ft_get_dist_info(t_data *data, int i)
+int		ft_get_dist_info(t_data *data, int i)
 {
-	float 	distance;
+	float	distance;
 
 	if (i < data->R[0])
 		distance = data->vec[i].dist_towall *
