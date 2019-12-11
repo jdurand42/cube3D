@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:55:14 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/11 17:12:59 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/11 18:22:07 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,8 @@ typedef struct	s_data
 	int					s_max;
 	int					move;
 	struct s_vector 	*vec;
+	struct s_int		*x_;
+	struct s_int		*y_;
 	struct s_dda		*dda;
 	struct s_cam		cam;
 	struct s_tex		tex[5];

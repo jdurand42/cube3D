@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 16:14:37 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/11 16:15:32 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/11 18:37:16 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void 	ft_init_perform_dda(t_data *data, int i, t_int *x_, t_int *y_)
 {
-	data->vec[i].tan_theta = tan(ft_toradian(get_theta(data, i)));
+	if (get_theta(data, i) != 90)
+		data->vec[i].tan_theta = tan(ft_toradian(get_theta(data, i)));
 	x_->delta = data->dda[i].dx * data->vec[i].tan_theta;
 	y_->delta = data->dda[i].dy / data->vec[i].tan_theta;
 	ft_init_deltas(data, x_, y_, i);

@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 14:08:39 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/11 14:20:37 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/11 18:30:23 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,18 @@ void 	ft_setup_rays(t_data *data, int **map)
 	int 	i;
 	float pas;
 
-	pas = 60 / (double)data->R[0];
+	pas = 60 / (float)data->R[0];
 	i = 0;
 	data->vec = NULL;
 	data->dda = NULL;
 	if (!(data->vec = (t_vector*)malloc(data->R[0] * sizeof(t_vector))))
-		return ;
+		return (ft_exit_all(data));
 	if (!(data->dda = (t_dda*)malloc(data->R[0] * sizeof(t_dda))))
-		return ;
+		return (ft_exit_all(data));
+	if (!(data->x_ = (t_int*)malloc(data->R[0] * sizeof(t_int))))
+		return (ft_exit_all(data));
+	if (!(data->y_ = (t_int*)malloc(data->R[0] * sizeof(t_int))))
+		return (ft_exit_all(data));
 	data->cam.angle = ft_get_angle(data, map);
 	while (i < data->R[0])
 	{
@@ -69,6 +73,7 @@ void 	ft_setray(t_data *data, int i)
 	data->vec[i].rotx = cos(ft_toradian(data->vec[i].angle));
 	data->vec[i].roty = sin(ft_toradian(data->vec[i].angle));
 	data->vec[i].wall_type = -1;
+	data->vec[i].tan_theta = 0;
 }
 
 /*
