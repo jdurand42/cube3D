@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 14:45:47 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/11 18:42:16 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/11 18:57:24 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,15 +70,17 @@ int 	keyrelease(int keycode, void *param)
 
 void    ft_do_looping(t_data *data)
 {
-	mlx_hook(data->mlx_wd, 2, 0, keypress, data);
 	mlx_hook(data->mlx_wd, 3, 0, keyrelease, data);
 	mlx_hook(data->mlx_wd, 17, 0, exit_program, data);
-	mlx_loop_hook(data->mlx_p, ft_main_loop, data);
+	mlx_hook(data->mlx_wd, 2, 0, ft_main_loop, data);
 	mlx_loop(data->mlx_p);
 }
 
 int 	ft_keyboard_loop(t_data *data)
 {
+	int move;
+
+	move = 0;
 	if (data->move & 1)
 		ft_collision(data, data->cam.angle);
 	if (data->move & 2)

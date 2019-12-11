@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 17:26:07 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/11 16:21:52 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/11 18:56:09 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,12 @@ void 	ft_coloriage(t_data *data, int i, int j, unsigned int color)
 	data->img[i + 3 + (j * data->sl)] = (char)0;
 }
 
-int	ft_main_loop(t_data  *data)
+int	ft_main_loop(int keycode, void *param)
 {
+	t_data *data;
+
+	data = (t_data*)param;
+	keypress(keycode, param);
 	if (data->exit_status == 1)
 		ft_exit_all(data);
 	ft_keyboard_loop(data);

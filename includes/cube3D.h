@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:55:14 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/11 18:39:28 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/11 19:44:54 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include <mlx.h>
-# include "../nmp/includes/libbmp.h"
 
 # define PI 3.14159265
 # define SPEED 150
@@ -161,7 +160,7 @@ int 	ft_game_loop(t_data *data, int **map);
 
 int 			ft_setup_mlx(t_data *data, int **map);
 void 	ft_setup_rays(t_data *data, int **map);
-int		ft_main_loop(t_data *data);
+int		ft_main_loop(int keycode, void *param);
 
 unsigned int 	ft_rgb(int r, int g, int b);
 float 			ft_toradian(float angle);
