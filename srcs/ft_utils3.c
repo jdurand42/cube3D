@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 16:26:49 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/12 15:10:01 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/12 17:34:48 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,5 @@ unsigned int	coloring(char *line, int *check)
 		*check = -1;
 		return (0);
 	}
-	printf("color F-C: %u\n", rgb[2]);
 	return (ft_rgb(rgb[0], rgb[1], rgb[2]));
 }

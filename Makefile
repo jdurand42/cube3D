@@ -35,7 +35,8 @@ all		:	$(NAME)
 
 $(NAME) :
 			cd ./libft ; make bonus ; cd .. ;
-			gcc -o $(NAME) -lmlx -framework OpenGL -framework Appkit \
+			gcc -o $(NAME) -Wall -Wextra -Werror \
+			-lmlx -framework OpenGL -framework Appkit \
 			$(SRCS) $(LIB)
 
 compil	:

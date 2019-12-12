@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 15:16:00 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/12 16:06:50 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/12 17:35:20 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ char	*pathing(char *line, int *check)
 	}
 	else
 		*check += 1;
-	printf("path: %s, check: %d\n", path, *check);
 	return (path);
 }
 
