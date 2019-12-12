@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:36:37 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/11 21:41:26 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/12 13:22:39 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,54 +74,45 @@ int				ft_parse_aline(t_data *data, int **map, char *line, int count)
 		{
 			if (line[i] - '0' == 2)
 				data->s_max += 1;
-			if (line[i] == 'N' || line[i] == 'S' || line[i] == 'W'
-			|| line[i] == 'E')
-			{
-				data->posx = j + 0.5;
-				data->posy = count + 0.5;
-			}
-				map[count][j++] = line[i] - '0';
+			map[count][j++] = line[i] - '0';
 			check++;
 		}
 		i++;
 	}
+	if (check != data->width)
+		return (-1);
 	return (1);
 }
 
-int				**ft_parse_map(t_list **lst, size_t count, t_data *data)
+int				ft_parse_map(t_list **lst, size_t count, t_data *data)
 {
-	int		**map;
 	char	*line;
 	t_list  *lst2;
 	size_t	i;
 	size_t	j;
 
 	i = 0;
-	data->width = 0;
 	j = 0;
 	line = (char*)(*lst)->content;
 	while (line[i] != 0)
 		if (ft_isargvalid(line[i++]))
 			data->width += 1;
 	i = 0;
-	if (!(map = (int**)malloc(count * sizeof(int*))))
-		return (NULL);
+	if (!(data->map = (int**)malloc(count * sizeof(int*))))
+		return (0);
 	count -= 1;
 	lst2 = *lst;
 	while (count >= 0 && lst2 != NULL)
 	{
-		if (ft_parse_aline(data, map, (char*)lst2->content, count) == -1)
-			return (NULL);
+		if (ft_parse_aline(data, data->map, (char*)lst2->content, count) == -1)
+			return (0);
 		count--;
 		lst2 = lst2->next;
-	//free line and lst
 	}
-	printf("here\n");
-	ft_lst_free(lst);
-	return (map);
+	return (1);
 }
 
-int				**ft_parse_stuff(t_data *data, int fd)
+int				ft_parse_stuff(t_data *data, int fd)
 {
 	size_t	i;
 	char	*line;
@@ -133,26 +124,72 @@ int				**ft_parse_stuff(t_data *data, int fd)
 	lst = NULL;
 	while (get_next_line(fd, &line) > 0)
 	{
-		if (*line != 0)
-		{
-			if (ft_search_arg(line, "R"))
-				parse_res(data, line);
-			else if (ft_search_arg(line, "NSWE"))
-				parse_path(data, line);
-			else if (ft_search_arg(line, "FC"))
-				parse_color(data, line);
-			else if (ft_search_arg(line, "1"))
-			{
-				ft_lstadd_front(&lst, ft_lstnew(ft_strdup(line)));
-				count++;
-			}
-			free(line);
-		}
+		ft_parse_stuff2(data, line, &lst, &count);
+		free(line);
 	}
-	data->height = count;
-	if (data->check != 9)
-		return (NULL);
 	free(line);
 	line = NULL;
-	return (ft_parse_map(&lst, count, data));
+	data->height = count;
+	if (data->check != 9)
+		return (0);
+	if (!ft_parse_map(&lst, count, data))
+		return (0);
+	if (!ft_check_map(data, data->map))
+		return (0);
+	ft_lst_free(&lst);
+	return (1);
+}
+
+int		ft_check_map(t_data *data, int **map)
+{
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	while (j < data->height)
+	{
+		while (i < data->width)
+		{
+			if (j == 0 || i == 0 || i == data->width - 1 ||
+				j == data->height - 1)
+			{
+				if (data->map[j][i] != 1)
+					return (ft_iserror(4));
+			}
+			if (data->map[j][i] > 2)
+				ft_parse_position(data, i, j);
+			i++;
+		}
+		i = 0;
+		j++;
+	}
+	if (data->posx == 0 || data->posy == 0)
+		return (ft_iserror(4));
+	return (1);
+}
+
+void 	ft_parse_position(t_data *data, int i, int j)
+{
+	data->posy = j;
+	data->posx = i;
+	data->cam.angle = ft_get_angle(data, data->map);
+}
+
+void	ft_parse_stuff2(t_data *data, char *line, t_list **lst, size_t *count)
+{
+	if (*line != 0)
+	{
+		if (ft_search_arg(line, "R"))
+			parse_res(data, line);
+		else if (ft_search_arg(line, "NSWE"))
+			parse_path(data, line);
+		else if (ft_search_arg(line, "FC"))
+			parse_color(data, line);
+		else if (ft_search_arg(line, "1"))
+		{
+			ft_lstadd_front(lst, ft_lstnew(ft_strdup(line)));
+			*count += 1;
+		}
+	}
 }

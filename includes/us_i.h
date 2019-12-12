@@ -1,29 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_errors.c                                        :+:      :+:    :+:   */
+/*   us_i.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/07 17:33:42 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/12 13:15:11 by jdurand          ###   ########.fr       */
+/*   Created: 2019/12/12 12:16:33 by jdurand           #+#    #+#             */
+/*   Updated: 2019/12/12 12:17:46 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cube3D.h"
+#ifndef US_I_H
+# define US_I_H
+# include "cube3D.h"
 
-int		ft_iserror(int code)
-{
-	if (code == 1)
-		ft_putstr("Error\nFile opening aborted\n");
-	else if (code == 2)
-		ft_putstr("Error\nWhile gnl\n");
-	else if (code == 3)
-		ft_putstr("Error\nIn game loop\n");
-	else if (code == 4)
-	{
-		ft_putstr("Error\nMap invalid\n");
-		return (0);
-	}
-	return (1);
-}
+unsigned int	ft_rgb(int r, int g, int b);
+unsigned int	coloring(char *line, int *check);
+
+#endif

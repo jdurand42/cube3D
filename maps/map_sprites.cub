@@ -1,4 +1,4 @@
-R 12000 800000
+R 1000 800
 NO ./textures_xpm/wood.xpm
 SO ./textures_xpm/redbrick.xpm
 WE ./textures_xpm/eagle.xpm
@@ -14,7 +14,7 @@ C 101,101,101
 1 0 2 0 0 0 0 0 0 1
 1 0 0 1 1 1 0 0 0 1
 1 0 0 0 0 0 0 2 0 1
-1 0 W 0 0 0 2 2 0 1
+1 0 E 0 0 0 2 2 0 1
 1 0 0 0 0 0 0 0 0 1
 1 1 1 1 1 0 0 0 0 1
 1 1 1 1 1 0 0 0 0 1

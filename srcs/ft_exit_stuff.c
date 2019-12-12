@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 16:14:45 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/11 21:44:07 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/12 12:42:02 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,13 @@ void	ft_exit_all(t_data *data)
 	ft_free_tsprite(data);
 	ft_free_tex(data);
 	free_paths(data);
-	mlx_clear_window(data->mlx_p, data->mlx_wd);
+	if (data->mlx_p && data->mlx_wd)
+	{
+		mlx_clear_window(data->mlx_p, data->mlx_wd);
+		mlx_destroy_window(data->mlx_p, data->mlx_wd);
+	}
 	if (data->mlx_img)
 		mlx_destroy_image(data->mlx_p, data->mlx_img);
-	mlx_destroy_window(data->mlx_p, data->mlx_wd);
 	exit(0);
 }
 

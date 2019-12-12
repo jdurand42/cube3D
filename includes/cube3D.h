@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:55:14 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/11 21:56:25 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/12 13:07:02 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include <mlx.h>
+# include "us_i.h"
 
 # define PI 3.14159265
 # define SPEED 150
@@ -147,24 +148,25 @@ typedef struct			s_data
 	struct s_sprite		*tsprite;
 }						t_data;
 
+void	ft_parse_stuff2(t_data *data, char *line, t_list **lst, size_t *count);
 int		ft_iserror(int code);
-int		**ft_parse_stuff(t_data *data, int fd);
-int		**ft_parse_map(t_list **lst, size_t count, t_data *data);
+int		ft_parse_stuff(t_data *data, int fd);
+int		ft_parse_map(t_list **lst, size_t count, t_data *data);
 int		ft_parse_aline(t_data *data, int **map, char *line, int count);
+int		ft_check_map(t_data *data, int **map);
+void 	ft_parse_position(t_data *data, int i, int j);
 void	parse_color(t_data *data, char *line);
 void	parse_path(t_data *data, char *line);
 char	*pathing(char *line, int *check);
 void	parse_res(t_data *data, char *line);
-unsigned int	coloring(char *line, int *check);
 int		ft_game_loop(t_data *data, int **map);
 int 	ft_setup_mlx(t_data *data, int **map);
 void	ft_setup_rays(t_data *data, int **map);
 int		ft_main_loop(int keycode, void *param);
-unsigned int	ft_rgb(int r, int g, int b);
 float 	ft_toradian(float angle);
 int 	ft_isargvalid(char c);
 int		ft_search_arg(char *line, char *set);
-int 	ft_get_angle(t_data *data, int **map);
+float 	ft_get_angle(t_data *data, int **map);
 void	ft_coloriage(t_data *data, int i, int j, unsigned int color);
 void	ft_setbackground(t_data *data);
 void	do_rays(t_data *data);
