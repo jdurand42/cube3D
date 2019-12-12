@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:55:14 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/12 13:07:02 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/12 14:34:09 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ typedef struct	s_vector
 	float		rotx;
 	float		roty;
 	float		angle;
-	float 		angle_rela;
+	float		angle_rela;
 	float		tan_theta;
 	int			wall_type;
 	float		dist_towall;
@@ -208,7 +208,7 @@ void	ft_init_draw_sprite(t_data *data, int *j, int *n_pixel, int hp);
 void	ft_check_if_visible(t_data *data);
 float	ft_abs(float n);
 void	ft_zbuffer(t_data *data, t_sprite *sprite, float pas);
-int 	ft_raying_sprite(t_data *data, float angle_s);
+int		ft_raying_sprite(t_data *data, float angle_s);
 void	ft_get_tex_ypixel_sprite(t_data *data, int *tab, unsigned char *color);
 void	ft_do_sort_sprite(t_data *data);
 void	ft_swap_sprite(t_sprite *a, t_sprite *b);
@@ -229,6 +229,7 @@ void	ft_free_tsprite(t_data *data);
 void	ft_free_tex(t_data *data);
 void	ft_lst_free(t_list **lst);
 int		exit_program(int keycode, void *param);
+void	ft_sparadrap(t_data *data, int i);
 
 
 #endif

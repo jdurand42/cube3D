@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 14:08:39 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/12 13:05:43 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/12 14:27:39 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,11 @@ void	do_rays(t_data *data)
 	{
 		ft_setray(data, i);
 		while (data->vec[i].wall_type == -1)
+		{
 			ft_dda(data, i);
+			if (data->vec[i].angle == 0)
+				ft_sparadrap(data, i);
+		}
 		i++;
 	}
 	ft_do_colum(data);
@@ -69,6 +73,15 @@ void	ft_setray(t_data *data, int i)
 	data->vec[i].roty = sin(ft_toradian(data->vec[i].angle));
 	data->vec[i].wall_type = -1;
 	data->vec[i].tan_theta = 0;
+}
+
+void	ft_sparadrap(t_data *data, int i)
+{
+	data->vec[i].wall_type = 0;
+	if (i > 0)
+		data->vec[i].dist_towall = data->vec[i - 1].dist_towall;
+	else
+		data->vec[i].dist_towall = data->vec[i + 1].dist_towall;
 }
 
 /*

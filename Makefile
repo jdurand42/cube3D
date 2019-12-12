@@ -28,7 +28,8 @@ SRCS 	=	./srcs/main.c ./srcs/ft_errors.c ./srcs/ft_parsing.c \
 			./srcs/ft_clean.c ./srcs/ft_texturing.c ./srcs/ft_sprites.c \
 			./srcs/ft_utils2.c ./srcs/ft_draw_sprites.c ./srcs/ft_exit_stuff.c \
 			./srcs/ft_dda2.c ./srcs/ft_inputs2.c ./srcs/ft_utils3.c \
-			./srcs/ft_texturing2.c ./srcs/ft_sprites2.c ./srcs/ft_inputs3.c
+			./srcs/ft_texturing2.c ./srcs/ft_sprites2.c ./srcs/ft_inputs3.c \
+			./srcs/ft_check_map.c
 
 all		:	$(NAME)
 
