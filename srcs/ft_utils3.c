@@ -6,11 +6,11 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 16:26:49 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/12 14:30:44 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/12 15:10:01 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cube3D.h"
+#include "../includes/cube3d.h"
 
 float			ft_toradian(float angle)
 {

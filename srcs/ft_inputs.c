@@ -6,11 +6,11 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 14:45:47 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/12 13:15:14 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/12 15:42:56 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cube3D.h"
+#include "../includes/cube3d.h"
 
 /*
 ** w = 13

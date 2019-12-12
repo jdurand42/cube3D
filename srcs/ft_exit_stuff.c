@@ -6,11 +6,11 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 16:14:45 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/12 12:42:02 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/12 16:35:41 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cube3D.h"
+#include "../includes/cube3d.h"
 
 void	ft_exit_all(t_data *data)
 {

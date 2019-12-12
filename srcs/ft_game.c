@@ -6,11 +6,11 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 17:26:07 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/12 12:50:53 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/12 16:38:07 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cube3D.h"
+#include "../includes/cube3d.h"
 
 void	ft_setbackground(t_data *data)
 {
@@ -19,18 +19,18 @@ void	ft_setbackground(t_data *data)
 
 	i = 0;
 	j = 0;
-	while (j < data->R[1])
+	while (j < data->r[1])
 	{
-		while (i < (data->R[0] * 4))
+		while (i < (data->r[0] * 4))
 		{
-			if (j < data->R[1] / 2)
+			if (j < data->r[1] / 2)
 			{
-				ft_coloriage(data, i, j, data->C);
+				ft_coloriage(data, i, j, data->c);
 				i += 4;
 			}
 			else
 			{
-				ft_coloriage(data, i, j, data->F);
+				ft_coloriage(data, i, j, data->f);
 				i += 4;
 			}
 		}
@@ -67,7 +67,7 @@ int		ft_game_loop(t_data *data, int **map)
 		return (0);
 	data->move = 0;
 	ft_do_tsprite(data);
-	ft_setup_rays(data, map);
+	ft_setup_rays(data);
 	ft_setbackground(data);
 	do_rays(data);
 	//if (data->fsave == 1)
@@ -81,10 +81,10 @@ int		ft_setup_mlx(t_data *data, int **map)
 	data->map = map;
 	if (!(data->mlx_p = mlx_init()))
 		return (0);
-	if (!(data->mlx_wd = mlx_new_window(data->mlx_p, data->R[0], data->R[1],
+	if (!(data->mlx_wd = mlx_new_window(data->mlx_p, data->r[0], data->r[1],
 		"Wolf3D")))
 		return (0);
-	data->mlx_img = mlx_new_image(data->mlx_p, data->R[0], data->R[1]);
+	data->mlx_img = mlx_new_image(data->mlx_p, data->r[0], data->r[1]);
 	if (!data->mlx_img)
 		return (0);
 	data->img = mlx_get_data_addr(data->mlx_img, &(data->bpp), &(data->sl),

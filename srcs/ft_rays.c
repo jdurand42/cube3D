@@ -6,26 +6,26 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 14:08:39 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/12 14:27:39 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/12 16:37:39 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cube3D.h"
+#include "../includes/cube3d.h"
 
-void	ft_setup_rays(t_data *data, int **map)
+void	ft_setup_rays(t_data *data)
 {
 	int		i;
 	float	pas;
 
-	pas = 60 / (float)data->R[0];
+	pas = 60 / (float)data->r[0];
 	i = 0;
 	data->vec = NULL;
 	data->dda = NULL;
-	if (!(data->vec = (t_vector*)malloc(data->R[0] * sizeof(t_vector))))
+	if (!(data->vec = (t_vector*)malloc(data->r[0] * sizeof(t_vector))))
 		return (ft_exit_all(data));
-	if (!(data->dda = (t_dda*)malloc(data->R[0] * sizeof(t_dda))))
+	if (!(data->dda = (t_dda*)malloc(data->r[0] * sizeof(t_dda))))
 		return (ft_exit_all(data));
-	while (i < data->R[0])
+	while (i < data->r[0])
 	{
 		data->vec[i].angle_rela = (float)i * pas;
 		i++;
@@ -37,7 +37,7 @@ void	do_rays(t_data *data)
 	int	i;
 
 	i = 0;
-	while (i < data->R[0])
+	while (i < data->r[0])
 	{
 		ft_setray(data, i);
 		while (data->vec[i].wall_type == -1)
@@ -61,7 +61,7 @@ void	ft_setray(t_data *data, int i)
 {
 	float	pas;
 
-	pas = 60 / (float)data->R[0];
+	pas = 60 / (float)data->r[0];
 	data->vec[i].x1 = data->posx;
 	data->vec[i].y1 = data->posy;
 	data->vec[i].angle = data->cam.angle - (60 / 2) + ((float)i * pas);

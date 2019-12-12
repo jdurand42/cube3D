@@ -6,11 +6,11 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 15:45:29 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/12 12:49:59 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/12 15:09:55 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cube3D.h"
+#include "../includes/cube3d.h"
 
 void	ft_do_dist_sprite(t_data *data)
 {
@@ -56,10 +56,10 @@ void	ft_check_if_visible(t_data *data)
 	float	pas;
 
 	i = 0;
-	pas = 60 / (float)data->R[0];
+	pas = 60 / (float)data->r[0];
 	while (i < data->s_max)
 	{
-		data->tsprite[i].sizey = (int)(data->R[1] / data->tsprite[i].dist);
+		data->tsprite[i].sizey = (int)(data->r[1] / data->tsprite[i].dist);
 		data->tsprite[i].sizex = data->tsprite[i].sizey * 1.33;
 		data->tsprite[i].angle_f = data->tsprite[i].angle - (pas *
 			(data->tsprite[i].sizex / 2));

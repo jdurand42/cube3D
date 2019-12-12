@@ -6,11 +6,11 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 16:14:37 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/12 14:10:06 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/12 15:09:50 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cube3D.h"
+#include "../includes/cube3d.h"
 
 void	ft_init_perform_dda(t_data *data, int i, t_int *x_, t_int *y_)
 {

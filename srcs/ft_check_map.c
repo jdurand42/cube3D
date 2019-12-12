@@ -6,13 +6,13 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 14:16:23 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/12 14:29:12 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/12 16:37:02 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cube3D.h"
+#include "../includes/cube3d.h"
 
-int		ft_check_map(t_data *data, int **map)
+int		ft_check_map(t_data *data)
 {
 	int i;
 	int j;
@@ -27,7 +27,7 @@ int		ft_check_map(t_data *data, int **map)
 				j == data->height - 1)
 			{
 				if (data->map[j][i] != 1)
-					return (ft_iserror(4));
+					return (ft_iserror_map(data, j));
 			}
 			if (data->map[j][i] > 2)
 				ft_parse_position(data, i, j);
@@ -37,7 +37,7 @@ int		ft_check_map(t_data *data, int **map)
 		j++;
 	}
 	if (data->posx == 0 || data->posy == 0)
-		return (ft_iserror(4));
+		return (ft_iserror_map(data, j));
 	return (1);
 }
 
@@ -73,7 +73,7 @@ int		ft_parse_aline(t_data *data, int **map, char *line, int count)
 		i++;
 	}
 	if (check != data->width)
-		return (-1);
+		return (ft_iserror_map(data, count));
 	return (1);
 }
 

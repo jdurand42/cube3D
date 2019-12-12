@@ -6,11 +6,11 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 20:47:23 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/11 21:10:25 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/12 15:09:45 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cube3D.h"
+#include "../includes/cube3d.h"
 
 void	ft_strafe(t_data *data, int id)
 {

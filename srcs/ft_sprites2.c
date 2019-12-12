@@ -6,11 +6,11 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 17:00:22 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/11 21:12:31 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/12 15:09:56 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cube3D.h"
+#include "../includes/cube3d.h"
 
 void	ft_zbuffer(t_data *data, t_sprite *sprite, float pas)
 {
@@ -37,7 +37,7 @@ int		ft_raying_sprite(t_data *data, float angle_s)
 	int	i;
 
 	i = 0;
-	while (i < data->R[0] - 1)
+	while (i < data->r[0] - 1)
 	{
 		if (angle_s >= data->vec[i].angle && angle_s <= data->vec[i + 1].angle)
 			return (i);

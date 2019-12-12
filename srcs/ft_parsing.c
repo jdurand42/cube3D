@@ -6,11 +6,11 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:36:37 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/12 14:30:58 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/12 16:37:53 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cube3D.h"
+#include "../includes/cube3d.h"
 
 void	parse_color(t_data *data, char *line)
 {
@@ -22,9 +22,9 @@ void	parse_color(t_data *data, char *line)
 	while (line[i] != 0 && line[i] == ' ')
 		i++;
 	if (!ft_strncmp(&line[i], "F", 1))
-		data->F = coloring(&line[i], &data->check);
+		data->f = coloring(&line[i], &data->check);
 	else if (!ft_strncmp(&line[i], "C", 1))
-		data->C = coloring(&line[i], &data->check);
+		data->c = coloring(&line[i], &data->check);
 }
 
 int		ft_parse_stuff(t_data *data, int fd)
@@ -45,11 +45,12 @@ int		ft_parse_stuff(t_data *data, int fd)
 	free(line);
 	line = NULL;
 	data->height = count;
-	if (data->check != 9)
+	printf("check in stuff: %d\n", data->check);
+	if (data->check != 9 || lst == NULL)
 		return (0);
 	if (!ft_parse_map(&lst, count, data))
 		return (0);
-	if (!ft_check_map(data, data->map))
+	if (!ft_check_map(data))
 		return (0);
 	ft_lst_free(&lst);
 	return (1);

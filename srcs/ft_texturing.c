@@ -6,11 +6,11 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 15:11:46 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/12 14:32:03 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/12 15:09:58 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cube3D.h"
+#include "../includes/cube3d.h"
 
 void		ft_do_colum(t_data *data)
 {
@@ -20,19 +20,19 @@ void		ft_do_colum(t_data *data)
 
 	j = 0;
 	i = 0;
-	while (i < data->R[0])
+	while (i < data->r[0])
 	{
 		ft_init_t_color(data, &color, i, &j);
-		while (j <= (data->R[1] / 2) + (color.hp / 2) && j < data->R[1])
+		while (j <= (data->r[1] / 2) + (color.hp / 2) && j < data->r[1])
 		{
 			ft_get_tex_ypixel(data, &color);
-			data->img[j * data->sl + (data->R[0] - 1 - i) * 4 + 0] =
+			data->img[j * data->sl + (data->r[0] - 1 - i) * 4 + 0] =
 				color.color[0];
-			data->img[j * data->sl + (data->R[0] - 1 - i) * 4 + 1] =
+			data->img[j * data->sl + (data->r[0] - 1 - i) * 4 + 1] =
 				color.color[1];
-			data->img[j * data->sl + (data->R[0] - 1 - i) * 4 + 2] =
+			data->img[j * data->sl + (data->r[0] - 1 - i) * 4 + 2] =
 				color.color[2];
-			data->img[j * data->sl + (data->R[0] - 1 - i) * 4 + 3] = (char)0;
+			data->img[j * data->sl + (data->r[0] - 1 - i) * 4 + 3] = (char)0;
 			j += 1;
 			color.n_pixel += 1;
 		}
@@ -45,12 +45,12 @@ void		ft_init_t_color(t_data *data, t_color *color, int i, int *j)
 	color->hp = ft_get_dist_info(data, i);
 	color->tex_x = ft_get_tex_xpixel(data, color, i);
 	color->n_pixel = 1;
-	if (color->hp <= data->R[1])
-		*j = (data->R[1] / 2) - (color->hp / 2);
+	if (color->hp <= data->r[1])
+		*j = (data->r[1] / 2) - (color->hp / 2);
 	else
 	{
 		*j = 0;
-		color->n_pixel = (color->hp - data->R[1]) / 2;
+		color->n_pixel = (color->hp - data->r[1]) / 2;
 	}
 }
 

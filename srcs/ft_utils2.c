@@ -6,11 +6,11 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/05 15:15:57 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/11 21:04:26 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/12 15:10:01 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cube3D.h"
+#include "../includes/cube3d.h"
 
 void	ft_do_sort_sprite(t_data *data)
 {
