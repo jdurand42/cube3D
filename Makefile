@@ -29,7 +29,7 @@ SRCS 	=	./srcs/main.c ./srcs/ft_errors.c ./srcs/ft_parsing.c \
 			./srcs/ft_utils2.c ./srcs/ft_draw_sprites.c ./srcs/ft_exit_stuff.c \
 			./srcs/ft_dda2.c ./srcs/ft_inputs2.c ./srcs/ft_utils3.c \
 			./srcs/ft_texturing2.c ./srcs/ft_sprites2.c ./srcs/ft_inputs3.c \
-			./srcs/ft_check_map.c
+			./srcs/ft_check_map.c 
 
 all		:	$(NAME)
 
@@ -47,10 +47,6 @@ wall	:
 			gcc -o $(NAME) -Wall -Wextra -Werror \
 			-lmlx -framework OpenGL -framework Appkit \
 			$(SRCS) $(LIB)
-
-bmp     :
-			gcc -o $(NAME) -lmlx -framework OpenGL -framework Appkit \
-			$(SRCS) $(LIB) nmp/libbmp.a
 
 sani	:
 			gcc -o $(NAME) -g3 -fsanitize=address -lmlx -framework OpenGL -framework Appkit $(SRCS) $(LIB)

@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 15:28:36 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/12 16:40:04 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/12 16:44:40 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ int		main(int ac, char **av)
 		fd = open("./maps/long_map.cub", O_RDONLY);
 	else
 		fd = open(av[1], O_RDONLY);
-	printf("fd: %d\n", fd);
 	if (fd < 0)
 		return (ft_fd_nul());
 	ft_init_data(&data);

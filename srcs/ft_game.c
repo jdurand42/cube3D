@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 17:26:07 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/12 16:38:07 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/12 17:09:46 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,9 @@ int		ft_game_loop(t_data *data, int **map)
 	ft_setup_rays(data);
 	ft_setbackground(data);
 	do_rays(data);
-	//if (data->fsave == 1)
-	//	dobmp;
+	if (data->save == 1)
+		export_as_bmp("./screens/screenshot.bmp", data->img, data->r[0],
+		data->r[1]);
 	ft_do_looping(data);
 	return (1);
 }

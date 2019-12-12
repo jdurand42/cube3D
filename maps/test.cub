@@ -1,6 +1,4 @@
-
-
-
+R 1200 740
 NO ./textures_xpm/wood.xpm
 
 SO ./textures_xpm/redbrick.xpm
@@ -19,7 +17,7 @@ F 0,0,0
 C 255,0,0
 
 
-R 1200 740
+
 
 
 1 1 1 1 1 1 1
