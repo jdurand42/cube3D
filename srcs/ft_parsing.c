@@ -6,41 +6,13 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:36:37 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/10 18:35:57 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/12 17:29:40 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cube3D.h"
+#include "../includes/cube3d.h"
 
-
-unsigned int 	coloring(char *line, int *check)
-{
-	size_t	j;
-	size_t	i;
-	unsigned char rgb[3];
-
-	i = 0;
-	j = 0;
-	while (line[i] != 0 && !ft_isdigit(line[i]))
-		i++;
-	while (line[i] != 0 && j < 3)
-	{
-		rgb[j++] = (unsigned char)ft_atoi(&line[i]);
-		while (line[i] != 0 && line[i] == ',')
-			i++;
-	}
-	if (j == 3)
-		*check += 1;
-	else
-	{
-		*check = -1;
-		return (0);
-	}
-	//printf("color F-C: %u\n", *rgb);
-	return (ft_rgb(rgb[0], rgb[1], rgb[2]));
-}
-
-void 	parse_color(t_data *data, char *line)
+void	parse_color(t_data *data, char *line)
 {
 	size_t	i;
 	size_t	j;
@@ -50,108 +22,63 @@ void 	parse_color(t_data *data, char *line)
 	while (line[i] != 0 && line[i] == ' ')
 		i++;
 	if (!ft_strncmp(&line[i], "F", 1))
-		data->F = coloring(&line[i], &data->check);
+		data->f = coloring(&line[i], &data->check);
 	else if (!ft_strncmp(&line[i], "C", 1))
-		data->C = coloring(&line[i], &data->check);
+		data->c = coloring(&line[i], &data->check);
 }
 
-int 	ft_parse_aline(t_data *data, int **map, char *line, int count)
+int		ft_parse_stuff(t_data *data, int fd)
 {
-	int i = 0; int j = 0; int check = 0;
+	size_t	i;
+	char	*line;
+	size_t	count;
+	t_list	*lst;
+	int		ret;
 
-	if (!(map[count] = (int*)malloc(data->width * sizeof(int))))
-		return (-1);
-	while (line[i] != 0)
+	i = 0;
+	count = 0;
+	lst = NULL;
+	while ((ret = get_next_line(fd, &line)) > 0)
 	{
-		if (!(check < data->width))
-			return (-1);
-		if (ft_isargvalid(line[i]))
-		{
-			if (line[i] - '0' == 2)
-				data->s_max += 1;
-			if (line[i] == 'N' || line[i] == 'S' || line[i] == 'W'
-			|| line[i] == 'E')
-			{
-				data->posx = j + 0.5;
-				data->posy = count + 0.5; // on remet pas la pos a zero?
-		//		map[count][j++] = 0;
-			}
-				map[count][j++] = line[i] - '0';
-			check++;
-		}
-		i++;
+		ft_parse_stuff2(data, line, &lst, &count);
+		free(line);
 	}
+	if (ret == -1)
+		return (ft_fd_nul(fd));
+	free(line);
+	line = NULL;
+	if (!ft_parse_stuff3(data, &lst, count))
+		return (0);
+	ft_lst_free(&lst);
 	return (1);
 }
 
-int		**ft_parse_map(t_list **lst, size_t count, int *check, t_data *data)
+int		ft_parse_stuff3(t_data *data, t_list **lst, size_t count)
 {
-	int		**map;
-	char	*line;
-	t_list  *lst2;
-	size_t	i;
-	size_t	j;
-
-	i = 0;
-	data->width = 0;
-	j = 0;
-	line = (char*)(*lst)->content;
-	while (line[i] != 0)
-		if (ft_isargvalid(line[i++]))
-			data->width += 1;
-	i = 0;
-	if (!(map = (int**)malloc(count * sizeof(int*))))
-		return (NULL);
-	count -= 1;
-	lst2 = *lst;
-	while (count >= 0 && lst2 != NULL)
-	{
-		if (ft_parse_aline(data, map, (char*)lst2->content, count) == -1)
-			return (NULL);
-		count--;
-		lst2 = lst2->next;
-	//free line and lst
-	}
-	printf("here\n");
-	ft_lst_free(lst);
-	return (map);
+	data->height = count;
+	if (data->check != 9 || lst == NULL)
+		return (0);
+	if (!ft_parse_map(lst, count, data))
+		return (0);
+	if (!ft_check_map(data))
+		return (0);
+	return (1);
 }
 
-int		**ft_parse_stuff(t_data *data, int fd)
+void	ft_parse_stuff2(t_data *data, char *line, t_list **lst, size_t *count)
 {
-	size_t	i;
-	char	*line;
-	char	map_str;
-	size_t	count;
-	t_list	*lst;
-
-	i = 0;
-	data->check = 0;
-	data->s_max = 0;
-	count = 0;
-	lst = NULL;
-	while (get_next_line(fd, &line) > 0)
+	if (*line != 0)
 	{
-		if (*line != 0)
+		if (ft_search_arg(line, "R"))
+			parse_res(data, line);
+		else if (ft_search_arg(line, "NSWE"))
+			parse_path(data, line);
+		else if (ft_search_arg(line, "FC"))
+			parse_color(data, line);
+		else if (ft_search_arg(line, "1"))
 		{
-			if (ft_search_arg(line, "R"))
-				parse_res(data, line);
-			else if (ft_search_arg(line, "NSWE"))
-				parse_path(data, line);
-			else if (ft_search_arg(line, "FC"))
-				parse_color(data, line);
-			else if (ft_search_arg(line, "1"))
-			{
-				ft_lstadd_front(&lst, ft_lstnew(ft_strdup(line)));
-				count++;
-			}
-			free(line);
+			ft_lstadd_front(lst, ft_lstnew(ft_strdup(line)));
+			*count += 1;
 		}
 	}
-	data->height = count;
-	if (data->check != 9)
-		return (NULL);
-	free(line);
-	line = NULL;
-	return (ft_parse_map(&lst, count, &data->check, data));
 }

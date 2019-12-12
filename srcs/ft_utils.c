@@ -6,13 +6,13 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 15:14:40 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/10 16:31:52 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/12 15:10:00 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cube3D.h"
+#include "../includes/cube3d.h"
 
-int 	ft_isargvalid(char c)
+int				ft_isargvalid(char c)
 {
 	if (c == '1' || c == '0' || c == '2' || c == 'N' || c == 'E' || c == 'W' ||
 	c == 'S')
@@ -21,14 +21,14 @@ int 	ft_isargvalid(char c)
 		return (0);
 }
 
-int		ft_search_arg(char *line, char *set)
+int				ft_search_arg(char *line, char *set)
 {
 	while (*line != 0)
 	{
-		if (*line == ' ') // whitespace?
+		if (*line == ' ')
 			line++;
 		else
-			while (*set  != 0)
+			while (*set != 0)
 			{
 				if (*line == *set)
 					return (1);
@@ -39,12 +39,7 @@ int		ft_search_arg(char *line, char *set)
 	return (0);
 }
 
-float 			ft_toradian(float angle)
-{
-	return ((pi / 180) * angle);
-}
-
-unsigned int 	ft_rgb(int r, int g, int b)
+unsigned int	ft_rgb(int r, int g, int b)
 {
 	unsigned int color;
 
@@ -55,7 +50,7 @@ unsigned int 	ft_rgb(int r, int g, int b)
 	return (color);
 }
 
-int 	ft_get_angle(t_data *data, int **map)
+float			ft_get_angle(t_data *data, int **map)
 {
 	float angle;
 
@@ -64,14 +59,16 @@ int 	ft_get_angle(t_data *data, int **map)
 	else if (map[(int)data->posy][(int)data->posx] + '0' == 'E')
 		angle = 0;
 	else if (map[(int)data->posy][(int)data->posx] + '0' == 'S')
-	 	angle = 270;
+		angle = 270;
 	else if (map[(int)data->posy][(int)data->posx] + '0' == 'W')
+		angle = 180;
+	else
 		angle = 180;
 	map[(int)data->posy][(int)data->posx] = 0;
 	return (angle);
 }
 
-float 	ft_abs(float n)
+float			ft_abs(float n)
 {
 	if (n < 0)
 		n = -n;

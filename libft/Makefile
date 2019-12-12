@@ -6,7 +6,7 @@
 #    By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/17 14:33:14 by jdurand           #+#    #+#              #
-#    Updated: 2019/11/09 14:07:45 by jdurand          ###   ########.fr        #
+#    Updated: 2019/12/12 17:04:00 by jdurand          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,6 +80,9 @@ PF		=	./ft_printf/srcs/ft_printf.c ./ft_printf/srcs/ft_bilbo_flaggings_pf.c \
 			./ft_printf/srcs/ft_print_types_pf.c ./ft_printf/srcs/ft_print_types2_pf.c \
 			./ft_printf/srcs/ft_strings_printers_pf.c
 
+BMP		=	./bmp/encode.c ./bmp/bitmap.c ./bmp/check.c ./bmp/header.c \
+			./bmp/rgb_encode.c ./bmp/utils.c
+
 GNL		=	./get_next_line/get_next_line.c
 
 GNLC	=	$(GNL:.c=.o)
@@ -89,6 +92,8 @@ OBJS	=	$(SRCS:.c=.o)
 BONUS	=	$(BON:.c=.o)
 
 PRINTF	=	$(PF:.c=.o)
+
+BMPS	=	$(BMP:.c=.o)
 
 CC		=	gcc
 
@@ -101,11 +106,11 @@ all		:	$(NAME)
 $(NAME) :	$(OBJS)
 			ar rc $(NAME) $(OBJS)
 
-bonus	:	$(OBJS) $(BONUS) $(PRINTF) $(GNLC)
-			ar rc $(NAME) $(OBJS) $(BONUS) $(PRINTF) $(GNLC)
+bonus	:	$(OBJS) $(BONUS) $(PRINTF) $(GNLC) $(BMPS)
+			ar rc $(NAME) $(OBJS) $(BONUS) $(PRINTF) $(GNLC) $(BMPS)
 
 clean	:
-			$(RM) $(OBJS) $(BONUS) $(PRINTF) $(GNLC)
+			$(RM) $(OBJS) $(BONUS) $(PRINTF) $(GNLC) $(BMPS)
 
 fclean	:	clean
 			$(RM) $(NAME)

@@ -6,7 +6,7 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 11:15:50 by jdurand           #+#    #+#             */
-/*   Updated: 2019/11/07 15:55:40 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/12 16:47:17 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@
 # include <string.h>
 # define HEXA "0123456789abcdef"
 # define BIG_HEXA "0123456789ABCDEF"
-# define FLAG_MINUS (1)
-# define FLAG_WC (2)
-# define FLAG_DOT (4)
-# define FLAG_ZERO (8)
-# define FLAG_NUMBER (16)
-# define FLAG_NEG (32)
-# define FLAG_STR (64)
+# define FLAG_MINUS 1
+# define FLAG_WC 2
+# define FLAG_DOT 4
+# define FLAG_ZERO 8
+# define FLAG_NUMBER 16
+# define FLAG_NEG 32
+# define FLAG_STR 64
 
 typedef struct	s_params
 {

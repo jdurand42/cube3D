@@ -6,15 +6,15 @@
 /*   By: jdurand <jdurand@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/05 15:15:57 by jdurand           #+#    #+#             */
-/*   Updated: 2019/12/10 19:16:13 by jdurand          ###   ########.fr       */
+/*   Updated: 2019/12/12 15:10:01 by jdurand          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cube3D.h"
+#include "../includes/cube3d.h"
 
-void 	ft_do_sort_sprite(t_data *data)
+void	ft_do_sort_sprite(t_data *data)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < data->s_max - 1)
@@ -29,10 +29,10 @@ void 	ft_do_sort_sprite(t_data *data)
 	}
 }
 
-void 	ft_swap_sprite(t_sprite *a, t_sprite *b)
+void	ft_swap_sprite(t_sprite *a, t_sprite *b)
 {
 	float	f_b;
-	float  lf_b;
+	float	lf_b;
 	int		i_b;
 
 	i_b = a->x;
@@ -53,6 +53,13 @@ void 	ft_swap_sprite(t_sprite *a, t_sprite *b)
 	lf_b = a->angle;
 	a->angle = b->angle;
 	b->angle = lf_b;
+	ft_swap_sprite2(a, b);
+}
+
+void	ft_swap_sprite2(t_sprite *a, t_sprite *b)
+{
+	int	i_b;
+
 	i_b = a->sizex;
 	a->sizex = b->sizex;
 	b->sizex = i_b;
@@ -61,49 +68,14 @@ void 	ft_swap_sprite(t_sprite *a, t_sprite *b)
 	b->sizey = i_b;
 }
 
-float  ft_todegree(float radian)
+void	ft_lst_free(t_list **lst)
 {
-	return (radian * (180 / pi));
-}
-
-float	lissage_angle(float angle)
-{
-	if (angle < 0)
-		angle = 360 + angle;
-	else if (angle > 359)
-		angle = angle - 359;
-	if (angle < 0)
-		angle = 360 + angle;
-	else if (angle > 359)
-		angle = angle - 359;
-	return (angle);
-}
-
-int	ft_comp_sprite_angle(float angle_f, float angle_l, t_data *data)
-{
-	if (angle_f >= data->cam.angle - 30 && angle_f <= data->cam.angle + 30)
-		return (1);
-	if (angle_l >= data->cam.angle - 30 && angle_l <= data->cam.angle + 30)
-		return (1);
-	if (angle_f <= data->cam.angle - 30 && angle_f >= data->cam.angle + 30)
-		return (1);
-	if (angle_l <= data->cam.angle - 30 && angle_l >= data->cam.angle + 30)
-		return (1);
-	return (0);
-}
-
-
-void ft_lst_free(t_list **lst)
-{
-	t_list *b;
-	t_list *b_n;
+	t_list	*b;
+	t_list	*b_n;
 
 	b = *lst;
 	if (b == NULL)
-	{
-		printf("b NULL\n");
 		return ;
-	}
 	while (b != NULL)
 	{
 		b_n = b->next;
@@ -113,13 +85,4 @@ void ft_lst_free(t_list **lst)
 		b = NULL;
 		b = b_n;
 	}
-}
-
-void ft_clear_list(void *content)
-{
-	printf("now here\n");
-	printf("%s\n", (char*)content);
-	if (content)
-		free(content);
-	content = NULL;
 }
