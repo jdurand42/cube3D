@@ -1,8 +1,1 @@
-le dda marche
-le ray casting aussi
-
-blem :
-probleme d'angle qui part en full 0d dans certaines conditions -> reglé
-on peut traverser les murs
-pas de gestion du key release encore
-faire du strife
+Raycasting en full trigo
